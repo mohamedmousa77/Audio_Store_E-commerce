@@ -1,10 +1,12 @@
 // Configurazione Serilog PRIMA del builder
 using Asp.Versioning;
+using AudioStore.Application;
+using AudioStore.Infrastructure;
+using AudioStore.Infrastructure.Data;
 using Microsoft.OpenApi;
 using Serilog;
+using System.Net.Sockets;
 using System.Reflection;
-using AudioStore.Infrastructure;
-using AudioStore.Application;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -25,6 +27,11 @@ try
 
     // Usa Serilog come logger
     builder.Host.UseSerilog();
+
+    // Determina ambiente(Development, Docker, Production)
+    var environment = builder.Environment.EnvironmentName;
+    Log.Information("Running in {Environment} mode", environment);
+
 
     // Add services to the container
     builder.Services.AddControllers();
@@ -112,12 +119,30 @@ try
     });
 
     // Infrastructure Services (DB, Identity, Repositories, ecc.)
-    // builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddInfrastructure(builder.Configuration);
 
     // Application Services (Business Logic)
-    // builder.Services.AddApplication();
+     builder.Services.AddApplication();
 
     var app = builder.Build();
+
+    if (app.Environment.IsDevelopment())
+    {
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+        try
+        {
+            var context = services.GetRequiredService<AppDbContext>();
+            // Verifica se il database esiste e applica migrations
+            await context.Database.EnsureCreatedAsync(); // Solo per testing rapido
+            // Per produzione usa: await context.Database.MigrateAsync();
+            Log.Information("Database initialized successfully");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "An error occurred while initializing the database");
+        }
+    }
 
     // Middleware Pipeline
     if (app.Environment.IsDevelopment())

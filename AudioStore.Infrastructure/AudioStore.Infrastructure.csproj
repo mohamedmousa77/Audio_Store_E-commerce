@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="Data\SqlScripts\" />
     <Folder Include="Identity\" />
     <Folder Include="Cashing\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
-	  
-	  <!-- Entity Framework Core -->  
+	  <!-- Entity Framework Core -->       
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
@@ -25,9 +24,11 @@
 	  <!-- Caching (Redis) -->
 	  <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.2" />
 	  <!-- Identity -->
+	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
 	  <!-- Configuration -->
 	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.2" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.2" /> 
   </ItemGroup>
 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace AudioStore.Domain.Entities;
 
@@ -8,7 +7,6 @@ public class User: IdentityUser<int>
 
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string? PhoneNumber { get; set; }
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; } = true;
 
