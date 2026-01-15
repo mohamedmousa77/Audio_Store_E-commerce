@@ -38,6 +38,36 @@
           }
         }
       },
+      "FluentValidation/12.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "FluentValidation.DependencyInjectionExtensions/12.1.1": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "12.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0"
+        },
+        "compile": {
+          "lib/net8.0/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -76,6 +106,38 @@
         },
         "runtime": {
           "lib/net10.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Abstractions/2.3.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {
             "related": ".xml"
           }
         }
@@ -1481,6 +1543,51 @@
         "build": {
           "buildTransitive/net8.0/_._": {}
         }
+      },
+      "AudioStore.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AudioStore.Common": "1.0.0",
+          "AudioStore.Domain": "1.0.0",
+          "FluentValidation": "12.1.1",
+          "FluentValidation.DependencyInjectionExtensions": "12.1.1",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.3.9",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.2"
+        },
+        "compile": {
+          "bin/placeholder/AudioStore.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AudioStore.Application.dll": {}
+        }
+      },
+      "AudioStore.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AudioStore.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/AudioStore.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AudioStore.Common.dll": {}
+        }
+      },
+      "AudioStore.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+          "Microsoft.EntityFrameworkCore": "10.0.2"
+        },
+        "compile": {
+          "bin/placeholder/AudioStore.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AudioStore.Domain.dll": {}
+        }
       }
     }
   },
@@ -1523,6 +1630,36 @@
         "lib/net8.0/Azure.Identity.xml",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "FluentValidation/12.1.1": {
+      "sha512": "EPpkIe1yh1a0OXyC100oOA8WMbZvqUu5plwhvYcb7oSELfyUZzfxV48BLhvs3kKo4NwG7MGLNgy1RJiYtT8Dpw==",
+      "type": "package",
+      "path": "fluentvalidation/12.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.12.1.1.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net8.0/FluentValidation.dll",
+        "lib/net8.0/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.DependencyInjectionExtensions/12.1.1": {
+      "sha512": "D0VXh4dtjjX2aQizuaa0g6R8X3U1JaVqJPfGCvLwZX9t/O2h7tkpbitbadQMfwcgSPdDbI2vDxuwRMv/Uf9dHA==",
+      "type": "package",
+      "path": "fluentvalidation.dependencyinjectionextensions/12.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.nuspec",
+        "lib/net8.0/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/net8.0/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -1579,6 +1716,32 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
         "microsoft.aspnetcore.cryptography.keyderivation.10.0.2.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/2.3.9": {
+      "sha512": "ULScB/0S9+qvf+yahjR+oQUp0GrvoDHJ9XS5gTqSjLjbjUDnHaJ1s8wo3RJMpaDfb1bawX4OgQM+YmvCUveR4Q==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.abstractions/2.3.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.xml",
+        "microsoft.aspnetcore.http.abstractions.2.3.9.nupkg.sha512",
+        "microsoft.aspnetcore.http.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Features/2.3.0": {
+      "sha512": "f10WUgcsKqrkmnz6gt8HeZ7kyKjYN30PO7cSic1lPtH7paPtnQqXPOveul/SIPI43PhRD4trttg4ywnrEmmJpA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.features/2.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.xml",
+        "microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.features.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.2": {
@@ -4195,14 +4358,35 @@
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "AudioStore.Application/1.0.0": {
+      "type": "project",
+      "path": "../AudioStore.Application/AudioStore.Application.csproj",
+      "msbuildProject": "../AudioStore.Application/AudioStore.Application.csproj"
+    },
+    "AudioStore.Common/1.0.0": {
+      "type": "project",
+      "path": "../AudioStore.Common/AudioStore.Common.csproj",
+      "msbuildProject": "../AudioStore.Common/AudioStore.Common.csproj"
+    },
+    "AudioStore.Domain/1.0.0": {
+      "type": "project",
+      "path": "../AudioStore.Domain/AudioStore.Domain.csproj",
+      "msbuildProject": "../AudioStore.Domain/AudioStore.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "AudioStore.Application >= 1.0.0",
+      "AudioStore.Common >= 1.0.0",
+      "AudioStore.Domain >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.2",
+      "Microsoft.EntityFrameworkCore >= 10.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 10.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 10.0.2",
-      "Microsoft.Extensions.Caching.StackExchangeRedis >= 10.0.2"
+      "Microsoft.Extensions.Caching.StackExchangeRedis >= 10.0.2",
+      "Microsoft.Extensions.Configuration >= 10.0.2",
+      "Microsoft.Extensions.Configuration.Binder >= 10.0.2"
     ]
   },
   "packageFolders": {
@@ -4237,7 +4421,17 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj": {
+              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj"
+            },
+            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj": {
+              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj"
+            },
+            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj": {
+              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4260,6 +4454,10 @@
             "target": "Package",
             "version": "[10.0.2, )"
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[10.0.2, )"
+          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[10.0.2, )"
@@ -4271,6 +4469,14 @@
             "version": "[10.0.2, )"
           },
           "Microsoft.Extensions.Caching.StackExchangeRedis": {
+            "target": "Package",
+            "version": "[10.0.2, )"
+          },
+          "Microsoft.Extensions.Configuration": {
+            "target": "Package",
+            "version": "[10.0.2, )"
+          },
+          "Microsoft.Extensions.Configuration.Binder": {
             "target": "Package",
             "version": "[10.0.2, )"
           }

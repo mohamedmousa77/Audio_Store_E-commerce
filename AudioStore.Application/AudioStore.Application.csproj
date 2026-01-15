@@ -15,8 +15,17 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <!-- FluentValidation -->
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+	  <!-- Per lavorare con Claims/Identity nei Services -->
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AudioStore.Common\AudioStore.Common.csproj" />
+    <ProjectReference Include="..\AudioStore.Domain\AudioStore.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1019,6 +1019,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "AudioStore.Common": "1.0.0",
+          "AudioStore.Domain": "1.0.0",
           "FluentValidation": "12.1.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1"
         },
@@ -1029,11 +1031,42 @@
           "bin/placeholder/AudioStore.Application.dll": {}
         }
       },
-      "AudioStore.Infrastructure/1.0.0": {
+      "AudioStore.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AudioStore.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/AudioStore.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AudioStore.Common.dll": {}
+        }
+      },
+      "AudioStore.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+          "Microsoft.EntityFrameworkCore": "10.0.2"
+        },
+        "compile": {
+          "bin/placeholder/AudioStore.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AudioStore.Domain.dll": {}
+        }
+      },
+      "AudioStore.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AudioStore.Application": "1.0.0",
+          "AudioStore.Common": "1.0.0",
+          "AudioStore.Domain": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+          "Microsoft.EntityFrameworkCore": "10.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "10.0.2",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "10.0.2"
         },
@@ -2663,6 +2696,16 @@
       "path": "../AudioStore.Application/AudioStore.Application.csproj",
       "msbuildProject": "../AudioStore.Application/AudioStore.Application.csproj"
     },
+    "AudioStore.Common/1.0.0": {
+      "type": "project",
+      "path": "../AudioStore.Common/AudioStore.Common.csproj",
+      "msbuildProject": "../AudioStore.Common/AudioStore.Common.csproj"
+    },
+    "AudioStore.Domain/1.0.0": {
+      "type": "project",
+      "path": "../AudioStore.Domain/AudioStore.Domain.csproj",
+      "msbuildProject": "../AudioStore.Domain/AudioStore.Domain.csproj"
+    },
     "AudioStore.Infrastructure/1.0.0": {
       "type": "project",
       "path": "../AudioStore.Infrastructure/AudioStore.Infrastructure.csproj",
@@ -2674,6 +2717,7 @@
       "Asp.Versioning.Mvc >= 8.1.1",
       "Asp.Versioning.Mvc.ApiExplorer >= 8.1.1",
       "AudioStore.Application >= 1.0.0",
+      "AudioStore.Domain >= 1.0.0",
       "AudioStore.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 10.0.2",
       "Microsoft.AspNetCore.Cors >= 2.3.9",
@@ -2724,6 +2768,9 @@
           "projectReferences": {
             "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj": {
               "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj"
+            },
+            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj": {
+              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj"
             },
             "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj"

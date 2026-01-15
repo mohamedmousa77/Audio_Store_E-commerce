@@ -11,4 +11,8 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AudioStore.Domain\AudioStore.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

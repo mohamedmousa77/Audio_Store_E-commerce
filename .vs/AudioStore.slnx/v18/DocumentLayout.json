@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{D1379237-7B46-4A78-8F2D-2F77115011E3}|AudioStore.Domain\\AudioStore.Domain.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1379237-7B46-4A78-8F2D-2F77115011E3}|AudioStore.Domain\\AudioStore.Domain.csproj|solutionrelative:audiostore.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
@@ -14,21 +9,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 234,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BaseEntity.cs",
-              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Entities\\BaseEntity.cs",
-              "RelativeDocumentMoniker": "AudioStore.Domain\\Entities\\BaseEntity.cs",
-              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Entities\\BaseEntity.cs",
-              "RelativeToolTip": "AudioStore.Domain\\Entities\\BaseEntity.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T11:34:25.316Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
@@ -54,10 +36,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{a0c5197d-0ac7-4b63-97cd-8872a789d233}"
             }
           ]
         }

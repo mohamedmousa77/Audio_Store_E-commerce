@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D1379237-7B46-4A78-8F2D-2F77115011E3}|AudioStore.Domain\\AudioStore.Domain.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D1379237-7B46-4A78-8F2D-2F77115011E3}|AudioStore.Domain\\AudioStore.Domain.csproj|solutionrelative:audiostore.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F404B76A-0888-3A48-D1CA-F5BEC24CBEAC}|AudioStore.Tests\\AudioStore.Tests.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.tests\\audiostore.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F404B76A-0888-3A48-D1CA-F5BEC24CBEAC}|AudioStore.Tests\\AudioStore.Tests.csproj|solutionrelative:audiostore.tests\\audiostore.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 234,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -25,16 +25,20 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Class1.cs",
-              "RelativeDocumentMoniker": "AudioStore.Domain\\Class1.cs",
-              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Class1.cs",
-              "RelativeToolTip": "AudioStore.Domain\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T09:24:06.501Z",
+              "Title": "AudioStore.Tests",
+              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
+              "RelativeDocumentMoniker": "AudioStore.Tests\\AudioStore.Tests.csproj",
+              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
+              "RelativeToolTip": "AudioStore.Tests\\AudioStore.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-15T13:46:52.869Z",
               "EditorCaption": ""
             }
           ]
