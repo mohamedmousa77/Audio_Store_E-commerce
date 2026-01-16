@@ -1,8 +1,8 @@
 <Solution>
+  <Project Path="AudioStore.Api/AudioStore.Api.csproj" />
   <Project Path="AudioStore.Application/AudioStore.Application.csproj" />
   <Project Path="AudioStore.Common/AudioStore.Common.csproj" />
   <Project Path="AudioStore.Domain/AudioStore.Domain.csproj" />
   <Project Path="AudioStore.Infrastructure/AudioStore.Infrastructure.csproj" />
   <Project Path="AudioStore.Tests/AudioStore.Tests.csproj" />
-  <Project Path="AudioStore/AudioStore.Api.csproj" />
 </Solution>
