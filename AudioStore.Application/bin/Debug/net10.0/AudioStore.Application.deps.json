@@ -319,9 +319,6 @@
         }
       },
       "AudioStore.Common/1.0.0": {
-        "dependencies": {
-          "AudioStore.Domain": "1.0.0"
-        },
         "runtime": {
           "AudioStore.Common.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -331,6 +328,7 @@
       },
       "AudioStore.Domain/1.0.0": {
         "dependencies": {
+          "AudioStore.Common": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
           "Microsoft.EntityFrameworkCore": "10.0.2"
         },

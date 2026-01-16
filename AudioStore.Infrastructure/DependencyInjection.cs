@@ -1,5 +1,7 @@
 ﻿using AudioStore.Domain.Entities;
+using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
+using AudioStore.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -55,9 +57,9 @@ public static class DependencyInjection
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
-        // ✅ TODO: Aggiungi qui Repositories e UnitOfWork quando li implementi
-        // services.AddScoped<IUnitOfWork, UnitOfWork>();
-        // services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        // ✅ Repository Pattern + Unit of Work
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         return services;
 

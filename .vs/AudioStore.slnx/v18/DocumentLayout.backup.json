@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.infrastructure\\data\\appdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|solutionrelative:audiostore.infrastructure\\data\\appdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6011ACF8-F4DF-7CE4-A3CA-BB525A6DFF65}|AudioStore.Common\\AudioStore.Common.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.common\\audiostore.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6011ACF8-F4DF-7CE4-A3CA-BB525A6DFF65}|AudioStore.Common\\AudioStore.Common.csproj|solutionrelative:audiostore.common\\audiostore.common.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC9832B5-9696-0F90-A5A9-94217733BB42}|AudioStore.Api\\AudioStore.Api.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC9832B5-9696-0F90-A5A9-94217733BB42}|AudioStore.Api\\AudioStore.Api.csproj|solutionrelative:audiostore.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7E80A533-6C5F-9B99-E47E-7ABEDEDC90E1}|AudioStore.Domain\\AudioStore.Domain.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.domain\\audiostore.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7E80A533-6C5F-9B99-E47E-7ABEDEDC90E1}|AudioStore.Domain\\AudioStore.Domain.csproj|solutionrelative:audiostore.domain\\audiostore.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|solutionrelative:audiostore.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7E80A533-6C5F-9B99-E47E-7ABEDEDC90E1}|AudioStore.Domain\\AudioStore.Domain.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E80A533-6C5F-9B99-E47E-7ABEDEDC90E1}|AudioStore.Domain\\AudioStore.Domain.csproj|solutionrelative:audiostore.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|c:\\users\\a1154apulia\\desktop\\audiostore\\audiostore.infrastructure\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{651AD44E-2FFA-A3F0-CE19-177F7376035E}|AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj|solutionrelative:audiostore.infrastructure\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +26,45 @@
       "DocumentGroups": [
         {
           "DockedHeight": 234,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AppDbContextFactory.cs",
-              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Data\\AppDbContextFactory.cs",
-              "RelativeDocumentMoniker": "AudioStore.Infrastructure\\Data\\AppDbContextFactory.cs",
-              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Data\\AppDbContextFactory.cs",
-              "RelativeToolTip": "AudioStore.Infrastructure\\Data\\AppDbContextFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAARAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Interfaces\\IRepository.cs",
+              "RelativeDocumentMoniker": "AudioStore.Domain\\Interfaces\\IRepository.cs",
+              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\Interfaces\\IRepository.cs",
+              "RelativeToolTip": "AudioStore.Domain\\Interfaces\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T20:54:58.681Z",
+              "WhenOpened": "2026-01-16T23:04:31.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Repositories\\Repository.cs",
+              "RelativeDocumentMoniker": "AudioStore.Infrastructure\\Repositories\\Repository.cs",
+              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Repositories\\Repository.cs",
+              "RelativeToolTip": "AudioStore.Infrastructure\\Repositories\\Repository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T22:56:09.908Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\Program.cs",
-              "RelativeDocumentMoniker": "AudioStore.Api\\Program.cs",
-              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\Program.cs",
-              "RelativeToolTip": "AudioStore.Api\\Program.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAqwH8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T20:37:00.366Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Data\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "AudioStore.Infrastructure\\Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\Data\\AppDbContext.cs",
-              "RelativeToolTip": "AudioStore.Infrastructure\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T20:34:25.711Z",
+              "Title": "AudioStore.Domain",
+              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj",
+              "RelativeDocumentMoniker": "AudioStore.Domain\\AudioStore.Domain.csproj",
+              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj",
+              "RelativeToolTip": "AudioStore.Domain\\AudioStore.Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-16T22:55:46.974Z",
               "EditorCaption": ""
             },
             {
@@ -74,6 +78,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AudioStore.Common",
+              "DocumentMoniker": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj",
+              "RelativeDocumentMoniker": "AudioStore.Common\\AudioStore.Common.csproj",
+              "ToolTip": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj",
+              "RelativeToolTip": "AudioStore.Common\\AudioStore.Common.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-16T22:55:44.59Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tBJTuoAvEMc=",
+  "dgSpecHash": "npGRq3oT1jk=",
   "success": true,
   "projectFilePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
   "expectedPackageFiles": [
@@ -96,6 +96,15 @@
       "targetGraphs": [
         "net10.0"
       ]
+    },
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+      "targetGraphs": []
     }
   ]
 }

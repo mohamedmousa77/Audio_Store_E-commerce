@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "AudioStore.Domain/1.0.0": {
         "dependencies": {
+          "AudioStore.Common": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
           "Microsoft.EntityFrameworkCore": "10.0.2"
         },
@@ -271,6 +272,14 @@
             "fileVersion": "10.0.225.61305"
           }
         }
+      },
+      "AudioStore.Common/1.0.0": {
+        "runtime": {
+          "AudioStore.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -433,6 +442,11 @@
       "sha512": "sha512-QmSiO+oLBEooGgB3i0GRXyeYRDHjllqt3k365jwfZlYWhvSHA3UL2NEVV5m8aZa041eIlblo6KMI5txvTMpTwA==",
       "path": "microsoft.extensions.primitives/10.0.2",
       "hashPath": "microsoft.extensions.primitives.10.0.2.nupkg.sha512"
+    },
+    "AudioStore.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

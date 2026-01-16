@@ -10,7 +10,6 @@
     <Folder Include="Data\SqlScripts\" />
     <Folder Include="Identity\" />
     <Folder Include="Cashing\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
