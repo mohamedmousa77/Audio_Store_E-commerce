@@ -1,0 +1,9 @@
+# Cartelle temporanee di Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+
+# File di configurazione utente
+*.user
+*.userosscache
+*.sln.docstates
