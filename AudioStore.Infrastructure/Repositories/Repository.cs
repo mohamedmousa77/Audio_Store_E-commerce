@@ -20,94 +20,69 @@ public class Repository<T> : IRepository<T> where T : class
     }
 
     // ============ QUERIES ============
-    public virtual async Task<T?> GetByIdAsync(int id)
+    public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return await _dbSet.FindAsync(id);
+        return await _dbSet.FindAsync(new object[] { id }, cancellationToken);
     }
 
-    public virtual async Task<IEnumerable<T>> GetAllAsync()
+    public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _dbSet.ToListAsync();
+        return await _dbSet.ToListAsync(cancellationToken);
     }
 
-    public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+    public virtual async Task<IEnumerable<T>> FindAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default)
     {
-        return await _dbSet.Where(predicate).ToListAsync();
+        return await _dbSet.Where(predicate).ToListAsync(cancellationToken);
     }
 
-    public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+    public virtual async Task<T?> FirstOrDefaultAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default)
     {
-        return await _dbSet.FirstOrDefaultAsync(predicate);
+        return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
-    public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+    public virtual async Task<bool> AnyAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default)
     {
-        return await _dbSet.AnyAsync(predicate);
+        return await _dbSet.AnyAsync(predicate, cancellationToken);
     }
 
-    public virtual async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
+    public virtual async Task<int> CountAsync(
+        Expression<Func<T, bool>>? predicate = null,
+        CancellationToken cancellationToken = default)
     {
         return predicate == null
-            ? await _dbSet.CountAsync()
-            : await _dbSet.CountAsync(predicate);
+            ? await _dbSet.CountAsync(cancellationToken)
+            : await _dbSet.CountAsync(predicate, cancellationToken);
     }
 
-    // Pagination
-    public virtual async Task<PaginatedResult<T>> GetPagedAsync(
-        int pageNumber,
-        int pageSize,
-        Expression<Func<T, bool>>? filter = null,
-        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-        params Expression<Func<T, object>>[] includes)
+    // Queryable for complex queries
+    public virtual IQueryable<T> Query()
     {
-        IQueryable<T> query = _dbSet;
+        return _dbSet.AsQueryable();
+    }
 
-        // Apply includes (eager loading)
-        foreach (var include in includes)
-        {
-            query = query.Include(include);
-        }
-
-        // Apply filter
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
-        // Get total count
-        var totalCount = await query.CountAsync();
-
-        // Apply ordering
-        if (orderBy != null)
-        {
-            query = orderBy(query);
-        }
-
-        // Apply pagination
-        var items = await query
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
-
-        return new PaginatedResult<T>
-        {
-            Items = items,
-            TotalCount = totalCount,
-            PageNumber = pageNumber,
-            PageSize = pageSize
-        };
+    public virtual IQueryable<T> QueryNoTracking()
+    {
+        return _dbSet.AsNoTracking();
     }
 
     // ============ COMMANDS ============
-    public virtual async Task<T> AddAsync(T entity)
+    public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity);
+        await _dbSet.AddAsync(entity, cancellationToken);
         return entity;
     }
 
-    public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+    public virtual async Task AddRangeAsync(
+        IEnumerable<T> entities,
+        CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddRangeAsync(entities);
+        await _dbSet.AddRangeAsync(entities, cancellationToken);
     }
 
     public virtual void Update(T entity)
@@ -129,4 +104,5 @@ public class Repository<T> : IRepository<T> where T : class
     {
         _dbSet.RemoveRange(entities);
     }
+
 }

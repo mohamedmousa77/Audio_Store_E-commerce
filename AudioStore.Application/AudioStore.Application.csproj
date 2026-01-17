@@ -7,17 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Mapping\" />
     <Folder Include="Common\" />
-    <Folder Include="Validators\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
-	  <!-- FluentValidation -->
+	  <PackageReference Include="AutoMapper" Version="16.0.0" />
+	  <!-- FluentValidation -->    
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.0.0" />
 	  <!-- Per lavorare con Claims/Identity nei Services -->
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />

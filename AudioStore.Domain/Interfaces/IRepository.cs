@@ -6,24 +6,28 @@ namespace AudioStore.Domain.Interfaces;
 public interface IRepository<T> where T : class
 {
     // Queries
-    Task<T?> GetByIdAsync(int id);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
-    Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
-    Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
-    Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null);
+    Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<T>> FindAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default);
+    Task<T?> FirstOrDefaultAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default);
+    Task<bool> AnyAsync(
+        Expression<Func<T, bool>> predicate,
+        CancellationToken cancellationToken = default);
+    Task<int> CountAsync(
+        Expression<Func<T, bool>>? predicate = null,
+        CancellationToken cancellationToken = default);
 
-    // Queries with Pagination
-    Task<PaginatedResult<T>> GetPagedAsync(
-        int pageNumber,
-        int pageSize,
-        Expression<Func<T, bool>>? filter = null,
-        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-        params Expression<Func<T, object>>[] includes);
+    // Queries with Includes
+    IQueryable<T> Query();
+    IQueryable<T> QueryNoTracking();
 
     // Commands
-    Task<T> AddAsync(T entity);
-    Task AddRangeAsync(IEnumerable<T> entities);
+    Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
+    Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     void Update(T entity);
     void UpdateRange(IEnumerable<T> entities);
     void Delete(T entity);

@@ -1,11 +1,15 @@
 ﻿using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
+using AudioStore.Infrastructure.Authentication;
 using AudioStore.Infrastructure.Data;
 using AudioStore.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AudioStore.Infrastructure;
 
@@ -27,8 +31,8 @@ public static class DependencyInjection
                     errorNumbersToAdd: null);
             });
 
-            // Solo in Development: abilita sensitive data logging
-            if (configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT") == "Development")
+            var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+            if (environment == "Development")
             {
                 options.EnableSensitiveDataLogging();
                 options.EnableDetailedErrors();
@@ -38,24 +42,43 @@ public static class DependencyInjection
         // ✅ Identity Configuration
         services.AddIdentity<User, IdentityRole<int>>(options =>
         {
-            // Password settings
             options.Password.RequireDigit = true;
             options.Password.RequireLowercase = true;
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = true;
             options.Password.RequiredLength = 8;
-
-            // Lockout settings
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
-
-            // User settings
             options.User.RequireUniqueEmail = true;
-            options.SignIn.RequireConfirmedEmail = false; // Per development
         })
-        .AddEntityFrameworkStores<AppDbContext>()
-        .AddDefaultTokenProviders();
+         .AddEntityFrameworkStores<AppDbContext>()
+         .AddDefaultTokenProviders();
+
+        // ✅ JWT Configuration
+        var jwtSettings = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>();
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtSettings!.Secret)),
+                ValidateIssuer = true,
+                ValidIssuer = jwtSettings.Issuer,
+                ValidateAudience = true,
+                ValidAudience = jwtSettings.Audience,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+        });
 
         // ✅ Repository Pattern + Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

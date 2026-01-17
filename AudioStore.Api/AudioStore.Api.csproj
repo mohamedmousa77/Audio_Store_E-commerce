@@ -40,8 +40,4 @@
     <ProjectReference Include="..\AudioStore.Infrastructure\AudioStore.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

@@ -13,10 +13,11 @@ public interface IUnitOfWork : IDisposable
     IRepository<CartItem> CartItems { get; }
     IRepository<Address> Addresses { get; }
     IRepository<User> Users { get; }
+    IRepository<RefreshToken> RefreshTokens { get; }
 
     // Transaction Management
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-    Task BeginTransactionAsync();
-    Task CommitTransactionAsync();
-    Task RollbackTransactionAsync();
+    Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+    Task CommitTransactionAsync(CancellationToken cancellationToken = default);
+    Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
 }

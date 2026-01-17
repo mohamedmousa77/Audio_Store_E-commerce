@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj": {}
+    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj": {
+    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+        "projectUniqueName": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
         "projectName": "AudioStore.Api",
-        "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+        "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
         "packagesPath": "C:\\Users\\A1154apulia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\obj\\",
+        "outputPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -615,6 +615,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[16.0.0, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[12.1.1, )"
@@ -622,6 +626,10 @@
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
               "version": "[12.1.1, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[14.0.0, )"
             },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
@@ -1317,6 +1325,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.9, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[10.0.2, )"
@@ -1677,6 +1689,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
             "Microsoft.AspNetCore.Identity": {
               "target": "Package",
               "version": "[2.3.9, )"

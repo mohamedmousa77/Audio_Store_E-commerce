@@ -46,6 +46,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDefault")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -55,6 +58,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
@@ -95,6 +101,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -104,6 +113,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("SessionId")
                         .HasMaxLength(100)
@@ -145,10 +157,16 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -188,6 +206,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -198,6 +219,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -236,6 +260,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("CustomerEmail")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -252,6 +279,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
@@ -323,10 +353,16 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -385,6 +421,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(2000)
@@ -426,6 +465,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -464,6 +506,70 @@ namespace AudioStore.Infrastructure.Data.Migrations
                     b.HasIndex("CategoryId", "IsPublished", "IsAvailable");
 
                     b.ToTable("Products", (string)null);
+                });
+
+            modelBuilder.Entity("AudioStore.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByIp")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRevoked")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int?>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReplacedByToken")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RevokedByIp")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId", "IsRevoked", "ExpiresAt");
+
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("AudioStore.Domain.Entities.User", b =>
@@ -781,6 +887,17 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("AudioStore.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("AudioStore.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
