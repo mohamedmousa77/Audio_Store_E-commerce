@@ -6,8 +6,8 @@ namespace AudioStore.Domain.Interfaces;
 public interface IRepository<T> where T : class
 {
     // Queries
-    Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-    Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<T?> GetByIdAsync(int id);
+    Task<IEnumerable<T>> GetAllAsync();
     Task<IEnumerable<T>> FindAsync(
         Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default);
@@ -26,10 +26,10 @@ public interface IRepository<T> where T : class
     IQueryable<T> QueryNoTracking();
 
     // Commands
-    Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
+    Task<T> AddAsync(T entity);
     Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
-    void Update(T entity);
+    Task UpdateAsync(T entity);
     void UpdateRange(IEnumerable<T> entities);
-    void Delete(T entity);
+    Task DeleteAsync(int id);
     void DeleteRange(IEnumerable<T> entities);
 }

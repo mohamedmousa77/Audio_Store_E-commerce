@@ -1,4 +1,5 @@
 ﻿using AudioStore.Common.Result;
+using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace AudioStore.Infrastructure.Repositories;
 
-public class Repository<T> : IRepository<T> where T : class
+public class Repository<T> : IRepository<T> where T : BaseEntity
 {
 
     protected readonly AppDbContext _context;
@@ -20,14 +21,18 @@ public class Repository<T> : IRepository<T> where T : class
     }
 
     // ============ QUERIES ============
-    public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public virtual async Task<T?> GetByIdAsync(int id)
     {
-        return await _dbSet.FindAsync(new object[] { id }, cancellationToken);
+        return await _dbSet
+            .Where(x => !x.IsDeleted)
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync(cancellationToken);
+        return await _dbSet
+            .Where(x => !x.IsDeleted)
+            .ToListAsync();
     }
 
     public virtual async Task<IEnumerable<T>> FindAsync(
@@ -72,9 +77,10 @@ public class Repository<T> : IRepository<T> where T : class
     }
 
     // ============ COMMANDS ============
-    public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+    public virtual async Task<T> AddAsync(T entity)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        entity.CreatedAt = DateTime.UtcNow;
+        await _dbSet.AddAsync(entity);
         return entity;
     }
 
@@ -85,8 +91,9 @@ public class Repository<T> : IRepository<T> where T : class
         await _dbSet.AddRangeAsync(entities, cancellationToken);
     }
 
-    public virtual void Update(T entity)
+    public virtual async Task UpdateAsync(T entity)
     {
+        entity.UpdatedAt = DateTime.UtcNow;
         _dbSet.Update(entity);
     }
 
@@ -95,9 +102,18 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet.UpdateRange(entities);
     }
 
-    public virtual void Delete(T entity)
+    public virtual async Task DeleteAsync(int id)
     {
-        _dbSet.Remove(entity);
+        var entity = await GetByIdAsync(id);
+        if (entity != null)
+        {
+            entity.IsDeleted = true; 
+            entity.UpdatedAt = DateTime.UtcNow;
+        }
+    }
+     public async Task<bool> ExistsAsync(int id)
+    {
+        return await _dbSet.AnyAsync(e => e.Id == id && !e.IsDeleted);
     }
 
     public virtual void DeleteRange(IEnumerable<T> entities)
