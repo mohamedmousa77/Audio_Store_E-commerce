@@ -11,14 +11,14 @@ using Microsoft.OpenApi;
 using Serilog;
 using System.Text;
 
-
+// ✅ Configure Serilog from appsettings.json
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("logs/audiostore-.txt", rollingInterval: RollingInterval.Day)
-    .Enrich.FromLogContext()
-    .Enrich.WithEnvironmentName()
-    .Enrich.WithMachineName()
+    .ReadFrom.Configuration(new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+        .Build())
     .CreateLogger();
+
 try
 {
     Log.Information("Starting AudioStore API");

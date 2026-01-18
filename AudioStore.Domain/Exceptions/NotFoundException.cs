@@ -1,10 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace AudioStore.Domain.Exceptions;
 
-namespace AudioStore.Domain.Exceptions
+/// <summary>
+/// Exception thrown when a requested resource is not found
+/// </summary>
+public class NotFoundException : DomainException
 {
-    internal class NotFoundException
+    public NotFoundException(string message, string? errorCode = null)
+        : base(message, errorCode)
+    {
+    }
+
+    public NotFoundException(string resourceName, object key)
+        : base($"{resourceName} with key '{key}' was not found", "NOT_FOUND")
+    {
+    }
+
+    public NotFoundException(string message, Exception innerException, string? errorCode = null)
+        : base(message, innerException, errorCode)
     {
     }
 }
