@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Text;
 
 namespace AudioStore.Infrastructure.Data;
 
@@ -43,8 +39,8 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker.Entries()
-            .Where(e => 
-            e.Entity is BaseEntity 
+            .Where(e =>
+            e.Entity is BaseEntity
             && (e.State == EntityState.Added || e.State == EntityState.Modified));
 
         foreach (var entry in entries)

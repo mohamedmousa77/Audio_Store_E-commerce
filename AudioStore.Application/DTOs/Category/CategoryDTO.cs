@@ -1,4 +1,4 @@
-﻿namespace AudioStore.Application.DTOs;
+﻿namespace AudioStore.Application.DTOs.Category;
 
 internal class CategoryDTO
 {

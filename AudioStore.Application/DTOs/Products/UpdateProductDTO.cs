@@ -1,6 +1,6 @@
-﻿namespace AudioStore.Application.DTOs;
+﻿namespace AudioStore.Application.DTOs.Products;
 
-public class ProductDTO
+public record UpdateProductDTO
 {
     public int Id { get; init; }
     public string Name { get; init; } = string.Empty;
@@ -10,7 +10,12 @@ public class ProductDTO
     public int StockQuantity { get; init; }
     public string MainImage { get; init; } = string.Empty;
     public List<string>? GalleryImages { get; init; }
-    public bool IsAvailable { get; init; }
+    public int CategoryId { get; init; }
     public bool IsFeatured { get; init; }
-    public string CategoryName { get; init; } = string.Empty;
+    public bool IsAvailable { get; init; }
+    public string? Specifications { get; init; }
+    public decimal? Weight { get; init; }
+    public string? Dimensions { get; init; }
+    public string? WarrantyInfo { get; init; }
+
 }

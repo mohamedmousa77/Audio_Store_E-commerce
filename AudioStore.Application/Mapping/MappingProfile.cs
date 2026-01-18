@@ -1,5 +1,6 @@
-﻿using AudioStore.Application.DTOs;
-using AudioStore.Application.DTOs.Auth;
+﻿using AudioStore.Application.DTOs.Auth;
+using AudioStore.Application.DTOs.Category;
+using AudioStore.Application.DTOs.Products;
 using AudioStore.Domain.Entities;
 using AutoMapper;
 using System;
