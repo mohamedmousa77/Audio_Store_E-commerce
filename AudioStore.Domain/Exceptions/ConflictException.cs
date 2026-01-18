@@ -10,11 +10,6 @@ public class ConflictException : DomainException
     {
     }
 
-    public ConflictException(string resourceName, string conflictReason)
-        : base($"{resourceName} conflict: {conflictReason}", "CONFLICT")
-    {
-    }
-
     public ConflictException(string message, Exception innerException, string? errorCode = null)
         : base(message, innerException, errorCode ?? "CONFLICT")
     {

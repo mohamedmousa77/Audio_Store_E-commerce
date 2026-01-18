@@ -10,11 +10,6 @@ public class ForbiddenException : DomainException
     {
     }
 
-    public ForbiddenException(string resourceName, string action)
-        : base($"Access to {resourceName} for action '{action}' is forbidden", "FORBIDDEN")
-    {
-    }
-
     public ForbiddenException(string message, Exception innerException, string? errorCode = null)
         : base(message, innerException, errorCode ?? "FORBIDDEN")
     {

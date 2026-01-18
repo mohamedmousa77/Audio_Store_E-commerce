@@ -66,35 +66,30 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
+        // Configure Swagger for API versioning
         options.SwaggerDoc("v1", new OpenApiInfo
         {
             Title = "Audio Store API",
-            Version = "v1"
+            Version = "v1",
+            Description = "Audio Store E-commerce API - Version 1.0\n\nFeatures:\n- JWT Authentication with Refresh Tokens\n- Product Management\n- Category Management\n- Shopping Cart\n- Order Processing",
+            Contact = new OpenApiContact
+            {
+                Name = "Audio Store Team",
+                Email = "support@audiostore.com"
+            }
         });
 
+        // JWT Bearer Authentication
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Name = "Authorization",
             Type = SecuritySchemeType.Http,
             Scheme = "Bearer",
             BearerFormat = "JWT",
-            In = ParameterLocation.Header
+            In = ParameterLocation.Header,
+            Description = "Enter 'Bearer' [space] and then your valid token.\n\nExample: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
         });
 
-        //options.AddSecurityRequirement(new OpenApiSecurityRequirement
-        //{
-        //    {
-        //        new OpenApiSecurityScheme
-        //        {
-        //            Reference = new OpenApiReference
-        //            {
-        //                Type = ReferenceType.SecurityScheme,
-        //                Id = "Bearer"
-        //            }
-        //        },
-        //        Array.Empty<string>()
-        //    }
-        //});
     });
 
     // CORS
