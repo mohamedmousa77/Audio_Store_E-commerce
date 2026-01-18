@@ -39,41 +39,50 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
-        return await _dbSet.Where(predicate).ToListAsync(cancellationToken);
+        return await _dbSet
+            .Where(x => !x.IsDeleted)
+            .Where(predicate)
+            .ToListAsync(cancellationToken);
     }
 
     public virtual async Task<T?> FirstOrDefaultAsync(
         Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
-        return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+        return await _dbSet
+            .Where(x => !x.IsDeleted)
+            .FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
     public virtual async Task<bool> AnyAsync(
         Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
-        return await _dbSet.AnyAsync(predicate, cancellationToken);
+        return await _dbSet
+            .Where(x => !x.IsDeleted)
+            .AnyAsync(predicate, cancellationToken);
     }
 
     public virtual async Task<int> CountAsync(
         Expression<Func<T, bool>>? predicate = null,
         CancellationToken cancellationToken = default)
     {
+        var query = _dbSet.Where(x => !x.IsDeleted);
+        
         return predicate == null
-            ? await _dbSet.CountAsync(cancellationToken)
-            : await _dbSet.CountAsync(predicate, cancellationToken);
+            ? await query.CountAsync(cancellationToken)
+            : await query.CountAsync(predicate, cancellationToken);
     }
 
     // Queryable for complex queries
     public virtual IQueryable<T> Query()
     {
-        return _dbSet.AsQueryable();
+        return _dbSet.Where(x => !x.IsDeleted).AsQueryable();
     }
 
     public virtual IQueryable<T> QueryNoTracking()
     {
-        return _dbSet.AsNoTracking();
+        return _dbSet.Where(x => !x.IsDeleted).AsNoTracking();
     }
 
     // ============ COMMANDS ============

@@ -34,5 +34,11 @@
 
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\AudioStore.Application\AudioStore.Application.csproj" />
+	  <ProjectReference Include="..\AudioStore.Infrastructure\AudioStore.Infrastructure.csproj" />
+	  <ProjectReference Include="..\AudioStore.Domain\AudioStore.Domain.csproj" />
+	</ItemGroup>
+
 </Project>
 <!-- Per testare API Controllers -->

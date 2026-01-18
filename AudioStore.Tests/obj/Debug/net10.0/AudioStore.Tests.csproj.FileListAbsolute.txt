@@ -414,3 +414,4 @@ C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\refin
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.pdb
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.genruntimeconfig.cache
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\ref\AudioStore.Tests.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\.msCoverageSourceRootsMapping_AudioStore.Tests

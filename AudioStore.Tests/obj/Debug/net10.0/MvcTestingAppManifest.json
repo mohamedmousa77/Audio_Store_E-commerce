@@ -1,1 +1,6 @@
-{ }
+{
+  "AudioStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application",
+  "AudioStore.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common",
+  "AudioStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain",
+  "AudioStore.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure"
+}

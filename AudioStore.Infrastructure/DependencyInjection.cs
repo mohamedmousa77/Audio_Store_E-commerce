@@ -83,6 +83,7 @@ public static class DependencyInjection
         // ✅ Repository Pattern + Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
 

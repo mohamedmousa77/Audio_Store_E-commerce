@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using AudioStore.Api.Extensions;
 using AudioStore.Api.Middleware;
 using AudioStore.Application;
 using AudioStore.Infrastructure;
@@ -114,12 +115,10 @@ try
 
     var app = builder.Build();
 
-    // Auto-migration in Development
+    // ✅ Initialize Database with Seeding
     if (app.Environment.IsDevelopment())
     {
-        using var scope = app.Services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        await context.Database.MigrateAsync();
+        await app.InitializeDatabaseAsync();
     }
 
     // Middleware

@@ -18,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Cart>? _carts;
     private IRepository<CartItem>? _cartItems;
     private IRepository<Address>? _addresses;
-    private IRepository<User>? _users;
+    private IUserRepository? _users;
     private IRepository<RefreshToken>? _refreshTokens;
     public UnitOfWork(AppDbContext context)
     {
@@ -33,7 +33,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Cart> Carts => _carts ??= new Repository<Cart>(_context);
     public IRepository<CartItem> CartItems => _cartItems ??= new Repository<CartItem>(_context);
     public IRepository<Address> Addresses => _addresses ??= new Repository<Address>(_context);
-    public IRepository<User> Users => _users ??= new Repository<User>(_context);
+    public IUserRepository Users => _users ??= new UserRepository(_context);
     public IRepository<RefreshToken> RefreshTokens  
        => _refreshTokens ??= new Repository<RefreshToken>(_context);
 

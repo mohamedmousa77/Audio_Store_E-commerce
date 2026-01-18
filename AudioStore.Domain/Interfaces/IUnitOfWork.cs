@@ -12,7 +12,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<Cart> Carts { get; }
     IRepository<CartItem> CartItems { get; }
     IRepository<Address> Addresses { get; }
-    IRepository<User> Users { get; }
+    IUserRepository Users { get; }
     IRepository<RefreshToken> RefreshTokens { get; }
 
     // Transaction Management
