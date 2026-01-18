@@ -1,9 +1,7 @@
-﻿using AudioStore.Common.Result;
-using AudioStore.Domain.Entities;
+﻿using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace AudioStore.Infrastructure.Repositories;
@@ -68,7 +66,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         CancellationToken cancellationToken = default)
     {
         var query = _dbSet.Where(x => !x.IsDeleted);
-        
+
         return predicate == null
             ? await query.CountAsync(cancellationToken)
             : await query.CountAsync(predicate, cancellationToken);
@@ -116,11 +114,11 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         var entity = await GetByIdAsync(id);
         if (entity != null)
         {
-            entity.IsDeleted = true; 
+            entity.IsDeleted = true;
             entity.UpdatedAt = DateTime.UtcNow;
         }
     }
-     public async Task<bool> ExistsAsync(int id)
+    public async Task<bool> ExistsAsync(int id)
     {
         return await _dbSet.AnyAsync(e => e.Id == id && !e.IsDeleted);
     }
