@@ -2,8 +2,9 @@
 
 public enum OrderStatus
 {
-    Processing = 1,
-    Shipped = 2,
-    Delivered = 3,
-    Cancelled = 4
+    Pending = 0,           // In attesa di conferma
+    Processing = 1,        // In elaborazione
+    Shipped = 2,           // Spedito
+    Delivered = 3,         // Consegnato
+    Cancelled = 4          // Annullato
 }

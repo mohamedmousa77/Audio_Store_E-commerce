@@ -72,7 +72,7 @@ internal class CartService : ICartService
                     sessionId);
             }
 
-            var cartDto = MapCartToDto(cart);
+            var cartDto = _mapper.Map<CartDTO>(cart);
             return Result.Success(cartDto);
         }
         catch (Exception ex)
@@ -164,7 +164,7 @@ internal class CartService : ICartService
 
             // Ricarica carrello aggiornato
             cart = await GetCartEntityAsync(dto.UserId, dto.SessionId);
-            var cartDto = MapCartToDto(cart!);
+            var cartDto = _mapper.Map<CartDTO>(cart!);
 
             return Result.Success(cartDto);
         }
@@ -216,7 +216,7 @@ internal class CartService : ICartService
                     sessionId,
                     userId);
 
-                var cartDto = MapCartToDto(guestCart);
+                var cartDto = _mapper.Map<CartDTO>(guestCart);
                 return Result.Success(cartDto);
             }
 
@@ -252,7 +252,7 @@ internal class CartService : ICartService
 
             // Ricarica carrello utente aggiornato
             userCart = await GetCartEntityAsync(userId, null);
-            var userCartDto = MapCartToDto(userCart!);
+            var userCartDto = _mapper.Map<CartDTO>(userCart!);
 
             return Result.Success(userCartDto);
         }
@@ -291,7 +291,7 @@ internal class CartService : ICartService
 
             // Ricarica carrello
             var cart = await GetCartEntityAsync(userId, sessionId);
-            var cartDto = MapCartToDto(cart!);
+            var cartDto = _mapper.Map<CartDTO>(cart!);
 
             return Result.Success(cartDto);
         }
@@ -312,7 +312,7 @@ internal class CartService : ICartService
             if (cart == null)
                 return Result.Success();
 
-            _unitOfWork.CartItems.DeleteRange(cart.Items);
+            _unitOfWork.CartItems.DeleteRange(cart.CartItems);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation(
@@ -369,7 +369,7 @@ internal class CartService : ICartService
                 cartItem.Cart.UserId,
                 cartItem.Cart.SessionId);
 
-            var cartDto = MapCartToDto(cart!);
+            var cartDto = _mapper.Map<CartDTO>(cart!);
             return Result.Success(cartDto);
         }
         catch (Exception ex)
@@ -407,37 +407,4 @@ internal class CartService : ICartService
         return null;
     }
 
-    private CartDTO MapCartToDto(Cart cart)
-    {
-        var items = cart.CartItems.Select(i => new CartItemDTO
-        {
-            Id = i.Id,
-            ProductId = i.ProductId,
-            ProductName = i.Product.Name,
-            ProductImage = i.Product.MainImage,
-            UnitPrice = i.UnitPrice,
-            Quantity = i.Quantity,
-            Subtotal = i.Subtotal,
-            AvailableStock = i.Product.StockQuantity
-        }).ToList();
-
-        var subtotal = items.Sum(i => i.Subtotal);
-        var shippingCost = subtotal > 0 ? 5.00m : 0m; // Esempio: €5 fissi o gratis
-        var tax = subtotal * 0.22m; // IVA 22%
-        var total = subtotal + shippingCost + tax;
-
-        return new CartDTO
-        {
-            Id = cart.Id,
-            UserId = cart.UserId,
-            SessionId = cart.SessionId,
-            Items = items,
-            Subtotal = subtotal,
-            ShippingCost = shippingCost,
-            Tax = tax,
-            TotalAmount = total,
-            TotalItems = items.Sum(i => i.Quantity),
-            IsGuestCart = cart.IsGuestCart
-        };
-    }
 }

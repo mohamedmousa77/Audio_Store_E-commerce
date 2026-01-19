@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj": {}
+    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj": {
+    "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+        "projectUniqueName": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
         "projectName": "AudioStore.Api",
-        "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+        "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
         "packagesPath": "C:\\Users\\A1154apulia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\obj\\",
+        "outputPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -53,10 +53,10 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(a => a.Orders)
-            .WithOne(o => o.ShippingAddress)
-            .HasForeignKey(o => o.ShippingAddressId)
-            .OnDelete(DeleteBehavior.Restrict);
+        //builder.HasMany(a => a.Orders)
+        //    .WithOne(o => o.ShippingStreet)
+        //    .HasForeignKey(o => o.ShippingAddressId)
+        //    .OnDelete(DeleteBehavior.Restrict);
 
         // Indexes
         builder.HasIndex(a => a.UserId);

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AudioStore.Domain.Enums;
 
-namespace AudioStore.Application.DTOs.Orders
+namespace AudioStore.Application.DTOs.Orders;
+
+public record UpdateOrderStatusDTO
 {
-    internal class UpdateOrderStatusDTO
-    {
-    }
+    public int OrderId { get; init; }
+    public OrderStatus NewStatus { get; init; }
 }

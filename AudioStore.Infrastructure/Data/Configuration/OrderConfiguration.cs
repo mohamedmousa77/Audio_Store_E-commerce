@@ -13,80 +13,98 @@ namespace AudioStore.Infrastructure.Data.Configuration
 
             builder.HasKey(o => o.Id);
 
-            builder.Property(o => o.Id)
-                .HasColumnName("OrderID")
-                .ValueGeneratedOnAdd();
-
             builder.Property(o => o.OrderNumber)
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnType("varchar(50)");
 
-            builder.Property(o => o.CustomerName)
-                .HasMaxLength(200)
-                .HasColumnType("nvarchar(200)");
+            builder.Property(o => o.OrderDate)
+                .IsRequired();
+
+            // ✅ UserId nullable per guest
+            builder.Property(o => o.UserId)
+                .IsRequired(false);
+
+            // Customer Info
+            builder.Property(o => o.CustomerFirstName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(o => o.CustomerLastName)
+                .IsRequired()
+                .HasMaxLength(100);
 
             builder.Property(o => o.CustomerEmail)
-                .HasMaxLength(100)
-                .HasColumnType("nvarchar(100)");
+                .IsRequired()
+                .HasMaxLength(255);
 
             builder.Property(o => o.CustomerPhone)
-                .HasMaxLength(20)
-                .HasColumnType("nvarchar(20)");
-
-            builder.Property(o => o.OrderDate)
                 .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
+                .HasMaxLength(20);
 
-            builder.Property(o => o.Status)
+            // Shipping Address
+            builder.Property(o => o.ShippingStreet)
                 .IsRequired()
-                .HasConversion<string>() // Salva enum come stringa nel DB
-                .HasMaxLength(50)
-                .HasDefaultValue(OrderStatus.Processing);
+                .HasMaxLength(200);
+
+            builder.Property(o => o.ShippingCity)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(o => o.ShippingPostalCode)
+                .IsRequired()
+                .HasMaxLength(20);
+
+            builder.Property(o => o.ShippingCountry)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            // Totals
+            builder.Property(o => o.Subtotal)
+                .HasColumnType("decimal(18,2)");
+
+            builder.Property(o => o.ShippingCost)
+                .HasColumnType("decimal(18,2)");
+
+            builder.Property(o => o.Tax)
+                .HasColumnType("decimal(18,2)");
 
             builder.Property(o => o.TotalAmount)
-                .IsRequired()
-                .HasColumnType("decimal(18,2)")
-                .HasPrecision(18, 2);
+                .HasColumnType("decimal(18,2)");
 
+            // Payment & Status
             builder.Property(o => o.PaymentMethod)
-                .IsRequired()
-                .HasMaxLength(100)
+                .HasMaxLength(50)
                 .HasDefaultValue("Cash on Delivery");
 
-            // Timestamps
-            builder.Property(o => o.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(o => o.Status)
+                .HasConversion<int>()
+                .HasDefaultValue(OrderStatus.Pending);
 
-            builder.Property(o => o.IsDeleted)
-                .HasDefaultValue(false);
+            builder.Property(o => o.Notes)
+                .HasMaxLength(500);
 
             // Relationships
             builder.HasOne(o => o.User)
-                .WithMany(u => u.Orders)
+                .WithMany()
                 .HasForeignKey(o => o.UserId)
-                .OnDelete(DeleteBehavior.SetNull); // Non eliminare ordini se user viene eliminato
-
-            builder.HasOne(o => o.ShippingAddress)
-                .WithMany(a => a.Orders)
-                .HasForeignKey(o => o.ShippingAddressId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany(o => o.OrderItems)
                 .WithOne(oi => oi.Order)
                 .HasForeignKey(oi => oi.OrderId)
-                .OnDelete(DeleteBehavior.Cascade); // Elimina items quando elimini l'ordine
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Indexes
             builder.HasIndex(o => o.OrderNumber).IsUnique();
             builder.HasIndex(o => o.UserId);
             builder.HasIndex(o => o.Status);
-            builder.HasIndex(o => o.OrderDate).IsDescending(); // Per query ordinate per data
-            builder.HasIndex(o => new { o.UserId, o.OrderDate }); // Composite index
+            builder.HasIndex(o => o.OrderDate);
+            builder.HasIndex(o => o.CustomerEmail);
 
             // Query Filter
             builder.HasQueryFilter(o => !o.IsDeleted);
+
         }
 
     }
