@@ -36,6 +36,10 @@ public static class DependencyInjection
 
         // ✅ Services
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+
         return services;
     }
 }

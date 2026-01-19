@@ -11,5 +11,7 @@ public class Cart : BaseEntity
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     // Computed Property
+    public bool IsGuestCart => UserId == null && !string.IsNullOrEmpty(SessionId);
+    public bool IsUserCart => UserId.HasValue;
     public decimal TotalAmount => CartItems.Sum(item => item.Subtotal);
 }

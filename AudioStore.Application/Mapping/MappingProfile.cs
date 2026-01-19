@@ -1,11 +1,9 @@
 ﻿using AudioStore.Application.DTOs.Auth;
-using AudioStore.Application.DTOs.Category;
+using AudioStore.Application.DTOs.Cart;
 using AudioStore.Application.DTOs.Products;
 using AudioStore.Domain.Entities;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using CategoryDTO = AudioStore.Application.DTOs.Category.CategoryDTO;
 
 namespace AudioStore.Application.Mapping;
 
@@ -13,30 +11,39 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // User Mappings
+        // ============ USER MAPPINGS ============
         CreateMap<User, RegisterRequestDTO>().ReverseMap();
 
-        // Product Mappings
+        // ============ PRODUCT MAPPINGS ============
         CreateMap<Product, ProductDTO>()
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+            .ForMember(dest => dest.CategoryName,
+                opt => opt.MapFrom(src => src.Category.Name));
 
         CreateMap<CreateProductDTO, Product>();
+        CreateMap<UpdateProductDTO, Product>();
 
-        // Category Mappings
-        CreateMap<Category, CategoryDTO>();
+        // ============ CATEGORY MAPPINGS ============
+        CreateMap<Category, CategoryDTO>().ReverseMap();
 
-        // Order Mappings
-        //CreateMap<Order, OrderDTO>()
-        //    .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.OrderItems));
+        // ============ CART MAPPINGS ============
+        CreateMap<Cart, CartDTO>()
+            .ForMember(dest => dest.IsGuestCart,
+                opt => opt.MapFrom(src => src.IsGuestCart));
 
-        //CreateMap<OrderItem, OrderItemDTO>()
-        //    .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
+        CreateMap<CartItem, CartItemDTO>()
+            .ForMember(dest => dest.ProductName,
+                opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.ProductImage,
+                opt => opt.MapFrom(src => src.Product.MainImage))
+            .ForMember(dest => dest.AvailableStock,
+                opt => opt.MapFrom(src => src.Product.StockQuantity));
 
-        // Cart Mappings
-        //CreateMap<Cart, CartDTO>();
+        // ============ ORDER MAPPINGS (da completare) ============
+        // CreateMap<Order, OrderDTO>()
+        //     .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.OrderItems));
 
-        //CreateMap<CartItem, CartItemDTO>()
-        //    .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
+        // CreateMap<OrderItem, OrderItemDTO>()
+        //     .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
     }
 
 }

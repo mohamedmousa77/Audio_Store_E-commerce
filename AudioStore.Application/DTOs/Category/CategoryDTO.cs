@@ -1,6 +1,6 @@
 ﻿namespace AudioStore.Application.DTOs.Category;
 
-internal class CategoryDTO
+public record CategoryDTO
 {
     public int Id { get; init; }
     public string Name { get; init; } = string.Empty;

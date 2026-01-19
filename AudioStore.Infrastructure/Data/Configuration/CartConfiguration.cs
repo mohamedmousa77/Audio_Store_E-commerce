@@ -16,9 +16,13 @@ public class CartConfiguration : IEntityTypeConfiguration<Cart>
             .HasColumnName("CartID")
             .ValueGeneratedOnAdd();
 
+        builder.Property(c => c.UserId)
+            .IsRequired(false);
+
         builder.Property(c => c.SessionId)
             .HasMaxLength(100)
-            .HasColumnType("varchar(100)");
+            .HasColumnType("varchar(100)")
+            .IsRequired(false);
 
         builder.Property(c => c.IsActive)
             .IsRequired()
@@ -47,7 +51,7 @@ public class CartConfiguration : IEntityTypeConfiguration<Cart>
             .OnDelete(DeleteBehavior.Cascade);
 
         // Indexes
-        builder.HasIndex(c => c.UserId).IsUnique();
+        builder.HasIndex(c => c.UserId);
         builder.HasIndex(c => c.SessionId);
         builder.HasIndex(c => c.IsActive);
 
