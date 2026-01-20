@@ -1025,4 +1025,4 @@ AudioStore is a **production-ready e-commerce platform** built with industry bes
 
 **Report Generated:** January 20, 2026  
 **Version:** 1.0  
-**Author:** AudioStore Development Team
+**Author:** Mohamed Mousa
