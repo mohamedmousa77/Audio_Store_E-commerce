@@ -106,7 +106,7 @@ try
 
     // ✅ Infrastructure & Application
     builder.Services.AddInfrastructure(builder.Configuration);
-    builder.Services.AddApplication();
+    builder.Services.AddApplication(builder.Configuration);
 
     var app = builder.Build();
 

@@ -14,12 +14,12 @@ namespace AudioStore.Application.Commands
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IJwtTokenService _jwtTokenService;
+        private readonly ITokenService _jwtTokenService;
 
         public LoginCommandHandler(
             UserManager<User> userManager,
         SignInManager<User> signInManager,
-        IJwtTokenService jwtTokenService)
+        ITokenService jwtTokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

@@ -14,14 +14,14 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
-    private readonly IJwtTokenService _jwtTokenService;
+    private readonly ITokenService _jwtTokenService;
     private readonly ILogger<AuthService> _logger;
     private readonly IUnitOfWork _unitOfWork;
 
     public AuthService(
         UserManager<User> userManager,
         SignInManager<User> signInManager,
-        IJwtTokenService jwtTokenService,
+        ITokenService jwtTokenService,
         ILogger<AuthService> logger,
         IUnitOfWork unitOfWork)
     {
@@ -47,10 +47,10 @@ public class AuthService : IAuthService
             if (!user.IsActive)
                 return Result.Failure<LoginResponseDTO>("Account disattivato", ErrorCode.Unauthorized);
 
-            // ✅ Genera access token
+            //  Genera access token
             var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(user);
 
-            // ✅ Genera e salva refresh token
+            //  Genera e salva refresh token
             var refreshToken = _jwtTokenService.GenerateRefreshToken();
             var refreshTokenEntity = new RefreshToken
             {
@@ -159,98 +159,5 @@ public class AuthService : IAuthService
             return Result.Failure("Errore durante il logout", ErrorCode.InternalServerError);
         }
     }
-    public async Task<Result<TokenResponseDTO>> RefreshTokenAsync(string refreshToken, string ipAddress)
-    {
-        try
-        {
-            // 1. Trova il refresh token nel database
-            var tokenEntity = await _unitOfWork.RefreshTokens
-                .Query()
-                .Include(rt => rt.User)
-                .FirstOrDefaultAsync(rt => rt.Token == refreshToken);
-
-            if (tokenEntity == null)
-            {
-                _logger.LogWarning("Refresh token not found: {Token}", refreshToken);
-                return Result.Failure<TokenResponseDTO>("Token non valido", ErrorCode.InvalidToken);
-            }
-
-            // 2. Verifica se il token è ancora attivo
-            if (!tokenEntity.IsActive)
-            {
-                _logger.LogWarning("Inactive refresh token used: {Token}", refreshToken);
-                return Result.Failure<TokenResponseDTO>("Token scaduto o revocato", ErrorCode.InvalidToken);
-            }
-
-            // 3. Genera nuovo access token
-            var newAccessToken = await _jwtTokenService.GenerateAccessTokenAsync(tokenEntity.User);
-
-            // 4. Genera nuovo refresh token (Token Rotation per sicurezza)
-            var newRefreshToken = _jwtTokenService.GenerateRefreshToken();
-
-            // 5. Revoca il vecchio refresh token
-            tokenEntity.IsRevoked = true;
-            tokenEntity.RevokedAt = DateTime.UtcNow;
-            tokenEntity.RevokedByIp = ipAddress;
-            tokenEntity.ReplacedByToken = newRefreshToken;
-
-            // 6. Salva il nuovo refresh token
-            var newTokenEntity = new RefreshToken
-            {
-                UserId = tokenEntity.UserId,
-                Token = newRefreshToken,
-                ExpiresAt = DateTime.UtcNow.AddDays(7),
-                CreatedByIp = ipAddress
-            };
-
-            await _unitOfWork.RefreshTokens.AddAsync(newTokenEntity);
-            await _unitOfWork.SaveChangesAsync();
-
-            var response = new TokenResponseDTO
-            {
-                AccessToken = newAccessToken,
-                RefreshToken = newRefreshToken,
-                ExpiresAt = DateTime.UtcNow.AddMinutes(60)
-            };
-
-            _logger.LogInformation("Token refreshed for user {UserId}", tokenEntity.UserId);
-            return Result.Success(response);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error refreshing token");
-            return Result.Failure<TokenResponseDTO>("Errore durante il refresh del token", ErrorCode.InternalServerError);
-        }
-    }
-
-    // ✅ NUOVO: Revoca token manualmente
-    public async Task<Result> RevokeTokenAsync(string refreshToken, string ipAddress)
-    {
-        try
-        {
-            var tokenEntity = await _unitOfWork.RefreshTokens
-                .FirstOrDefaultAsync(rt => rt.Token == refreshToken);
-
-            if (tokenEntity == null)
-                return Result.Failure("Token non trovato", ErrorCode.InvalidToken);
-
-            if (!tokenEntity.IsActive)
-                return Result.Failure("Token già revocato", ErrorCode.InvalidToken);
-
-            tokenEntity.IsRevoked = true;
-            tokenEntity.RevokedAt = DateTime.UtcNow;
-            tokenEntity.RevokedByIp = ipAddress;
-
-            await _unitOfWork.SaveChangesAsync();
-
-            _logger.LogInformation("Token revoked for user {UserId}", tokenEntity.UserId);
-            return Result.Success();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error revoking token");
-            return Result.Failure("Errore durante la revoca del token", ErrorCode.InternalServerError);
-        }
-    }   
 
 }

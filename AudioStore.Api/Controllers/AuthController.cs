@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using AudioStore.Application;
 using AudioStore.Application.Commands;
 using AudioStore.Application.DTOs.Auth;
 using AudioStore.Application.Services.Interfaces;
@@ -15,13 +16,15 @@ namespace AudioStore.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly ITokenService _jwtTokenService;
     private readonly IMediator _mediator;
 
 
-    public AuthController(IAuthService authService, IMediator mediator)
+    public AuthController(IAuthService authService, ITokenService jwtTokenService, IMediator mediator)
     {
         _authService = authService;
         _mediator = mediator;
+        _jwtTokenService = jwtTokenService;
     }
 
     [HttpPost("register")]
@@ -64,12 +67,12 @@ public class AuthController : ControllerBase
         return Ok(result.Value);
     }
 
-    // ✅ NUOVO: Endpoint refresh token
+    //  NUOVO: Endpoint refresh token
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDTO request)
     {
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-        var result = await _authService.RefreshTokenAsync(request.RefreshToken, ipAddress);
+        var result = await _jwtTokenService.RefreshTokenAsync(request.RefreshToken, ipAddress);
 
         if (result.IsFailure)
             return Unauthorized(new { error = result.Error });
@@ -77,12 +80,12 @@ public class AuthController : ControllerBase
         return Ok(result.Value);
     }
 
-    // ✅ NUOVO: Endpoint revoca token
+    //  NUOVO: Endpoint revoca token
     [HttpPost("revoke-token")]
     public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequestDTO request)
     {
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-        var result = await _authService.RevokeTokenAsync(request.RefreshToken, ipAddress);
+        var result = await _jwtTokenService.RevokeTokenAsync(request.RefreshToken, ipAddress);
 
         if (result.IsFailure)
             return BadRequest(new { error = result.Error });

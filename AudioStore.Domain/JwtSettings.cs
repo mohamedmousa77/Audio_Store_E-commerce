@@ -1,4 +1,4 @@
-﻿namespace AudioStore.Infrastructure.Authentication;
+﻿namespace AudioStore.Domain;
 
 public class JwtSettings
 {

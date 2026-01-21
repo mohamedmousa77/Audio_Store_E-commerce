@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <!-- Auto Mapper -->
 	  <PackageReference Include="AutoMapper" Version="16.0.0" />
+	  <!-- JWT -->
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
 	  <!-- FluentValidation -->    
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
