@@ -11,5 +11,4 @@ public class Address : BaseEntity
 
     // Navigation Properties
     public virtual User? User { get; set; }
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

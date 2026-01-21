@@ -10,25 +10,38 @@ public class UnitOfWork : IUnitOfWork
     private readonly AppDbContext _context;
     private IDbContextTransaction? _transaction;
 
-    // Lazy initialization
+    //// Lazy initialization
     private IRepository<Product>? _products;
     private IRepository<Category>? _categories;
-    private IRepository<Order>? _orders;
+    public IUserRepository? Users { get; }
+    public IOrderRepository? Orders { get; }
     private IRepository<OrderItem>? _orderItems;
     private IRepository<Cart>? _carts;
     private IRepository<CartItem>? _cartItems;
     private IRepository<Address>? _addresses;
     private IUserRepository? _users;
     private IRepository<RefreshToken>? _refreshTokens;
+
     public UnitOfWork(AppDbContext context)
     {
         _context = context;
+        // ✅ Inizializza repository specifici
+        //Users = new UserRepository(_context);
+        //Products = new ProductRepository(_context);
+        //Categories = new CategoryRepository(_context);
+        //Orders = new OrderRepository(_context);
+
+        //// Inizializza repository generici
+        //OrderItems = new Repository<OrderItem>(_context);
+        //Carts = new Repository<Cart>(_context);
+        //CartItems = new Repository<CartItem>(_context);
+        //Addresses = new Repository<Address>(_context);
     }
 
     // Repositories
     public IRepository<Product> Products => _products ??= new Repository<Product>(_context);
     public IRepository<Category> Categories => _categories ??= new Repository<Category>(_context);
-    public IRepository<Order> Orders => _orders ??= new Repository<Order>(_context);
+    public IOrderRepository Orders => _orders ??= new IOrderRepository(_context);
     public IRepository<OrderItem> OrderItems => _orderItems ??= new Repository<OrderItem>(_context);
     public IRepository<Cart> Carts => _carts ??= new Repository<Cart>(_context);
     public IRepository<CartItem> CartItems => _cartItems ??= new Repository<CartItem>(_context);

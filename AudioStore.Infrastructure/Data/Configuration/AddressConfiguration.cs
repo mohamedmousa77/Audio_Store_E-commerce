@@ -16,6 +16,9 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
             .HasColumnName("AddressID")
             .ValueGeneratedOnAdd();
 
+        builder.Property(a => a.UserId)
+            .IsRequired(false);
+
         builder.Property(a => a.Street)
             .IsRequired()
             .HasMaxLength(500)
@@ -52,11 +55,6 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
             .WithMany(u => u.Addresses)
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        //builder.HasMany(a => a.Orders)
-        //    .WithOne(o => o.ShippingStreet)
-        //    .HasForeignKey(o => o.ShippingAddressId)
-        //    .OnDelete(DeleteBehavior.Restrict);
 
         // Indexes
         builder.HasIndex(a => a.UserId);

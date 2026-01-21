@@ -1,4 +1,5 @@
 using AudioStore.Domain.Entities;
+using AudioStore.Domain.Enums;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -6,15 +7,15 @@ using System.Linq.Expressions;
 
 namespace AudioStore.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository : Repository<User>, IUserRepository
 {
-    protected readonly AppDbContext _context;
-    protected readonly DbSet<User> _dbSet;
+    //protected readonly AppDbContext _context;
+    //protected readonly DbSet<User> _dbSet;
 
-    public UserRepository(AppDbContext context)
+    public UserRepository(AppDbContext context) : base(context)
     {
-        _context = context;
-        _dbSet = context.Set<User>();
+        //_context = context;
+        //_dbSet = context.Set<User>();
     }
 
     // ============ QUERIES ============
@@ -117,4 +118,60 @@ public class UserRepository : IUserRepository
             entity.IsActive = false; // Soft delete using IsActive
         }
     }
+
+    // Queries Complecated. 
+    public async Task<User?> GetUserWithOrdersAsync(int userId)
+    {
+        return await _dbSet
+            .Include(u => u.Orders.Where(o => !o.IsDeleted))
+            .ThenInclude(o => o.OrderItems)
+            .ThenInclude(oi => oi.Product)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
+
+    public async Task<User?> GetUserWithAddressesAsync(int userId)
+    {
+        return await _dbSet
+            .Include(u => u.Addresses)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
+
+    public async Task<User?> GetUserWithOrdersAndAddressesAsync(int userId)
+    {
+        return await _dbSet
+            .Include(u => u.Orders.Where(o => !o.IsDeleted))
+            .ThenInclude(o => o.OrderItems)
+            .ThenInclude(oi => oi.Product)
+            .Include(u => u.Addresses)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
+
+
+
+    public async Task<IEnumerable<User>> GetCustomersWithOrdersAsync()
+    {
+        return await _dbSet
+            .Include(u => u.Orders.Where(o => !o.IsDeleted))
+            .Where(u => u.Role == UserRole.Customer)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTotalCustomersCountAsync()
+    {
+        return await _dbSet
+            .Where(u => u.Role == UserRole.Customer)
+            .CountAsync();
+    }
+
+    public async Task<int> GetActiveCustomersThisMonthAsync()
+    {
+        var firstDayOfMonth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
+
+        return await _context.Orders
+            .Where(o => o.OrderDate >= firstDayOfMonth && o.UserId.HasValue)
+            .Select(o => o.UserId!.Value)
+            .Distinct()
+            .CountAsync();
+    }
+
 }

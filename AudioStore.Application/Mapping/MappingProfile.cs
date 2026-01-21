@@ -1,8 +1,12 @@
-﻿using AudioStore.Application.DTOs.Auth;
+﻿using AudioStore.Application.DTOs.Admin.CustomerManagement;
+using AudioStore.Application.DTOs.Admin.Dashboard;
+using AudioStore.Application.DTOs.Auth;
 using AudioStore.Application.DTOs.Cart;
 using AudioStore.Application.DTOs.Orders;
 using AudioStore.Application.DTOs.Products;
+using AudioStore.Application.DTOs.Profile;
 using AudioStore.Domain.Entities;
+using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using CategoryDTO = AudioStore.Application.DTOs.Category.CategoryDTO;
 
@@ -76,6 +80,24 @@ public class MappingProfile : Profile
 
         CreateMap<CreateOrderDTO, Order>();
         CreateMap<CreateOrderItemDTO, OrderItem>();
+
+        // ============ ADDRESS MAPPINGS ============
+        CreateMap<Address, AddressDTO>().ReverseMap();
+        CreateMap<SaveAddressDTO, Address>();
+
+        // ============ ADMIN DASHBOARD MAPPINGS ============
+        CreateMap<TopProductData, TopProductDTO>();
+        CreateMap<TopCategoryData, TopCategoryDTO>();
+
+        // ============ USER/CUSTOMER MAPPINGS ============
+        CreateMap<User, CustomerListItemDTO>()
+            .ForMember(dest => dest.RegistrationDate, opt => opt.MapFrom(src => src.CreatedAt))
+            .ForMember(dest => dest.TotalOrders, opt => opt.MapFrom(src => src.Orders.Count))
+            .ForMember(dest => dest.LastOrderDate,
+                opt => opt.MapFrom(src => src.Orders.Any() ? src.Orders.Max(o => o.OrderDate) : (DateTime?)null))
+            .ForMember(dest => dest.TotalSpent, opt => opt.MapFrom(src => src.Orders.Sum(o => o.TotalAmount)));
+
+
     }
 
     //  Helper methods per calcoli (statici perché usati da AutoMapper)
