@@ -88,7 +88,7 @@ public class CategoryService : ICategoryService
             _mapper.Map(dto, category);
             category.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Categories.UpdateAsync(category);
+            _unitOfWork.Categories.Update(category);
             await _unitOfWork.SaveChangesAsync();
 
             var categoryDto = _mapper.Map<CategoryDTO>(category);
@@ -123,7 +123,7 @@ public class CategoryService : ICategoryService
                     ErrorCode.BadRequest);
             }
 
-            await _unitOfWork.Categories.DeleteAsync(category.Id);
+             _unitOfWork.Categories.Delete(category);
             await _unitOfWork.SaveChangesAsync();
 
             return Result.Success();

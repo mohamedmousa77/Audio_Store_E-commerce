@@ -2,6 +2,7 @@
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using AudioStore.Infrastructure.Repositories;
+using AudioStore.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,12 +51,17 @@ public static class DependencyInjection
          .AddEntityFrameworkStores<AppDbContext>()
          .AddDefaultTokenProviders();
 
+        // Security
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
-
-        // ✅ Repository Pattern + Unit of Work
+        // Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // ✅ Repository Pattern 
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IDashboardRepository, DashboardRepository>();
 
         return services;
 

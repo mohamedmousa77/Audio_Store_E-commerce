@@ -273,7 +273,7 @@ public class ProductService : IProductService
             _mapper.Map(dto, product);
             product.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Products.UpdateAsync(product);
+             _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Product {ProductId} updated successfully", product.Id);
@@ -307,7 +307,7 @@ public class ProductService : IProductService
             product.IsDeleted = true;
             product.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Products.UpdateAsync(product);
+             _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Product {ProductId} deleted successfully", id);
@@ -336,7 +336,7 @@ public class ProductService : IProductService
             product.StockQuantity = quantity;
             product.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Products.UpdateAsync(product);
+            _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation(

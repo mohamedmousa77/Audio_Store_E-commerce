@@ -1,6 +1,6 @@
 ﻿namespace AudioStore.Application.DTOs.Admin.Dashboard;
 
-internal class TopProductDTO
+public class TopProductDTO
 {
     public int ProductId { get; init; }
     public string ProductName { get; init; } = string.Empty;

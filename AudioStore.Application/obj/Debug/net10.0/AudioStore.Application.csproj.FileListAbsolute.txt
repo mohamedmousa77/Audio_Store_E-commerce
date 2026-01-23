@@ -4,3 +4,15 @@ C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioStore.Application.AssemblyInfo.cs
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioStore.Application.csproj.CoreCompileInputs.cache
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioStore.Application.sourcelink.json
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Application.deps.json
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Application.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Application.pdb
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Common.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Domain.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Common.pdb
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\bin\Debug\net10.0\AudioStore.Domain.pdb
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioSto.6F8CE4C1.Up2Date
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioStore.Application.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\refint\AudioStore.Application.dll
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\AudioStore.Application.pdb
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Application\obj\Debug\net10.0\ref\AudioStore.Application.dll

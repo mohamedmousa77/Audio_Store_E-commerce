@@ -95,10 +95,14 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         IEnumerable<T> entities,
         CancellationToken cancellationToken = default)
     {
+        foreach (var entity in entities)
+        {
+            entity.CreatedAt = DateTime.UtcNow;
+        }
         await _dbSet.AddRangeAsync(entities, cancellationToken);
     }
 
-    public virtual async Task UpdateAsync(T entity)
+    public virtual void Update(T entity)
     {
         entity.UpdatedAt = DateTime.UtcNow;
         _dbSet.Update(entity);
@@ -106,26 +110,34 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
 
     public virtual void UpdateRange(IEnumerable<T> entities)
     {
+        foreach (var entity in entities)
+        {
+            entity.UpdatedAt = DateTime.UtcNow;
+        }
         _dbSet.UpdateRange(entities);
     }
 
-    public virtual async Task DeleteAsync(int id)
+    public virtual void Delete(T entity)
     {
-        var entity = await GetByIdAsync(id);
-        if (entity != null)
+        entity.IsDeleted = true;
+        entity.UpdatedAt = DateTime.UtcNow;
+        _dbSet.Update(entity);        
+    }
+    public virtual void DeleteRange(IEnumerable<T> entities)
+    {
+        foreach (var entity in entities)
         {
             entity.IsDeleted = true;
             entity.UpdatedAt = DateTime.UtcNow;
         }
+        _dbSet.UpdateRange(entities);
     }
+
     public async Task<bool> ExistsAsync(int id)
     {
         return await _dbSet.AnyAsync(e => e.Id == id && !e.IsDeleted);
     }
 
-    public virtual void DeleteRange(IEnumerable<T> entities)
-    {
-        _dbSet.RemoveRange(entities);
-    }
+    
 
 }

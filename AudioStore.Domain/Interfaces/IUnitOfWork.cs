@@ -4,15 +4,18 @@ namespace AudioStore.Domain.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    // Repositories
-    IRepository<Product> Products { get; }
-    IRepository<Category> Categories { get; }
+    // Specific Repositories
+    IUserRepository Users { get; }
     IOrderRepository Orders { get; }
+    IDashboardRepository Dashboard {  get; }
+
+    //Generic Repositories
+    IRepository<Product> Products { get; }
+    IRepository<Category> Categories { get; }    
     IRepository<OrderItem> OrderItems { get; }
     IRepository<Cart> Carts { get; }
     IRepository<CartItem> CartItems { get; }
     IRepository<Address> Addresses { get; }
-    IUserRepository Users { get; }
     IRepository<RefreshToken> RefreshTokens { get; }
 
     // Transaction Management

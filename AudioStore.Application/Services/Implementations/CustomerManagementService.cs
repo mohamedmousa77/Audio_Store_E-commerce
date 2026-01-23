@@ -3,7 +3,6 @@ using AudioStore.Application.DTOs.Orders;
 using AudioStore.Application.Services.Interfaces;
 using AudioStore.Common.Constants;
 using AudioStore.Common.Result;
-using AudioStore.Domain.Enums;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -32,47 +31,40 @@ public class CustomerManagementService : ICustomerManagementService
         try
         {
             // Total customers (role = Customer)
-            var totalCustomers = await _unitOfWork.Users
+            var totalCustomersTask =  _unitOfWork.Users
                 .GetTotalCustomersCountAsync();
 
             // Active customers this month (made at least one order)
-            var activeCustomersThisMonth = await _unitOfWork.Users
+            var activeCustomersTask =  _unitOfWork.Users
                 .GetActiveCustomersThisMonthAsync();
 
             // Total orders
-            var totalOrders = await _unitOfWork.Orders
+            var totalOrdersTask =  _unitOfWork.Orders
                 .CountAsync();
 
             // Top customer (highest total spent)
-            var topCustomerData = await _unitOfWork.Orders
-                .Query()
-                .Where(o => o.UserId.HasValue)
-                .GroupBy(o => o.UserId!.Value)
-                .Select(g => new
-                {
-                    UserId = g.Key,
-                    TotalSpent = g.Sum(o => o.TotalAmount),
-                    TotalOrders = g.Count()
-                })
-                .OrderByDescending(x => x.TotalSpent)
-                .FirstOrDefaultAsync();
+            var topCustomerTask = _unitOfWork.Users.GetTopCustomerAsync();
+
+            await Task.WhenAll(totalCustomersTask, activeCustomersTask, totalOrdersTask, topCustomerTask);
+
+            var totalCustomers = await totalCustomersTask;
+            var activeCustomersThisMonth = await activeCustomersTask;
+            var totalOrders = await totalOrdersTask;
+            var topCustomerEntity = await topCustomerTask;
+
 
             TopCustomerDTO? topCustomer = null;
-            if (topCustomerData != null)
-            {
-                var user = await _unitOfWork.Users.GetByIdAsync(topCustomerData.UserId);
-                if (user != null)
+            if (topCustomerEntity != null)
+            {                
+                topCustomer = new TopCustomerDTO
                 {
-                    topCustomer = new TopCustomerDTO
-                    {
-                        UserId = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Email = user.Email!,
-                        TotalSpent = topCustomerData.TotalSpent,
-                        TotalOrders = topCustomerData.TotalOrders
-                    };
-                }
+                    UserId = topCustomerEntity.Id,
+                    FirstName = topCustomerEntity.FirstName,
+                    LastName = topCustomerEntity.LastName,
+                    Email = topCustomerEntity.Email!,
+                    TotalSpent = topCustomerEntity.Orders.Sum(o => o.TotalAmount),
+                    TotalOrders = topCustomerEntity.Orders.Count
+                };                
             }
 
             var summary = new CustomerSummaryDTO

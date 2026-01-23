@@ -117,7 +117,7 @@ public class OrderService : IOrderService
                 //  Aggiorna stock
                 product.StockQuantity -= itemDto.Quantity;
                 product.UpdatedAt = DateTime.UtcNow;
-                await _unitOfWork.Products.UpdateAsync(product);
+                _unitOfWork.Products.Update(product);
 
                 //  Crea order item
                 var orderItem = new OrderItem
@@ -364,7 +364,7 @@ public class OrderService : IOrderService
             order.Status = dto.NewStatus;
             order.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Orders.UpdateAsync(order);
+            _unitOfWork.Orders.Update(order);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation(
@@ -434,13 +434,13 @@ public class OrderService : IOrderService
                 var product = item.Product;
                 product.StockQuantity += item.Quantity;
                 product.UpdatedAt = DateTime.UtcNow;
-                await _unitOfWork.Products.UpdateAsync(product);
+                 _unitOfWork.Products.Update(product);
             }
 
             //  Aggiorna stato ordine
             order.Status = OrderStatus.Cancelled;
             order.UpdatedAt = DateTime.UtcNow;
-            await _unitOfWork.Orders.UpdateAsync(order);
+             _unitOfWork.Orders.Update(order);
 
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();

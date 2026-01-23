@@ -139,7 +139,7 @@ internal class CartService : ICartService
             {
                 existingItem.Quantity = totalQuantity;
                 existingItem.UpdatedAt = DateTime.UtcNow;
-                await _unitOfWork.CartItems.UpdateAsync(existingItem);
+                 _unitOfWork.CartItems.Update(existingItem);
             }
             else
             {
@@ -208,7 +208,7 @@ internal class CartService : ICartService
                 guestCart.SessionId = null;
                 guestCart.UpdatedAt = DateTime.UtcNow;
 
-                await _unitOfWork.Carts.UpdateAsync(guestCart);
+                 _unitOfWork.Carts.Update(guestCart);
                 await _unitOfWork.SaveChangesAsync();
 
                 _logger.LogInformation(
@@ -231,18 +231,18 @@ internal class CartService : ICartService
                     // Aggiorna quantità
                     existingItem.Quantity += guestItem.Quantity;
                     existingItem.UpdatedAt = DateTime.UtcNow;
-                    await _unitOfWork.CartItems.UpdateAsync(existingItem);
+                     _unitOfWork.CartItems.Update(existingItem);
                 }
                 else
                 {
                     // Sposta item a user cart
                     guestItem.CartId = userCart.Id;
-                    await _unitOfWork.CartItems.UpdateAsync(guestItem);
+                     _unitOfWork.CartItems.Update(guestItem);
                 }
             }
 
             // Elimina carrello guest
-            await _unitOfWork.Carts.DeleteAsync(guestCart.Id);
+             _unitOfWork.Carts.Delete(guestCart);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation(
@@ -284,7 +284,7 @@ internal class CartService : ICartService
             var userId = cartItem.Cart.UserId;
             var sessionId = cartItem.Cart.SessionId;
 
-            await _unitOfWork.CartItems.DeleteAsync(cartItem.Id);
+            _unitOfWork.CartItems.Update(cartItem);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Cart item {CartItemId} removed", cartItemId);
@@ -361,7 +361,7 @@ internal class CartService : ICartService
             cartItem.Quantity = dto.Quantity;
             cartItem.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.CartItems.UpdateAsync(cartItem);
+             _unitOfWork.CartItems.Update(cartItem);
             await _unitOfWork.SaveChangesAsync();
 
             // Ricarica carrello

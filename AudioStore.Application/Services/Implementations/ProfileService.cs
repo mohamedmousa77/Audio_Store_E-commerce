@@ -22,7 +22,7 @@ public class ProfileService : IProfileService
     public ProfileService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        IPasswordHashe passwordHasher,
+        IPasswordHasher passwordHasher,
         ILogger<ProfileService> logger)
     {
         _unitOfWork = unitOfWork;
@@ -87,7 +87,7 @@ public class ProfileService : IProfileService
             user.PhoneNumber = dto.PhoneNumber;
             user.UpdatedAt = DateTime.UtcNow;
 
-            await _unitOfWork.Users.UpdateAsync(user);
+            _unitOfWork.Users.Update(user);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Profile updated for user {UserId}", userId);
@@ -134,7 +134,7 @@ public class ProfileService : IProfileService
             user.PasswordHash = _passwordHasher.HashPassword(dto.NewPassword);
             user.UpdatedAt = DateTime.UtcNow;
 
-            _unitOfWork.Users.Update(user);
+             _unitOfWork.Users.Update(user);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Password changed for user {UserId}", userId);
@@ -185,7 +185,7 @@ public class ProfileService : IProfileService
                 address.Country = dto.Country;
                 address.UpdatedAt = DateTime.UtcNow;
 
-                await _unitOfWork.Addresses.UpdateAsync(address);
+                 _unitOfWork.Addresses.Update(address);
             }
             else
             {
@@ -210,7 +210,7 @@ public class ProfileService : IProfileService
                 foreach (var addr in user.Addresses.Where(a => a.Id != address.Id))
                 {
                     addr.IsDefault = false;
-                    await _unitOfWork.Addresses.UpdateAsync(addr);
+                    _unitOfWork.Addresses.Update(addr);
                 }
                 address.IsDefault = true;
             }
@@ -269,7 +269,7 @@ public class ProfileService : IProfileService
                     ErrorCode.NotFound);
             }
 
-            await _unitOfWork.Addresses.DeleteAsync(address.Id);
+             _unitOfWork.Addresses.Delete(address);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Address {AddressId} deleted for user {UserId}", addressId, userId);

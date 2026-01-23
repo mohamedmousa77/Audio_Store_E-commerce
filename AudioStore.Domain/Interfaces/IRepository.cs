@@ -1,11 +1,10 @@
-﻿using AudioStore.Common.Result;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace AudioStore.Domain.Interfaces;
 
 public interface IRepository<T> where T : class
 {
-    // Queries
+    // ============ QUERIES ============
     Task<T?> GetByIdAsync(int id);
     Task<IEnumerable<T>> GetAllAsync();
     Task<IEnumerable<T>> FindAsync(
@@ -21,15 +20,15 @@ public interface IRepository<T> where T : class
         Expression<Func<T, bool>>? predicate = null,
         CancellationToken cancellationToken = default);
 
-    // Queries with Includes
+    // ============ QUERYABLE (for complex queries) ============
     IQueryable<T> Query();
     IQueryable<T> QueryNoTracking();
 
-    // Commands
+    // ============ COMMANDS ============
     Task<T> AddAsync(T entity);
     Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
-    Task UpdateAsync(T entity);
+    void Update(T entity);
     void UpdateRange(IEnumerable<T> entities);
-    Task DeleteAsync(int id);
+    void Delete(T entity);
     void DeleteRange(IEnumerable<T> entities);
 }
