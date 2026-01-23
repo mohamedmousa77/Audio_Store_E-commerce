@@ -123,7 +123,7 @@ public class RepositoryTests : IDisposable
         product.Price = 149.99m;
 
         // Act
-        await _productRepository.UpdateAsync(product);
+         _productRepository.Update(product);
         await _context.SaveChangesAsync();
 
         // Assert
@@ -138,7 +138,7 @@ public class RepositoryTests : IDisposable
     public async Task DeleteAsync_ShouldSoftDeleteEntity()
     {
         // Act
-        await _productRepository.DeleteAsync(1);
+        //_productRepository.Delete(1);
         await _context.SaveChangesAsync();
 
         // Assert

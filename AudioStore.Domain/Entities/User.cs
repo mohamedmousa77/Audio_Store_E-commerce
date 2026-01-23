@@ -1,18 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.ObjectPool;
 
 namespace AudioStore.Domain.Entities;
 
-public class User : BaseEntity
+public class User : IdentityUser<int>
 {
 
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string PasswordHash { get; set; } = string.Empty;
-    public string? PhoneNumber { get; set; }
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; } = true;
     public string Role { get; set; } = string.Empty;
+
+    // Le proprieta` di BaseEntity:
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+    public bool IsDeleted { get; set; } = false;
+    public int? CreatedById { get; set; }
+    public int? ModifiedById { get; set; }
 
     // Navigation Properties
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
