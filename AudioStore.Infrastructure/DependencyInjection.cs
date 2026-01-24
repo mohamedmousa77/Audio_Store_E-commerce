@@ -1,5 +1,6 @@
 ﻿using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
+using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Data;
 using AudioStore.Infrastructure.Identity;
 using AudioStore.Infrastructure.Repositories;
@@ -41,6 +42,8 @@ public static class DependencyInjection
         // ✅ Identity Configuration (moved to Identity folder)
         services.AddIdentityConfiguration();
 
+        // ✅ Caching Configuration (Redis or Memory cache)
+        services.AddCaching(configuration);
 
         // Security
         services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -61,5 +64,14 @@ public static class DependencyInjection
 
         return services;
 
+    }
+
+    /// <summary>
+    /// Add cached decorators for services
+    /// Call this AFTER AddApplication() to wrap services with caching
+    /// </summary>
+    public static IServiceCollection AddCachedDecorators(this IServiceCollection services)
+    {
+        return services.AddCachedServices();
     }
 }

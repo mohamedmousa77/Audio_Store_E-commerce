@@ -104,13 +104,17 @@ try
         });
     });
 
-    // ✅ Infrastructure & Application
+    //  Infrastructure & Application
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddApplication(builder.Configuration);
+    
+    //  Cached Decorators
+    builder.Services.AddCachedDecorators();
+
 
     var app = builder.Build();
 
-    // ✅ Initialize Database with Seeding
+    //  Initialize Database with Seeding
     if (app.Environment.IsDevelopment())
     {
     // ============ DATABASE INITIALIZATION ============

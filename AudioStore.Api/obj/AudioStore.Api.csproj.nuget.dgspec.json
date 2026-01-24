@@ -1723,6 +1723,10 @@
               "target": "Package",
               "version": "[10.0.2, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
               "version": "[10.0.2, )"
@@ -1744,6 +1748,14 @@
               "version": "[10.0.2, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[10.0.2, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.10.1, )"
+            },
+            "System.Text.Json": {
               "target": "Package",
               "version": "[10.0.2, )"
             }
