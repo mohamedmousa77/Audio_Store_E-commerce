@@ -1,6 +1,7 @@
 ﻿using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
+using AudioStore.Infrastructure.Identity;
 using AudioStore.Infrastructure.Repositories;
 using AudioStore.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
@@ -36,20 +37,10 @@ public static class DependencyInjection
             }
         });
 
-        // ✅ Identity Configuration
-        services.AddIdentity<User, IdentityRole<int>>(options =>
-        {
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequiredLength = 8;
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.User.RequireUniqueEmail = true;
-        })
-         .AddEntityFrameworkStores<AppDbContext>()
-         .AddDefaultTokenProviders();
+
+        // ✅ Identity Configuration (moved to Identity folder)
+        services.AddIdentityConfiguration();
+
 
         // Security
         services.AddScoped<IPasswordHasher, PasswordHasher>();

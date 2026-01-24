@@ -1,11 +1,12 @@
 ﻿using AudioStore.Domain.Entities;
+using AudioStore.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AudioStore.Infrastructure.Data;
 
-public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
+public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -28,7 +29,7 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
 
         // Personalizza nomi tabelle Identity (opzionale)
         modelBuilder.Entity<User>().ToTable("Users");
-        modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles");
+        modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
         modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
         modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
         modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");

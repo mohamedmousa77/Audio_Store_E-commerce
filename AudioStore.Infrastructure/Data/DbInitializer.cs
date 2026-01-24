@@ -1,4 +1,5 @@
 using AudioStore.Domain.Entities;
+using AudioStore.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,7 @@ public static class DbInitializer
     public static async Task InitializeAsync(
         AppDbContext context,
         UserManager<User> userManager,
-        RoleManager<IdentityRole<int>> roleManager,
+        RoleSeeder roleSeeder,
         ILogger logger)
     {
         try
@@ -21,7 +22,7 @@ public static class DbInitializer
             logger.LogInformation("Starting database seeding...");
 
             // Seed in order of dependencies
-            await SeedRolesAsync(roleManager, logger);
+            await roleSeeder.SeedRolesAsync();
             await SeedAdminUserAsync(userManager, logger);
             await SeedCategoriesAsync(context, logger);
             await SeedProductsAsync(context, logger);
@@ -35,34 +36,7 @@ public static class DbInitializer
         }
     }
 
-    private static async Task SeedRolesAsync(RoleManager<IdentityRole<int>> roleManager, ILogger logger)
-    {
-        string[] roleNames = { "Administrator", "Customer", "Guest" };
 
-        foreach (var roleName in roleNames)
-        {
-            var roleExist = await roleManager.RoleExistsAsync(roleName);
-            if (!roleExist)
-            {
-                var role = new IdentityRole<int> { Name = roleName };
-                var result = await roleManager.CreateAsync(role);
-
-                if (result.Succeeded)
-                {
-                    logger.LogInformation("Role '{RoleName}' created successfully", roleName);
-                }
-                else
-                {
-                    logger.LogWarning("Failed to create role '{RoleName}': {Errors}",
-                        roleName, string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
-            }
-            else
-            {
-                logger.LogInformation("Role '{RoleName}' already exists", roleName);
-            }
-        }
-    }
 
     private static async Task SeedAdminUserAsync(UserManager<User> userManager, ILogger logger)
     {

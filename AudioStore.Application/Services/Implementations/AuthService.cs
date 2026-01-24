@@ -3,6 +3,7 @@ using AudioStore.Application.Services.Interfaces;
 using AudioStore.Common.Constants;
 using AudioStore.Common.Result;
 using AudioStore.Domain.Entities;
+using AudioStore.Domain.Enums;
 using AudioStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -122,8 +123,8 @@ public class AuthService : IAuthService
                 return Result.Failure<LoginResponseDTO>(errors, ErrorCode.ValidationError);
             }
 
-            // Assign default role
-            await _userManager.AddToRoleAsync(user, "Cliente");
+            // Assign default Customer role
+            await _userManager.AddToRoleAsync(user, UserRole.Customer);
 
             // Auto-login after registration
             var loginResponse = await LoginAsync(new LoginRequestDTO

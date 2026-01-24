@@ -113,7 +113,8 @@ try
     // ✅ Initialize Database with Seeding
     if (app.Environment.IsDevelopment())
     {
-        await app.InitializeDatabaseAsync();
+    // ============ DATABASE INITIALIZATION ============
+    await app.Services.InitializeDatabaseAsync();
     }
 
     // Middleware
