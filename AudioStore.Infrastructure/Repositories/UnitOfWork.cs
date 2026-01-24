@@ -12,14 +12,14 @@ public class UnitOfWork : IUnitOfWork
     private IDbContextTransaction? _transaction;
 
     //// Lazy initialization
-    private IRepository<Product>? _products;
-    private IRepository<Category>? _categories;
+    private IProductRepository? _products;    
     private IUserRepository? _users;
     private IOrderRepository? _orders;
     private IDashboardRepository? _boardRepository;
+    private ICartRepository? _carts;
+    private ICartItemsRepository? _cartItems;
+    private IRepository<Category>? _categories;
     private IRepository<OrderItem>? _orderItems;
-    private IRepository<Cart>? _carts;
-    private IRepository<CartItem>? _cartItems;
     private IRepository<Address>? _addresses;
     private IRepository<RefreshToken>? _refreshTokens;
 
@@ -33,13 +33,11 @@ public class UnitOfWork : IUnitOfWork
     public IOrderRepository Orders => _orders ??= new OrderRepository(_context);
     public IRepository<OrderItem> OrderItems => _orderItems ??= new Repository<OrderItem>(_context);
     public IDashboardRepository Dashboard => _boardRepository ??= new DashboardRepository(_context);
-
-    //public IProductRepository Products => _products ??= new ProductRepository(_context);
+    public ICartRepository Carts => _carts ??= new CartRepository(_context);
+    public ICartItemsRepository CartItems => _cartItems ??= new CartItemsRepository(_context);
+    public IProductRepository Products => _products ??= new ProductRepository(_context);
     //public ICategoryRepository Categories => _categories ??= new CategoryRepository(_context);
-    public IRepository<Product> Products => _products ??= new Repository<Product>(_context);
     public IRepository<Category> Categories => _categories ??= new Repository<Category>(_context);
-    public IRepository<Cart> Carts => _carts ??= new Repository<Cart>(_context);
-    public IRepository<CartItem> CartItems => _cartItems ??= new Repository<CartItem>(_context);
     public IRepository<Address> Addresses => _addresses ??= new Repository<Address>(_context);
     public IRepository<RefreshToken> RefreshTokens => _refreshTokens ??= new Repository<RefreshToken>(_context);
 

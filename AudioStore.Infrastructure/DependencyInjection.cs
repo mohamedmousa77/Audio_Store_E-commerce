@@ -15,7 +15,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services, IConfiguration configuration)
     {
-        // ✅ DbContext con SQL Server
+        // DbContext con SQL Server
         services.AddDbContext<AppDbContext>(options =>
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -62,6 +62,11 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IDashboardRepository, DashboardRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+
+
 
         return services;
 

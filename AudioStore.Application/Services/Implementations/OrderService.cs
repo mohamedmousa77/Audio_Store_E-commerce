@@ -8,7 +8,6 @@ using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 
 namespace AudioStore.Application.Services.Implementations;
 
@@ -185,11 +184,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var order = await _unitOfWork.Orders
-                .Query()
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _unitOfWork.Orders.GetOrderWithItemsAsync(orderId);
 
             if (order == null)
             {
@@ -198,7 +193,7 @@ public class OrderService : IOrderService
                     ErrorCode.OrderNotFound);
             }
 
-            var orderDto =  _mapper.Map<OrderDTO>(order);
+            var orderDto = _mapper.Map<OrderDTO>(order);
             return Result.Success(orderDto);
         }
         catch (Exception ex)
@@ -214,11 +209,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var order = await _unitOfWork.Orders
-                .Query()
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .FirstOrDefaultAsync(o => o.OrderNumber == orderNumber);
+            var order = await _unitOfWork.Orders.GetOrderByNumberAsync(orderNumber);
 
             if (order == null)
             {
@@ -243,13 +234,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var orders = await _unitOfWork.Orders
-                .Query()
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .Where(o => o.UserId == userId)
-                .OrderByDescending(o => o.OrderDate)
-                .ToListAsync();
+            var orders = await _unitOfWork.Orders.GetUserOrdersAsync(userId);
 
             var orderDtos = _mapper.Map<IEnumerable<OrderDTO>>(orders);
 
@@ -314,7 +299,7 @@ public class OrderService : IOrderService
                 .Take(filter.PageSize)
                 .ToListAsync();
 
-            var orderDtos = _mapper.Map <List<OrderDTO>> (orders);
+            var orderDtos = _mapper.Map<List<OrderDTO>>(orders);
 
             var result = new PaginatedResult<OrderDTO>
             {
@@ -340,11 +325,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var order = await _unitOfWork.Orders
-                .Query()
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .FirstOrDefaultAsync(o => o.Id == dto.OrderId);
+            var order = await _unitOfWork.Orders.GetOrderById(dto.OrderId);
 
             if (order == null)
             {
@@ -390,11 +371,7 @@ public class OrderService : IOrderService
     {
         try
         {
-            var order = await _unitOfWork.Orders
-                .Query()
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _unitOfWork.Orders.GetOrderById(orderId);
 
             if (order == null)
             {
@@ -434,13 +411,13 @@ public class OrderService : IOrderService
                 var product = item.Product;
                 product.StockQuantity += item.Quantity;
                 product.UpdatedAt = DateTime.UtcNow;
-                 _unitOfWork.Products.Update(product);
+                _unitOfWork.Products.Update(product);
             }
 
             //  Aggiorna stato ordine
             order.Status = OrderStatus.Cancelled;
             order.UpdatedAt = DateTime.UtcNow;
-             _unitOfWork.Orders.Update(order);
+            _unitOfWork.Orders.Update(order);
 
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
@@ -555,46 +532,6 @@ public class OrderService : IOrderService
             _ => false
         };
     }
-
-    //private async Task<OrderDTO> MapOrderToDtoAsync(Order order)
-    //{
-    //    var items = order.OrderItems.Select(oi => new OrderItemDTO
-    //    {
-    //        Id = oi.Id,
-    //        ProductId = oi.ProductId,
-    //        ProductName = oi.Product.Name,
-    //        ProductImage = oi.Product.MainImage,
-    //        Quantity = oi.Quantity,
-    //        UnitPrice = oi.UnitPrice,
-    //        Subtotal = oi.Subtotal
-    //    }).ToList();
-
-    //    return new OrderDTO
-    //    {
-    //        Id = order.Id,
-    //        OrderNumber = order.OrderNumber,
-    //        OrderDate = order.OrderDate,
-    //        UserId = order.UserId,
-    //        OrderStatus = order.Status,
-    //        CustomerFirstName = order.CustomerFirstName,
-    //        CustomerLastName = order.CustomerLastName,
-    //        CustomerEmail = order.CustomerEmail,
-    //        CustomerPhone = order.CustomerPhone,
-    //        ShippingStreet = order.ShippingStreet,
-    //        ShippingCity = order.ShippingCity,
-    //        ShippingPostalCode = order.ShippingPostalCode,
-    //        ShippingCountry = order.ShippingCountry,
-    //        Items = items,
-    //        Subtotal = order.Subtotal,
-    //        ShippingCost = order.ShippingCost,
-    //        Tax = order.Tax,
-    //        TotalAmount = order.TotalAmount,
-    //        PaymentMethod = order.PaymentMethod,
-    //        Notes = order.Notes
-    //    };
-    //}
-
-    // Helper class
     private class CustomerInfo
     {
         public string FirstName { get; set; } = string.Empty;

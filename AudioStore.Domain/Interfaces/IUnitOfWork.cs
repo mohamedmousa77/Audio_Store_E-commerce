@@ -8,13 +8,13 @@ public interface IUnitOfWork : IDisposable
     IUserRepository Users { get; }
     IOrderRepository Orders { get; }
     IDashboardRepository Dashboard {  get; }
+    IProductRepository Products { get; }
+    ICartRepository Carts { get; }
+    ICartItemsRepository CartItems { get; }
 
     //Generic Repositories
-    IRepository<Product> Products { get; }
     IRepository<Category> Categories { get; }    
     IRepository<OrderItem> OrderItems { get; }
-    IRepository<Cart> Carts { get; }
-    IRepository<CartItem> CartItems { get; }
     IRepository<Address> Addresses { get; }
     IRepository<RefreshToken> RefreshTokens { get; }
 

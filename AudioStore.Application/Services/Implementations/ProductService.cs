@@ -17,7 +17,7 @@ public class ProductService : IProductService
     private readonly ILogger<ProductService> _logger;
 
     public ProductService(
-        IUnitOfWork unitOfWork, 
+        IUnitOfWork unitOfWork,
         IMapper mapper,
         ILogger<ProductService> logger)
     {
@@ -30,10 +30,7 @@ public class ProductService : IProductService
     {
         try
         {
-            var product = await _unitOfWork.Products
-                .Query()
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _unitOfWork.Products.GetProductById(id);
             if (product == null)
             {
                 _logger.LogWarning("Product {ProductId} not found", id);
@@ -43,7 +40,8 @@ public class ProductService : IProductService
             var productDto = _mapper.Map<ProductDTO>(product);
             return Result.Success(productDto);
         }
-        catch (Exception ex) { 
+        catch (Exception ex)
+        {
             _logger.LogError(ex, "Error getting product {ProductId}", id);
             return Result.Failure<ProductDTO>("Error getting the product",
                     ErrorCode.InternalServerError);
@@ -63,7 +61,7 @@ public class ProductService : IProductService
             if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
             {
                 var searchTerm = filter.SearchTerm.Trim().ToLower();
-                query = query.Where(p => 
+                query = query.Where(p =>
                 p.Name.ToLower().Trim().Contains(searchTerm) ||
                 p.Brand.ToLower().Trim().Contains(searchTerm) ||
                 p.Description.ToLower().Trim().Contains(searchTerm));
@@ -130,13 +128,7 @@ public class ProductService : IProductService
     {
         try
         {
-            var products = await _unitOfWork.Products
-                .Query()
-                .Include(p => p.Category)
-                .Where(p => p.IsFeatured && p.IsAvailable)
-                .OrderByDescending(p => p.CreatedAt)
-                .Take(count)
-                .ToListAsync();
+            var products = await _unitOfWork.Products.GetFeaturedProducts(count);
 
             var productDtos = _mapper.Map<IEnumerable<ProductDTO>>(products);
             return Result.Success(productDtos);
@@ -155,12 +147,7 @@ public class ProductService : IProductService
     {
         try
         {
-            var products = await _unitOfWork.Products
-                .Query()
-                .Include(p => p.Category)
-                .Where(p => categoryId == p.CategoryId)
-                .OrderBy(p => p.Name)
-                .ToListAsync();
+            var products = await _unitOfWork.Products.GetProductsByCategory(categoryId);
 
             var productdtos = _mapper.Map<IEnumerable<ProductDTO>>(products);
 
@@ -183,15 +170,7 @@ public class ProductService : IProductService
                 return Result.Success(Enumerable.Empty<ProductDTO>());
 
             var searchLowercase = searchTerm.ToLower().Trim();
-            var products = await _unitOfWork.Products
-                .Query()
-                .Include(p => p.Category)
-                .Where(p =>
-                    p.Name.ToLower().Contains(searchLowercase) ||
-                    p.Brand.ToLower().Contains(searchLowercase) ||
-                    p.Description.ToLower().Contains(searchLowercase))
-                .Take(20)
-                .ToListAsync();
+            var products = await _unitOfWork.Products.GetAllFilteredProducts(searchLowercase);
 
             var productDtos = _mapper.Map<IEnumerable<ProductDTO>>(products);
             return Result.Success(productDtos);
@@ -209,14 +188,14 @@ public class ProductService : IProductService
     {
         try
         {
-            var brands = await _unitOfWork.Products
-                .QueryNoTracking()
-                .Select(p => p.Brand)
-                .Distinct()
-                .OrderBy(b => b)
-                .ToListAsync();
+            var brands = await _unitOfWork.Products.GetAllBrands();
+            if (brands == null)
+                return Result.Failure<IEnumerable<string>>("Errore carica i brands", ErrorCode.BadRequest);
+
 
             return Result.Success(brands.AsEnumerable());
+
+
         }
         catch (Exception ex)
         {
@@ -258,12 +237,9 @@ public class ProductService : IProductService
     {
         try
         {
-            var product = await _unitOfWork.Products
-                .Query()
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(p => p.Id == dto.Id);
+            var product = await _unitOfWork.Products.GetProductById(dto.Id);
 
-            if(product == null)
+            if (product == null)
             {
                 return Result.Failure<ProductDTO>(
                     "Prodotto non trovato",
@@ -273,7 +249,7 @@ public class ProductService : IProductService
             _mapper.Map(dto, product);
             product.UpdatedAt = DateTime.UtcNow;
 
-             _unitOfWork.Products.Update(product);
+            _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Product {ProductId} updated successfully", product.Id);
@@ -296,7 +272,7 @@ public class ProductService : IProductService
         try
         {
             var product = await _unitOfWork.Products.GetByIdAsync(id);
-            if(product == null)
+            if (product == null)
             {
                 return Result.Failure(
                     "Prodotto non trovato",
@@ -307,7 +283,7 @@ public class ProductService : IProductService
             product.IsDeleted = true;
             product.UpdatedAt = DateTime.UtcNow;
 
-             _unitOfWork.Products.Update(product);
+            _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Product {ProductId} deleted successfully", id);
@@ -327,11 +303,11 @@ public class ProductService : IProductService
         try
         {
             var product = await _unitOfWork.Products.GetByIdAsync(id);
-            if(product == null)            
+            if (product == null)
                 return Result.Failure("Prodotto non trovato", ErrorCode.ProductNotFound);
 
-            if(quantity < 0)            
-                return Result.Failure("Quantità non valida",ErrorCode.InvalidQuantity);
+            if (quantity < 0)
+                return Result.Failure("Quantità non valida", ErrorCode.InvalidQuantity);
 
             product.StockQuantity = quantity;
             product.UpdatedAt = DateTime.UtcNow;

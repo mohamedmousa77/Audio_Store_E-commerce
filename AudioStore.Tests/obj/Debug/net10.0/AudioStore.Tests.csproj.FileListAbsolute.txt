@@ -1,11 +1,4 @@
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\.msCoverageSourceRootsMapping_AudioStore.Tests
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.csproj.AssemblyReference.cache
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\MvcTestingAppManifest.json
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.AssemblyInfoInputs.cache
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.AssemblyInfo.cs
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.csproj.CoreCompileInputs.cache
-C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.sourcelink.json
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\testhost.dll
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\xunit.abstractions.dll
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\testhost.exe
@@ -465,6 +458,13 @@ C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\Audio
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\AudioStore.Infrastructure.pdb
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\AudioStore.Domain.pdb
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\bin\Debug\net10.0\AudioStore.Common.pdb
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.csproj.AssemblyReference.cache
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\MvcTestingAppManifest.json
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.AssemblyInfoInputs.cache
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.AssemblyInfo.cs
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.csproj.CoreCompileInputs.cache
+C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.sourcelink.json
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioSto.35821F31.Up2Date
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\AudioStore.Tests.dll
 C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Tests\obj\Debug\net10.0\refint\AudioStore.Tests.dll

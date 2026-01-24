@@ -39,19 +39,11 @@ internal class CartService : ICartService
 
             if (userId.HasValue)
             {
-                cart = await _unitOfWork.Carts
-                    .Query()
-                    .Include(c => c.CartItems)
-                    .ThenInclude(i => i.Product)
-                    .FirstOrDefaultAsync(c => c.UserId == userId.Value);
+                cart = await _unitOfWork.Carts.GetCartByUserId(userId.Value);
             }
             else if (!string.IsNullOrEmpty(sessionId))
             {
-                cart = await _unitOfWork.Carts
-                    .Query()
-                    .Include(c => c.CartItems)
-                    .ThenInclude(i => i.Product)
-                    .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+                cart = await _unitOfWork.Carts.GetCartBySessionId(sessionId);
             }
 
             if (cart == null)
@@ -94,39 +86,33 @@ internal class CartService : ICartService
                     ErrorCode.BadRequest);
             }
 
-            var cartResult = await GetOrCreateCartAsync(dto.UserId, dto.SessionId);
-            if (cartResult.IsFailure)
-                return cartResult;
-
             var cart = await GetCartEntityAsync(dto.UserId, dto.SessionId);
             if (cart == null)
             {
                 return Result.Failure<CartDTO>(
-                    "Errore recupero carrello",
-                    ErrorCode.CartNotFound);
+                    "Errore recupero carrello", ErrorCode.CartNotFound);
             }
             // Verifica prodotto
             var product = await _unitOfWork.Products.GetByIdAsync(dto.ProductId);
             if (product == null)
             {
                 return Result.Failure<CartDTO>(
-                    "Prodotto non trovato",
-                    ErrorCode.ProductNotFound);
+                    "Prodotto non trovato", ErrorCode.ProductNotFound);
             }
 
             if (!product.IsAvailable)
             {
                 return Result.Failure<CartDTO>(
-                    "Prodotto non disponibile",
-                    ErrorCode.ProductNotAvailable);
+                    "Prodotto non disponibile", ErrorCode.ProductNotAvailable);
             }
 
-            // Verifica stock
+            // Verifica item in carrello or not.
             var existingItem = cart.CartItems.FirstOrDefault(i => i.ProductId == dto.ProductId);
             var totalQuantity = existingItem != null
                 ? existingItem.Quantity + dto.Quantity
                 : dto.Quantity;
 
+            // verifica stock
             if (product.StockQuantity < totalQuantity)
             {
                 return Result.Failure<CartDTO>(
@@ -177,90 +163,167 @@ internal class CartService : ICartService
         }
 
     }    
-
     public async Task<Result<CartDTO>> MergeGuestCartToUserAsync(string sessionId, int userId)
     {
         try
         {
-            // Trova carrello guest
-            var guestCart = await _unitOfWork.Carts
-                .Query()
-                .Include(c => c.CartItems)
-                .ThenInclude(i => i.Product)
-                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+            // ============ STEP 1: VALIDAZIONE INPUT ============
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                return Result.Failure<CartDTO>(
+                    "SessionId richiesto", 
+                    ErrorCode.BadRequest);
+            }
 
+            if (userId <= 0)
+            {
+                return Result.Failure<CartDTO>(
+                    "UserId non valido", 
+                    ErrorCode.BadRequest);
+            }
+
+            // Inizia transazione
+            await _unitOfWork.BeginTransactionAsync();
+
+            // ============ STEP 2: CARICA CARRELLI CON INCLUDES ============
+            // Carica guest cart con items e products in una query
+            var guestCart = await _unitOfWork.Carts.GetCartBySessionId(sessionId);
+
+            // Se non c'è guest cart o è vuoto, ritorna il cart dell'utente
             if (guestCart == null || !guestCart.CartItems.Any())
             {
-                // Nessun carrello guest da mergeare
+                _logger.LogInformation(
+                    "No guest cart to merge for SessionId: {SessionId}", 
+                    sessionId);
+                
+                await _unitOfWork.CommitTransactionAsync();
                 return await GetOrCreateCartAsync(userId, null);
             }
 
-            // Trova o crea carrello utente
-            var userCart = await _unitOfWork.Carts
-                .Query()
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.UserId == userId);
+            // Carica user cart con items in una query
+            var userCart = await _unitOfWork.Carts.GetCartByUserId(userId);
 
+            // ============ STEP 3: SCENARIO 1 - USER NON HA CART ============
             if (userCart == null)
             {
-                // Converte carrello guest in carrello utente
+                // Converti semplicemente il guest cart in user cart
                 guestCart.UserId = userId;
                 guestCart.SessionId = null;
                 guestCart.UpdatedAt = DateTime.UtcNow;
 
-                 _unitOfWork.Carts.Update(guestCart);
+                _unitOfWork.Carts.Update(guestCart);
                 await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
 
                 _logger.LogInformation(
                     "Guest cart converted to user cart (SessionId: {SessionId}, UserId: {UserId})",
-                    sessionId,
-                    userId);
+                    sessionId, userId);
 
-                var cartDto = _mapper.Map<CartDTO>(guestCart);
-                return Result.Success(cartDto);
+                var convertedCartDto = _mapper.Map<CartDTO>(guestCart);
+                return Result.Success(convertedCartDto);
             }
 
-            // Merge items da guest cart a user cart
+            // ============ STEP 4: SCENARIO 2 - MERGE DUE CARRELLI ============
+            
+            // Prepara liste per batch operations
+            var itemsToUpdate = new List<CartItem>();
+            var stockValidationErrors = new List<string>();
+
             foreach (var guestItem in guestCart.CartItems)
             {
-                var existingItem = userCart.CartItems
-                    .FirstOrDefault(i => i.ProductId == guestItem.ProductId);
+                var existingUserItem = userCart.CartItems
+                    .FirstOrDefault(ui => ui.ProductId == guestItem.ProductId);
 
-                if (existingItem != null)
+                if (existingUserItem != null)
                 {
-                    // Aggiorna quantità
-                    existingItem.Quantity += guestItem.Quantity;
-                    existingItem.UpdatedAt = DateTime.UtcNow;
-                     _unitOfWork.CartItems.Update(existingItem);
+                    // ============ MERGE: Somma quantità ============
+                    var newQuantity = existingUserItem.Quantity + guestItem.Quantity;
+
+                    // Validazione stock
+                    if (guestItem.Product.StockQuantity < newQuantity)
+                    {
+                        stockValidationErrors.Add(
+                            $"{guestItem.Product.Name}: richiesti {newQuantity}, disponibili {guestItem.Product.StockQuantity}");
+                        
+                        // Usa la quantità massima disponibile
+                        newQuantity = guestItem.Product.StockQuantity;
+                    }
+
+                    existingUserItem.Quantity = newQuantity;
+                    existingUserItem.UnitPrice = guestItem.UnitPrice; // Aggiorna prezzo se cambiato
+                    existingUserItem.UpdatedAt = DateTime.UtcNow;
+                    
+                    itemsToUpdate.Add(existingUserItem);
                 }
                 else
                 {
-                    // Sposta item a user cart
+                    // ============ NUOVO ITEM: Sposta a user cart ============
+                    
+                    // Validazione stock
+                    if (guestItem.Product.StockQuantity < guestItem.Quantity)
+                    {
+                        stockValidationErrors.Add(
+                            $"{guestItem.Product.Name}: richiesti {guestItem.Quantity}, disponibili {guestItem.Product.StockQuantity}");
+                        
+                        guestItem.Quantity = guestItem.Product.StockQuantity;
+                    }
+
                     guestItem.CartId = userCart.Id;
-                     _unitOfWork.CartItems.Update(guestItem);
+                    guestItem.UpdatedAt = DateTime.UtcNow;
+                    
+                    itemsToUpdate.Add(guestItem);
                 }
             }
 
-            // Elimina carrello guest
-             _unitOfWork.Carts.Delete(guestCart);
+            // ============ STEP 5: BATCH UPDATE ============
+            if (itemsToUpdate.Any())
+            {
+                _unitOfWork.CartItems.UpdateRange(itemsToUpdate);
+            }
+
+            // ============ STEP 6: ELIMINA GUEST CART ============
+            _unitOfWork.Carts.Delete(guestCart);
+            
+            // ============ STEP 7: SALVA TUTTO IN UNA TRANSAZIONE ============
             await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
 
             _logger.LogInformation(
-                "Guest cart merged to user cart (SessionId: {SessionId}, UserId: {UserId})",
-                sessionId,
-                userId);
+                "Guest cart merged to user cart - SessionId: {SessionId}, UserId: {UserId}, Items merged: {ItemCount}",
+                sessionId, userId, guestCart.CartItems.Count);
 
-            // Ricarica carrello utente aggiornato
-            userCart = await GetCartEntityAsync(userId, null);
-            var userCartDto = _mapper.Map<CartDTO>(userCart!);
+            // Log warning se ci sono stati problemi di stock
+            if (stockValidationErrors.Any())
+            {
+                _logger.LogWarning(
+                    "Stock validation issues during merge: {Errors}",
+                    string.Join("; ", stockValidationErrors));
+            }
 
-            return Result.Success(userCartDto);
+            // ============ STEP 8: RICARICA USER CART AGGIORNATO ============
+            var finalUserCart = await _unitOfWork.Carts.GetCartByUserId(userId);
+
+            var resultDto = _mapper.Map<CartDTO>(finalUserCart!);
+
+            // Aggiungi warnings se necessario
+            if (stockValidationErrors.Any())
+            {
+                // Nota: Potresti voler estendere Result per supportare warnings
+                _logger.LogInformation("Merge completed with stock warnings");
+            }
+
+            return Result.Success(resultDto);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error merging guest cart to user cart");
+            await _unitOfWork.RollbackTransactionAsync();
+            
+            _logger.LogError(ex, 
+                "Error merging guest cart to user cart - SessionId: {SessionId}, UserId: {UserId}",
+                sessionId, userId);
+            
             return Result.Failure<CartDTO>(
-                "Errore merge carrello",
+                "Errore durante l'unione del carrello",
                 ErrorCode.InternalServerError);
         }
     }
@@ -269,10 +332,7 @@ internal class CartService : ICartService
     {
         try
         {
-            var cartItem = await _unitOfWork.CartItems
-                .Query()
-                .Include(ci => ci.Cart)
-                .FirstOrDefaultAsync(ci => ci.Id == cartItemId);
+            var cartItem = await _unitOfWork.CartItems.GetCartItemWithCart(cartItemId);
 
             if (cartItem == null)
             {
@@ -336,13 +396,9 @@ internal class CartService : ICartService
     {
         try
         {
-            var cartItem = await _unitOfWork.CartItems
-                .Query()
-                .Include(ci => ci.CartId)
-                .Include(ci => ci.Product)
-                .FirstOrDefaultAsync(ci => ci.Id == dto.CartItemId);
+            var cartItem = await _unitOfWork.CartItems.GetCartItemWithProducts(dto.CartItemId);
 
-            if(cartItem == null)
+            if (cartItem == null)
             {
                 return Result.Failure<CartDTO>("Elemento carrello non trovato",
                     ErrorCode.NotFound);
@@ -388,20 +444,12 @@ internal class CartService : ICartService
     {
         if (userId.HasValue)
         {
-            return await _unitOfWork.Carts
-                .Query()
-                .Include(c => c.CartItems)
-                .ThenInclude(i => i.Product)
-                .FirstOrDefaultAsync(c => c.UserId == userId.Value);
+            return await _unitOfWork.Carts.GetCartByUserId(userId.Value);
         }
 
         if (!string.IsNullOrEmpty(sessionId))
         {
-            return await _unitOfWork.Carts
-                .Query()
-                .Include(c => c.CartItems)
-                .ThenInclude(i => i.Product)
-                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+            return await _unitOfWork.Carts.GetCartBySessionId(sessionId);
         }
 
         return null;

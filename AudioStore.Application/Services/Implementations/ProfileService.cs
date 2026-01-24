@@ -134,7 +134,7 @@ public class ProfileService : IProfileService
             user.PasswordHash = _passwordHasher.HashPassword(dto.NewPassword);
             user.UpdatedAt = DateTime.UtcNow;
 
-             _unitOfWork.Users.Update(user);
+            _unitOfWork.Users.Update(user);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Password changed for user {UserId}", userId);
@@ -185,7 +185,7 @@ public class ProfileService : IProfileService
                 address.Country = dto.Country;
                 address.UpdatedAt = DateTime.UtcNow;
 
-                 _unitOfWork.Addresses.Update(address);
+                _unitOfWork.Addresses.Update(address);
             }
             else
             {
@@ -235,12 +235,13 @@ public class ProfileService : IProfileService
     {
         try
         {
-            var addresses = await _unitOfWork.Addresses
-                .Query()
-                .Where(a => a.UserId == userId)
-                .OrderByDescending(a => a.IsDefault)
-                .ThenByDescending(a => a.CreatedAt)
-                .ToListAsync();
+            var addresses = await _unitOfWork.Users.GetUserWithAddressesAsync(userId);
+                //await _unitOfWork.Addresses
+                //.Query()
+                //.Where(a => a.UserId == userId)
+                //.OrderByDescending(a => a.IsDefault)
+                //.ThenByDescending(a => a.CreatedAt)
+                //.ToListAsync();
 
             var addressDtos = _mapper.Map<IEnumerable<AddressDTO>>(addresses);
             return Result.Success(addressDtos);
@@ -269,7 +270,7 @@ public class ProfileService : IProfileService
                     ErrorCode.NotFound);
             }
 
-             _unitOfWork.Addresses.Delete(address);
+            _unitOfWork.Addresses.Delete(address);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Address {AddressId} deleted for user {UserId}", addressId, userId);
@@ -290,12 +291,6 @@ public class ProfileService : IProfileService
         try
         {
             var orders = await _unitOfWork.Orders.GetUserOrdersAsync(userId);
-                //.Query()
-                //.Include(o => o.OrderItems)
-                //.ThenInclude(oi => oi.Product)
-                //.Where(o => o.UserId == userId)
-                //.OrderByDescending(o => o.OrderDate)
-                //.ToListAsync();
 
             var orderDtos = _mapper.Map<IEnumerable<OrderDTO>>(orders);
             return Result.Success(orderDtos);
