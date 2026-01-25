@@ -1,4 +1,4 @@
-﻿using AudioStore.Application.DTOs.Auth;
+﻿using AudioStore.Common.DTOs.Auth;
 using FluentValidation;
 
 namespace AudioStore.Application.Validators.Auth;

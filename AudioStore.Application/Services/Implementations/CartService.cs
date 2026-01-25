@@ -1,7 +1,7 @@
-﻿using AudioStore.Application.DTOs.Cart;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Cart;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
@@ -80,7 +80,7 @@ internal class CartService : ICartService
     {
         try
         {
-            if(dto.UserId == null && string.IsNullOrWhiteSpace(dto.SessionId))
+            if (dto.UserId == null && string.IsNullOrWhiteSpace(dto.SessionId))
             {
                 return Result.Failure<CartDTO>("Devi fornire UserId o SessionId",
                     ErrorCode.BadRequest);
@@ -125,7 +125,7 @@ internal class CartService : ICartService
             {
                 existingItem.Quantity = totalQuantity;
                 existingItem.UpdatedAt = DateTime.UtcNow;
-                 _unitOfWork.CartItems.Update(existingItem);
+                _unitOfWork.CartItems.Update(existingItem);
             }
             else
             {
@@ -162,7 +162,7 @@ internal class CartService : ICartService
                 ErrorCode.InternalServerError);
         }
 
-    }    
+    }
     public async Task<Result<CartDTO>> MergeGuestCartToUserAsync(string sessionId, int userId)
     {
         try
@@ -171,14 +171,14 @@ internal class CartService : ICartService
             if (string.IsNullOrWhiteSpace(sessionId))
             {
                 return Result.Failure<CartDTO>(
-                    "SessionId richiesto", 
+                    "SessionId richiesto",
                     ErrorCode.BadRequest);
             }
 
             if (userId <= 0)
             {
                 return Result.Failure<CartDTO>(
-                    "UserId non valido", 
+                    "UserId non valido",
                     ErrorCode.BadRequest);
             }
 
@@ -193,9 +193,9 @@ internal class CartService : ICartService
             if (guestCart == null || !guestCart.CartItems.Any())
             {
                 _logger.LogInformation(
-                    "No guest cart to merge for SessionId: {SessionId}", 
+                    "No guest cart to merge for SessionId: {SessionId}",
                     sessionId);
-                
+
                 await _unitOfWork.CommitTransactionAsync();
                 return await GetOrCreateCartAsync(userId, null);
             }
@@ -224,7 +224,7 @@ internal class CartService : ICartService
             }
 
             // ============ STEP 4: SCENARIO 2 - MERGE DUE CARRELLI ============
-            
+
             // Prepara liste per batch operations
             var itemsToUpdate = new List<CartItem>();
             var stockValidationErrors = new List<string>();
@@ -244,7 +244,7 @@ internal class CartService : ICartService
                     {
                         stockValidationErrors.Add(
                             $"{guestItem.Product.Name}: richiesti {newQuantity}, disponibili {guestItem.Product.StockQuantity}");
-                        
+
                         // Usa la quantità massima disponibile
                         newQuantity = guestItem.Product.StockQuantity;
                     }
@@ -252,25 +252,25 @@ internal class CartService : ICartService
                     existingUserItem.Quantity = newQuantity;
                     existingUserItem.UnitPrice = guestItem.UnitPrice; // Aggiorna prezzo se cambiato
                     existingUserItem.UpdatedAt = DateTime.UtcNow;
-                    
+
                     itemsToUpdate.Add(existingUserItem);
                 }
                 else
                 {
                     // ============ NUOVO ITEM: Sposta a user cart ============
-                    
+
                     // Validazione stock
                     if (guestItem.Product.StockQuantity < guestItem.Quantity)
                     {
                         stockValidationErrors.Add(
                             $"{guestItem.Product.Name}: richiesti {guestItem.Quantity}, disponibili {guestItem.Product.StockQuantity}");
-                        
+
                         guestItem.Quantity = guestItem.Product.StockQuantity;
                     }
 
                     guestItem.CartId = userCart.Id;
                     guestItem.UpdatedAt = DateTime.UtcNow;
-                    
+
                     itemsToUpdate.Add(guestItem);
                 }
             }
@@ -283,7 +283,7 @@ internal class CartService : ICartService
 
             // ============ STEP 6: ELIMINA GUEST CART ============
             _unitOfWork.Carts.Delete(guestCart);
-            
+
             // ============ STEP 7: SALVA TUTTO IN UNA TRANSAZIONE ============
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
@@ -317,11 +317,11 @@ internal class CartService : ICartService
         catch (Exception ex)
         {
             await _unitOfWork.RollbackTransactionAsync();
-            
-            _logger.LogError(ex, 
+
+            _logger.LogError(ex,
                 "Error merging guest cart to user cart - SessionId: {SessionId}, UserId: {UserId}",
                 sessionId, userId);
-            
+
             return Result.Failure<CartDTO>(
                 "Errore durante l'unione del carrello",
                 ErrorCode.InternalServerError);
@@ -417,7 +417,7 @@ internal class CartService : ICartService
             cartItem.Quantity = dto.Quantity;
             cartItem.UpdatedAt = DateTime.UtcNow;
 
-             _unitOfWork.CartItems.Update(cartItem);
+            _unitOfWork.CartItems.Update(cartItem);
             await _unitOfWork.SaveChangesAsync();
 
             // Ricarica carrello

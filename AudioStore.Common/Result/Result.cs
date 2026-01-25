@@ -1,4 +1,4 @@
-﻿namespace AudioStore.Common.Result;
+﻿namespace AudioStore.Common;
 
 /// <summary>
 /// Represents the result of an operation without a return value

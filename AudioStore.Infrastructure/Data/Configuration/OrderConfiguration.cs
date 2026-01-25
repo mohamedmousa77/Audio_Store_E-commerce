@@ -1,5 +1,5 @@
-﻿using AudioStore.Domain.Entities;
-using AudioStore.Domain.Enums;
+﻿using AudioStore.Common.Enums;
+using AudioStore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

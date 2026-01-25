@@ -1,4 +1,4 @@
-using AudioStore.Common.Result;
+using AudioStore.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AudioStore.Api.Extensions;

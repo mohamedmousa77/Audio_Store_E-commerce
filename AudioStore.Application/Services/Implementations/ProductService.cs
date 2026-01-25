@@ -1,7 +1,7 @@
-﻿using AudioStore.Application.DTOs.Products;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Products;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;

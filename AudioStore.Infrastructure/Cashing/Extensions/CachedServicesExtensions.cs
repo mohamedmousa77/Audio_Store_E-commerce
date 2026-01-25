@@ -1,10 +1,8 @@
-using AudioStore.Application.Services.Implementations;
-using AudioStore.Application.Services.Interfaces;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Infrastructure.Cashing.Configuration;
 using AudioStore.Infrastructure.Cashing.Decorators;
 using AudioStore.Infrastructure.Cashing.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace AudioStore.Infrastructure.Cashing.Extensions;
@@ -63,7 +61,7 @@ public static class ServiceCollectionDecoratorExtensions
     {
         // Find the service descriptor
         var descriptor = services.FirstOrDefault(d => d.ServiceType == typeof(TInterface));
-        
+
         if (descriptor == null)
         {
             throw new InvalidOperationException(
@@ -80,7 +78,7 @@ public static class ServiceCollectionDecoratorExtensions
             {
                 // Get the original service
                 TInterface inner;
-                
+
                 if (descriptor.ImplementationInstance != null)
                 {
                     inner = (TInterface)descriptor.ImplementationInstance;

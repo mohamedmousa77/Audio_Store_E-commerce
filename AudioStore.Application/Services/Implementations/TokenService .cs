@@ -1,8 +1,8 @@
-﻿using AudioStore.Application.DTOs.Auth;
-using AudioStore.Application.Services.Implementations;
+﻿using AudioStore.Common;
+using AudioStore.Common.Configuration;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
-using AudioStore.Domain;
+using AudioStore.Common.DTOs.Auth;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +15,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AudioStore.Application;
+namespace AudioStore.Application.Services.Implementations;
 
 public class TokenService : ITokenService
 {
@@ -32,17 +32,31 @@ public class TokenService : ITokenService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<string> GenerateAccessTokenAsync(User user)
+    public async Task<string> GenerateAccessTokenAsync
+        (int userId,
+        string email,
+        string firstName,
+        string lastName,
+        string role)
     {
+        var user = new User
+        {
+            Id = userId,
+            FirstName = firstName,
+            LastName = lastName,
+            Role = role,
+            Email = email,
+
+        };
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Email, user.Email!),
+            new(JwtRegisteredClaimNames.Sub, userId.ToString()),
+            new(JwtRegisteredClaimNames.Email, email!),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(ClaimTypes.Name, user.FullName!),
-            new("FirstName", user.FirstName),
-            new("LastName", user.LastName)
+            new(ClaimTypes.NameIdentifier, userId.ToString()),
+            new(ClaimTypes.Name, user.FullName),
+            new("FirstName", firstName),
+            new("LastName", lastName)
         };
 
         // Add roles
@@ -122,7 +136,7 @@ public class TokenService : ITokenService
             }
 
             // 3. Genera nuovo access token
-            var newAccessToken = await GenerateAccessTokenAsync(tokenEntity.User);
+            var newAccessToken = await GenerateAccessTokenAsync(tokenEntity.User.Id, tokenEntity.User.Email!, tokenEntity.User.FirstName, tokenEntity.User.LastName, tokenEntity.User.Role);
 
             // 4. Genera nuovo refresh token (Token Rotation per sicurezza)
             var newRefreshToken = GenerateRefreshToken();

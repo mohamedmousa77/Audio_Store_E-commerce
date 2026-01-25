@@ -1,9 +1,9 @@
-﻿using AudioStore.Application.DTOs.Orders;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Orders;
+using AudioStore.Common.Enums;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
-using AudioStore.Domain.Enums;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;

@@ -1,12 +1,8 @@
 ﻿using Asp.Versioning;
-using AudioStore.Application;
-using AudioStore.Application.Commands;
-using AudioStore.Application.DTOs.Auth;
-using AudioStore.Application.Services.Interfaces;
-using FluentValidation;
+using AudioStore.Common.DTOs.Auth;
+using AudioStore.Common.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace AudioStore.Api.Controllers;
 

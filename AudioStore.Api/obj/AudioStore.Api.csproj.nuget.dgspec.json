@@ -1673,9 +1673,6 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj": {
-                "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj"
-              },
               "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj": {
                 "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Common\\AudioStore.Common.csproj"
               },

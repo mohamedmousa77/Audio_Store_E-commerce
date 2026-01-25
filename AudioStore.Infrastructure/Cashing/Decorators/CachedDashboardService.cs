@@ -1,6 +1,6 @@
-﻿using AudioStore.Application.DTOs.Admin.Dashboard;
-using AudioStore.Application.Services.Interfaces;
-using AudioStore.Common.Result;
+﻿using AudioStore.Common;
+using AudioStore.Common.DTOs.Admin.Dashboard;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Infrastructure.Cashing.Configuration;
 using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Cashing.Interfaces;

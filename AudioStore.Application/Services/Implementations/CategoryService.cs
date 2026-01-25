@@ -1,12 +1,11 @@
-﻿using AudioStore.Application.DTOs.Category;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Category;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
-using System.Runtime.InteropServices;
 
 namespace AudioStore.Application.Services.Implementations;
 
@@ -82,8 +81,8 @@ public class CategoryService : ICategoryService
         try
         {
             var category = await _unitOfWork.Categories.GetByIdAsync(dto.Id);
-            if(category == null)
-            return Result.Failure<CategoryDTO>("Categoria non trovata", ErrorCode.NotFound);
+            if (category == null)
+                return Result.Failure<CategoryDTO>("Categoria non trovata", ErrorCode.NotFound);
 
             _mapper.Map(dto, category);
             category.UpdatedAt = DateTime.UtcNow;
@@ -123,7 +122,7 @@ public class CategoryService : ICategoryService
                     ErrorCode.BadRequest);
             }
 
-             _unitOfWork.Categories.Delete(category);
+            _unitOfWork.Categories.Delete(category);
             await _unitOfWork.SaveChangesAsync();
 
             return Result.Success();
@@ -136,4 +135,4 @@ public class CategoryService : ICategoryService
                 ErrorCode.InternalServerError);
         }
     }
-}  
+}

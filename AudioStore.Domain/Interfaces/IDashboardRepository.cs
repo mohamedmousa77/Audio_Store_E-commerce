@@ -1,5 +1,5 @@
-﻿using AudioStore.Domain.Entities;
-using AudioStore.Domain.Enums;
+﻿using AudioStore.Common.Enums;
+using AudioStore.Domain.Entities;
 
 namespace AudioStore.Domain.Interfaces;
 

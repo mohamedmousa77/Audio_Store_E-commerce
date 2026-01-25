@@ -1,4 +1,4 @@
-﻿using AudioStore.Domain.Enums;
+﻿using AudioStore.Common.Enums;
 
 namespace AudioStore.Domain.Entities;
 

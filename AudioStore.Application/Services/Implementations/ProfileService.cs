@@ -1,8 +1,8 @@
-﻿using AudioStore.Application.DTOs.Orders;
-using AudioStore.Application.DTOs.Profile;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Orders;
+using AudioStore.Common.DTOs.Profile;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
@@ -236,12 +236,12 @@ public class ProfileService : IProfileService
         try
         {
             var addresses = await _unitOfWork.Users.GetUserWithAddressesAsync(userId);
-                //await _unitOfWork.Addresses
-                //.Query()
-                //.Where(a => a.UserId == userId)
-                //.OrderByDescending(a => a.IsDefault)
-                //.ThenByDescending(a => a.CreatedAt)
-                //.ToListAsync();
+            //await _unitOfWork.Addresses
+            //.Query()
+            //.Where(a => a.UserId == userId)
+            //.OrderByDescending(a => a.IsDefault)
+            //.ThenByDescending(a => a.CreatedAt)
+            //.ToListAsync();
 
             var addressDtos = _mapper.Map<IEnumerable<AddressDTO>>(addresses);
             return Result.Success(addressDtos);

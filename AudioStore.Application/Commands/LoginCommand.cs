@@ -1,5 +1,5 @@
-﻿using AudioStore.Application.DTOs.Auth;
-using AudioStore.Common.Result;
+﻿using AudioStore.Common;
+using AudioStore.Common.DTOs.Auth;
 using MediatR;
 
 namespace AudioStore.Application.Commands;

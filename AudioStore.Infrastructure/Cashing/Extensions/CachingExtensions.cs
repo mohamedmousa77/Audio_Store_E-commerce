@@ -68,12 +68,6 @@ public static class CachingExtensions
 
             // Register Redis cache service
             services.AddSingleton<ICacheService, RedisCacheService>();
-            
-            services.AddLogging(builder =>
-            {
-                builder.AddConsole();
-                builder.AddDebug();
-            });
         }
         else
         {
@@ -86,12 +80,6 @@ public static class CachingExtensions
 
             // Register memory cache service
             services.AddSingleton<ICacheService, MemoryCacheService>();
-            
-            services.AddLogging(builder =>
-            {
-                builder.AddConsole();
-                builder.AddDebug();
-            });
         }
 
         return services;

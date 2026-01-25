@@ -1,15 +1,14 @@
 ﻿using AudioStore.Application.Behaviors;
 using AudioStore.Application.Mapping;
 using AudioStore.Application.Services.Implementations;
-using AudioStore.Application.Services.Interfaces;
-using AudioStore.Domain;
-using AudioStore.Domain.Interfaces;
-using Microsoft.IdentityModel.Tokens;
+using AudioStore.Common.Configuration;
+using AudioStore.Common.Services.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 

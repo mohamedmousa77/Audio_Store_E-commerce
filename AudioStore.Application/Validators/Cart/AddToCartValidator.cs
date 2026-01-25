@@ -1,4 +1,4 @@
-﻿using AudioStore.Application.DTOs.Cart;
+﻿using AudioStore.Common.DTOs.Cart;
 using FluentValidation;
 
 namespace AudioStore.Application.Validators.Cart;

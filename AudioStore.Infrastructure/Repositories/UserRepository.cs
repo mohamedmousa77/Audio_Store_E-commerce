@@ -1,5 +1,5 @@
-﻿using AudioStore.Domain.Entities;
-using AudioStore.Domain.Enums;
+﻿using AudioStore.Common.Constants;
+using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
     }
 
     // ============ BASIC CRUD FROM IRepository<User> ============
-    
+
     public async Task<User?> GetByIdAsync(int id)
     {
         return await _dbSet
@@ -67,7 +67,7 @@ public class UserRepository : IUserRepository
         CancellationToken cancellationToken = default)
     {
         var query = _dbSet.Where(u => u.IsActive && !u.IsDeleted);
-        
+
         return predicate == null
             ? await query.CountAsync(cancellationToken)
             : await query.CountAsync(predicate, cancellationToken);
@@ -93,7 +93,7 @@ public class UserRepository : IUserRepository
         entity.CreatedAt = DateTime.UtcNow;
         entity.IsActive = true;
         entity.IsDeleted = false;
-        
+
         await _dbSet.AddAsync(entity);
         return entity;
     }
@@ -109,7 +109,7 @@ public class UserRepository : IUserRepository
             entity.IsActive = true;
             entity.IsDeleted = false;
         }
-        
+
         await _dbSet.AddRangeAsync(entities, cancellationToken);
     }
 
@@ -149,7 +149,7 @@ public class UserRepository : IUserRepository
     }
 
     // ============ USER-SPECIFIC QUERIES ============
-    
+
     public async Task<User?> GetByEmailAsync(string email)
     {
         return await _dbSet
@@ -165,7 +165,7 @@ public class UserRepository : IUserRepository
     }
 
     // ============ COMPLEX QUERIES WITH INCLUDES ============
-    
+
     public async Task<User?> GetUserWithOrdersAsync(int userId)
     {
         return await _dbSet
@@ -196,7 +196,7 @@ public class UserRepository : IUserRepository
     }
 
     // ============ CUSTOMER MANAGEMENT QUERIES ============
-    
+
     public async Task<IEnumerable<User>> GetCustomersWithOrdersAsync()
     {
         return await _dbSet

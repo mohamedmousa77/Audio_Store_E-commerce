@@ -1,14 +1,14 @@
-﻿using AudioStore.Application.DTOs.Admin.CustomerManagement;
-using AudioStore.Application.DTOs.Admin.Dashboard;
-using AudioStore.Application.DTOs.Auth;
-using AudioStore.Application.DTOs.Cart;
-using AudioStore.Application.DTOs.Orders;
-using AudioStore.Application.DTOs.Products;
-using AudioStore.Application.DTOs.Profile;
+﻿using AudioStore.Common.DTOs.Admin.CustomerManagement;
+using AudioStore.Common.DTOs.Admin.Dashboard;
+using AudioStore.Common.DTOs.Auth;
+using AudioStore.Common.DTOs.Cart;
+using AudioStore.Common.DTOs.Orders;
+using AudioStore.Common.DTOs.Products;
+using AudioStore.Common.DTOs.Profile;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
-using CategoryDTO = AudioStore.Application.DTOs.Category.CategoryDTO;
+using CategoryDTO = AudioStore.Common.DTOs.Category.CategoryDTO;
 
 namespace AudioStore.Application.Mapping;
 

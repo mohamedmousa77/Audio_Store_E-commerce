@@ -1,0 +1,7 @@
+﻿namespace AudioStore.Common.DTOs.Auth;
+
+public class RefreshTokenRequestDTO
+{
+    public string RefreshToken { get; init; } = string.Empty;
+
+}

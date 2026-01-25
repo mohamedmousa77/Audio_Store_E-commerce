@@ -1,9 +1,8 @@
-﻿using AudioStore.Application.DTOs.Auth;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Auth;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
-using AudioStore.Domain.Enums;
 using AudioStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +48,8 @@ public class AuthService : IAuthService
                 return Result.Failure<LoginResponseDTO>("Account disattivato", ErrorCode.Unauthorized);
 
             //  Genera access token
-            var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(user);
+            var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(
+                user.Id, user.Email!, user.FirstName, user.LastName, user.Role);
 
             //  Genera e salva refresh token
             var refreshToken = _jwtTokenService.GenerateRefreshToken();

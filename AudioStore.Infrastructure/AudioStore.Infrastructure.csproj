@@ -36,8 +36,7 @@
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" />  
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AudioStore.Application\AudioStore.Application.csproj" />
+  <ItemGroup>	  
     <ProjectReference Include="..\AudioStore.Common\AudioStore.Common.csproj" />
     <ProjectReference Include="..\AudioStore.Domain\AudioStore.Domain.csproj" />
   </ItemGroup>

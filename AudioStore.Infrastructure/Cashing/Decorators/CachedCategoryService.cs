@@ -1,6 +1,6 @@
-﻿using AudioStore.Application.DTOs.Category;
-using AudioStore.Application.Services.Interfaces;
-using AudioStore.Common.Result;
+﻿using AudioStore.Common;
+using AudioStore.Common.DTOs.Category;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Infrastructure.Cashing.Configuration;
 using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Cashing.Interfaces;
@@ -78,7 +78,7 @@ public class CachedCategoryService : ICategoryService
             // Invalidate specific category and all list caches
             await _cache.RemoveAsync(
                 CachingExtensions.GenerateCacheKey(CacheKeys.CategoryById, dto.Id));
-            
+
             await InvalidateCategoryCaches();
             _logger.LogInformation("Category {CategoryId} updated, cache invalidated", dto.Id);
         }
@@ -95,7 +95,7 @@ public class CachedCategoryService : ICategoryService
             // Invalidate specific category and all list caches
             await _cache.RemoveAsync(
                 CachingExtensions.GenerateCacheKey(CacheKeys.CategoryById, id));
-            
+
             await InvalidateCategoryCaches();
             _logger.LogInformation("Category {CategoryId} deleted, cache invalidated", id);
         }

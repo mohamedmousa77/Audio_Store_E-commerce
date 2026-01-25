@@ -1,6 +1,6 @@
-﻿using AudioStore.Application.DTOs.Products;
-using AudioStore.Application.Services.Interfaces;
-using AudioStore.Common.Result;
+﻿using AudioStore.Common;
+using AudioStore.Common.DTOs.Products;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Infrastructure.Cashing.Configuration;
 using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Cashing.Interfaces;
@@ -49,9 +49,9 @@ public class CachedProductService : IProductService
         if (IsDefaultFilter(filter))
         {
             var cacheKey = CachingExtensions.GenerateCacheKey(
-                CacheKeys.Products, 
-                "all", 
-                filter.PageNumber, 
+                CacheKeys.Products,
+                "all",
+                filter.PageNumber,
                 filter.PageSize);
 
             return await _cache.GetOrCreateAsync(
@@ -124,7 +124,7 @@ public class CachedProductService : IProductService
             // Invalidate specific product and all list caches
             await _cache.RemoveAsync(
                 CachingExtensions.GenerateCacheKey(CacheKeys.ProductById, dto.Id));
-            
+
             await InvalidateProductCaches();
             _logger.LogInformation("Product {ProductId} updated, cache invalidated", dto.Id);
         }
@@ -141,7 +141,7 @@ public class CachedProductService : IProductService
             // Invalidate specific product and all list caches
             await _cache.RemoveAsync(
                 CachingExtensions.GenerateCacheKey(CacheKeys.ProductById, id));
-            
+
             await InvalidateProductCaches();
             _logger.LogInformation("Product {ProductId} deleted, cache invalidated", id);
         }
@@ -158,7 +158,7 @@ public class CachedProductService : IProductService
             // Invalidate specific product cache
             await _cache.RemoveAsync(
                 CachingExtensions.GenerateCacheKey(CacheKeys.ProductById, id));
-            
+
             _logger.LogInformation("Product {ProductId} stock updated, cache invalidated", id);
         }
 

@@ -1,8 +1,8 @@
-﻿using AudioStore.Application.DTOs.Admin.CustomerManagement;
-using AudioStore.Application.DTOs.Orders;
-using AudioStore.Application.Services.Interfaces;
+﻿using AudioStore.Common;
 using AudioStore.Common.Constants;
-using AudioStore.Common.Result;
+using AudioStore.Common.DTOs.Admin.CustomerManagement;
+using AudioStore.Common.DTOs.Orders;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -31,15 +31,15 @@ public class CustomerManagementService : ICustomerManagementService
         try
         {
             // Total customers (role = Customer)
-            var totalCustomersTask =  _unitOfWork.Users
+            var totalCustomersTask = _unitOfWork.Users
                 .GetTotalCustomersCountAsync();
 
             // Active customers this month (made at least one order)
-            var activeCustomersTask =  _unitOfWork.Users
+            var activeCustomersTask = _unitOfWork.Users
                 .GetActiveCustomersThisMonthAsync();
 
             // Total orders
-            var totalOrdersTask =  _unitOfWork.Orders
+            var totalOrdersTask = _unitOfWork.Orders
                 .CountAsync();
 
             // Top customer (highest total spent)
@@ -55,7 +55,7 @@ public class CustomerManagementService : ICustomerManagementService
 
             TopCustomerDTO? topCustomer = null;
             if (topCustomerEntity != null)
-            {                
+            {
                 topCustomer = new TopCustomerDTO
                 {
                     UserId = topCustomerEntity.Id,
@@ -64,7 +64,7 @@ public class CustomerManagementService : ICustomerManagementService
                     Email = topCustomerEntity.Email!,
                     TotalSpent = topCustomerEntity.Orders.Sum(o => o.TotalAmount),
                     TotalOrders = topCustomerEntity.Orders.Count
-                };                
+                };
             }
 
             var summary = new CustomerSummaryDTO

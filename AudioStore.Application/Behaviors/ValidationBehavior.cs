@@ -1,4 +1,4 @@
-﻿using AudioStore.Common.Result;
+﻿using AudioStore.Common;
 using FluentValidation;
 using MediatR;
 
