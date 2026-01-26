@@ -24,3 +24,313 @@ System.InvalidOperationException: An error was generated for warning 'Microsoft.
    at AudioStore.Infrastructure.Data.DbInitializer.InitializeAsync(AppDbContext context, UserManager`1 userManager, RoleSeeder roleSeeder, ILogger logger) in C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Infrastructure\Data\DbInitializer.cs:line 20
    at AudioStore.Api.Extensions.DatabaseExtensions.InitializeDatabaseAsync(IServiceProvider serviceProvider) in C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Api\Extensions\DatabaseExtensions.cs:line 23
    at Program.<Main>$(String[] args) in C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Api\Program.cs:line 121
+2026-01-26 03:29:20.654 +01:00 [INF] Starting AudioStore API {"MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.307 +01:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development. {"EventId":{"Id":10400,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.644 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.671 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.727 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.739 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.740 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.750 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.760 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:21.762 +01:00 [INF] Starting database seeding... {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.077 +01:00 [INF] Executed DbCommand (45ms) [Parameters=[@normalizedName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.102 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.282 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='4b48e30b-618f-4f16-805a-9edb591a18c4' (Size = 4000), @p1='2026-01-26T02:29:21.7635376Z', @p2='Administrator with full system access' (Size = 4000), @p3='True', @p4='Administrator' (Size = 256), @p5='ADMINISTRATOR' (Size = 256), @p6=NULL (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Roles] ([ConcurrencyStamp], [CreatedAt], [Description], [IsSystemRole], [Name], [NormalizedName], [UpdatedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.324 +01:00 [INF] Role 'Administrator' created successfully {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.333 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@normalizedName='CUSTOMER' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.336 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedName='CUSTOMER' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.346 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='a934f1a2-02a6-4d10-bc20-26151bbd0746' (Size = 4000), @p1='2026-01-26T02:29:21.7635638Z', @p2='Customer with e-commerce access' (Size = 4000), @p3='True', @p4='Customer' (Size = 256), @p5='CUSTOMER' (Size = 256), @p6=NULL (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Roles] ([ConcurrencyStamp], [CreatedAt], [Description], [IsSystemRole], [Name], [NormalizedName], [UpdatedAt])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.348 +01:00 [INF] Role 'Customer' created successfully {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.390 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@normalizedEmail='ADMIN@AUDIOSTORE.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.666 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedUserName='ADMIN' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedUserName] = @normalizedUserName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.673 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedEmail='ADMIN@AUDIOSTORE.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.756 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='0', @p1='a121d7dd-7a18-4b99-8384-554f45b29f46' (Size = 4000), @p2='2026-01-26T02:29:22.3929337Z', @p3=NULL (DbType = Int32), @p4='admin@audiostore.com' (Size = 256), @p5='True', @p6='System' (Nullable = false) (Size = 100), @p7='False', @p8='Administrator' (Nullable = false) (Size = 100), @p9='True', @p10=NULL (DbType = DateTimeOffset), @p11=NULL (DbType = Int32), @p12='ADMIN@AUDIOSTORE.COM' (Size = 256), @p13='ADMIN' (Size = 256), @p14='AQAAAAIAAYagAAAAEIP1rnKMXKtopgRC3JQoSOk+QUvsnmRyquYhnbo2h3DkWSkk6p7fmDExkBVCzHr6VQ==' (Size = 4000), @p15=NULL (Size = 20), @p16='False', @p17='2026-01-26T02:29:22.3933498Z', @p18='' (Nullable = false) (Size = 4000), @p19='PFID6OGP7AJEPR26LH4ALAPUSLIE3EDA' (Size = 4000), @p20='False', @p21=NULL (DbType = DateTime2), @p22='admin' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([AccessFailedCount], [ConcurrencyStamp], [CreatedAt], [CreatedById], [Email], [EmailConfirmed], [FirstName], [IsDeleted], [LastName], [LockoutEnabled], [LockoutEnd], [ModifiedById], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [RegistrationDate], [Role], [SecurityStamp], [TwoFactorEnabled], [UpdatedAt], [UserName])
+OUTPUT INSERTED.[Id], INSERTED.[IsActive]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.784 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedRoleName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedRoleName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.903 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@p='1', @p1='1'], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UserId], [u].[RoleId]
+FROM [UserRoles] AS [u]
+WHERE [u].[UserId] = @p AND [u].[RoleId] = @p1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.911 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedRoleName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedRoleName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.941 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@normalizedUserName='ADMIN' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedUserName] = @normalizedUserName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.950 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@normalizedEmail='ADMIN@AUDIOSTORE.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.980 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[@p0='1', @p1='1', @p26='1', @p2='0', @p3='9e34de31-d331-4262-902b-cf488c5d3318' (Size = 4000), @p27='a121d7dd-7a18-4b99-8384-554f45b29f46' (Size = 4000), @p4='2026-01-26T02:29:22.3929337Z', @p5=NULL (DbType = Int32), @p6='admin@audiostore.com' (Size = 256), @p7='True', @p8='System' (Nullable = false) (Size = 100), @p9='True', @p10='False', @p11='Administrator' (Nullable = false) (Size = 100), @p12='True', @p13=NULL (DbType = DateTimeOffset), @p14=NULL (DbType = Int32), @p15='ADMIN@AUDIOSTORE.COM' (Size = 256), @p16='ADMIN' (Size = 256), @p17='AQAAAAIAAYagAAAAEIP1rnKMXKtopgRC3JQoSOk+QUvsnmRyquYhnbo2h3DkWSkk6p7fmDExkBVCzHr6VQ==' (Size = 4000), @p18=NULL (Size = 20), @p19='False', @p20='2026-01-26T02:29:22.3933498Z', @p21='' (Nullable = false) (Size = 4000), @p22='PFID6OGP7AJEPR26LH4ALAPUSLIE3EDA' (Size = 4000), @p23='False', @p24=NULL (DbType = DateTime2), @p25='admin' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [UserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [Users] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [CreatedAt] = @p4, [CreatedById] = @p5, [Email] = @p6, [EmailConfirmed] = @p7, [FirstName] = @p8, [IsActive] = @p9, [IsDeleted] = @p10, [LastName] = @p11, [LockoutEnabled] = @p12, [LockoutEnd] = @p13, [ModifiedById] = @p14, [NormalizedEmail] = @p15, [NormalizedUserName] = @p16, [PasswordHash] = @p17, [PhoneNumber] = @p18, [PhoneNumberConfirmed] = @p19, [RegistrationDate] = @p20, [Role] = @p21, [SecurityStamp] = @p22, [TwoFactorEnabled] = @p23, [UpdatedAt] = @p24, [UserName] = @p25
+OUTPUT 1
+WHERE [Id] = @p26 AND [ConcurrencyStamp] = @p27; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.983 +01:00 [INF] Admin user created successfully: admin@audiostore.com {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:22.983 +01:00 [INF] Admin credentials - Email: admin@audiostore.com, Password: Admin@123456 {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.008 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.059 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='2026-01-26T02:29:23.0413699Z', @p1=NULL (DbType = Int32), @p2='Over-ear and on-ear headphones for immersive audio experience' (Size = 500), @p3='/images/categories/headphones.jpg' (Size = 500), @p4='False', @p5=NULL (DbType = Int32), @p6='Headphones' (Nullable = false) (Size = 100), @p7='headphones' (Nullable = false) (Size = 100) (DbType = AnsiString), @p8=NULL (DbType = DateTime2), @p9='2026-01-26T02:29:23.0413718Z', @p10=NULL (DbType = Int32), @p11='Portable and home speakers for powerful sound' (Size = 500), @p12='/images/categories/speakers.jpg' (Size = 500), @p13='False', @p14=NULL (DbType = Int32), @p15='Speakers' (Nullable = false) (Size = 100), @p16='speakers' (Nullable = false) (Size = 100) (DbType = AnsiString), @p17=NULL (DbType = DateTime2), @p18='2026-01-26T02:29:23.0413722Z', @p19=NULL (DbType = Int32), @p20='In-ear earphones and wireless earbuds' (Size = 500), @p21='/images/categories/earphones.jpg' (Size = 500), @p22='False', @p23=NULL (DbType = Int32), @p24='Earphones' (Nullable = false) (Size = 100), @p25='earphones' (Nullable = false) (Size = 100) (DbType = AnsiString), @p26=NULL (DbType = DateTime2), @p27='2026-01-26T02:29:23.0413727Z', @p28=NULL (DbType = Int32), @p29='Wireless audio devices with Bluetooth connectivity' (Size = 500), @p30='/images/categories/wireless.jpg' (Size = 500), @p31='False', @p32=NULL (DbType = Int32), @p33='Wireless' (Nullable = false) (Size = 100), @p34='wireless' (Nullable = false) (Size = 100) (DbType = AnsiString), @p35=NULL (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [Categories] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, 0),
+(@p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, 1),
+(@p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, 2),
+(@p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, 3)) AS i ([CreatedAt], [CreatedById], [Description], [ImageUrl], [IsDeleted], [ModifiedById], [Name], [Slug], [UpdatedAt], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([CreatedAt], [CreatedById], [Description], [ImageUrl], [IsDeleted], [ModifiedById], [Name], [Slug], [UpdatedAt])
+VALUES (i.[CreatedAt], i.[CreatedById], i.[Description], i.[ImageUrl], i.[IsDeleted], i.[ModifiedById], i.[Name], i.[Slug], i.[UpdatedAt])
+OUTPUT INSERTED.[CategoryID], i._Position; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.063 +01:00 [INF] Seeded 4 categories {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.085 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.105 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM [Categories] AS [c]
+WHERE [c].[Slug] = 'headphones' {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.118 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM [Categories] AS [c]
+WHERE [c].[Slug] = 'speakers' {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.131 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM [Categories] AS [c]
+WHERE [c].[Slug] = 'earphones' {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.222 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[@p0='AudioStore' (Nullable = false) (Size = 100), @p1='1', @p2='2026-01-26T02:29:23.1990615Z', @p3=NULL (DbType = Int32), @p4='The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.' (Nullable = false) (Size = 2000), @p5='Featuring a genuine leather head strap and premium earcups, these headphones deliver superior comfort for those who like to enjoy endless listening. It includes intuitive controls designed for any situation.' (Size = 4000), @p6=NULL (Size = 4000), @p7='True', @p8='True', @p9='/images/products/xx99-mark-two-headphones.jpg' (Nullable = false) (Size = 500), @p10=NULL (DbType = Int32), @p11='XX99 Mark II Headphones' (Nullable = false) (Size = 200), @p12='2999.00' (Precision = 18) (Scale = 2), @p13='xx99-mark-ii-headphones' (Nullable = false) (Size = 250) (DbType = AnsiString), @p14='15', @p15=NULL (DbType = DateTime2), @p16='AudioStore' (Nullable = false) (Size = 100), @p17='1', @p18='2026-01-26T02:29:23.1990613Z', @p19=NULL (DbType = Int32), @p20='As the gold standard for headphones, the classic XX99 Mark I offers detailed and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike in studios and on the go.' (Nullable = false) (Size = 2000), @p21='These headphones have been created from scratch with premium materials. Their design is both functional and stylish, with a focus on delivering the best possible listening experience.' (Size = 4000), @p22=NULL (Size = 4000), @p23='True', @p24='/images/products/xx99-mark-one-headphones.jpg' (Nullable = false) (Size = 500), @p25=NULL (DbType = Int32), @p26='XX99 Mark I Headphones' (Nullable = false) (Size = 200), @p27='1750.00' (Precision = 18) (Scale = 2), @p28='xx99-mark-i-headphones' (Nullable = false) (Size = 250) (DbType = AnsiString), @p29='20', @p30=NULL (DbType = DateTime2), @p31='AudioStore' (Nullable = false) (Size = 100), @p32='1', @p33='2026-01-26T02:29:23.1990609Z', @p34=NULL (DbType = Int32), @p35='Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move.' (Nullable = false) (Size = 2000), @p36='The XX59 headphones combine stylish design with premium audio quality. They feature soft ear cushions and a lightweight design for extended listening sessions.' (Size = 4000), @p37=NULL (Size = 4000), @p38='/images/products/xx59-headphones.jpg' (Nullable = false) (Size = 500), @p39=NULL (DbType = Int32), @p40='XX59 Headphones' (Nullable = false) (Size = 200), @p41='899.00' (Precision = 18) (Scale = 2), @p42='xx59-headphones' (Nullable = false) (Size = 250) (DbType = AnsiString), @p43='30', @p44=NULL (DbType = DateTime2), @p45='AudioStore' (Nullable = false) (Size = 100), @p46='2', @p47='2026-01-26T02:29:23.1990593Z', @p48=NULL (DbType = Int32), @p49='Upgrade your sound system with the all new ZX9 active speaker. It's a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.' (Nullable = false) (Size = 2000), @p50='Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching.' (Size = 4000), @p51=NULL (Size = 4000), @p52='True', @p53='True', @p54='/images/products/zx9-speaker.jpg' (Nullable = false) (Size = 500), @p55=NULL (DbType = Int32), @p56='ZX9 Speaker' (Nullable = false) (Size = 200), @p57='4500.00' (Precision = 18) (Scale = 2), @p58='zx9-speaker' (Nullable = false) (Size = 250) (DbType = AnsiString), @p59='10', @p60=NULL (DbType = DateTime2), @p61='AudioStore' (Nullable = false) (Size = 100), @p62='2', @p63='2026-01-26T02:29:23.1990617Z', @p64=NULL (DbType = Int32), @p65='Stream high quality sound wirelessly with minimal loss. The ZX7 bookshelf speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use.' (Nullable = false) (Size = 2000), @p66='Reap the advantages of a flat diaphragm tweeter cone. This provides a fast response rate and excellent high frequencies that lower tiered bookshelf speakers cannot provide.' (Size = 4000), @p67=NULL (Size = 4000), @p68='True', @p69='/images/products/zx7-speaker.jpg' (Nullable = false) (Size = 500), @p70=NULL (DbType = Int32), @p71='ZX7 Speaker' (Nullable = false) (Size = 200), @p72='3500.00' (Precision = 18) (Scale = 2), @p73='zx7-speaker' (Nullable = false) (Size = 250) (DbType = AnsiString), @p74='12', @p75=NULL (DbType = DateTime2), @p76='AudioStore' (Nullable = false) (Size = 100), @p77='3', @p78='2026-01-26T02:29:23.1999805Z', @p79=NULL (DbType = Int32), @p80='Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.' (Nullable = false) (Size = 2000), @p81='Experience unrivalled stereo sound thanks to innovative acoustic technology. With improved ergonomics designed for full day wearing, these revolutionary earphones have been finely crafted to provide you with the perfect fit.' (Size = 4000), @p82=NULL (Size = 4000), @p83='True', @p84='/images/products/yx1-earphones.jpg' (Nullable = false) (Size = 500), @p85=NULL (DbType = Int32), @p86='YX1 Wireless Earphones' (Nullable = false) (Size = 200), @p87='599.00' (Precision = 18) (Scale = 2), @p88='yx1-wireless-earphones' (Nullable = false) (Size = 250) (DbType = AnsiString), @p89='50', @p90=NULL (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [IsFeatured], [IsNewProduct], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsPublished]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [IsFeatured], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsNewProduct], INSERTED.[IsPublished]
+VALUES (@p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30);
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsFeatured], INSERTED.[IsNewProduct], INSERTED.[IsPublished]
+VALUES (@p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44);
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [IsFeatured], [IsNewProduct], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsPublished]
+VALUES (@p45, @p46, @p47, @p48, @p49, @p50, @p51, @p52, @p53, @p54, @p55, @p56, @p57, @p58, @p59, @p60);
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [IsFeatured], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsNewProduct], INSERTED.[IsPublished]
+VALUES (@p61, @p62, @p63, @p64, @p65, @p66, @p67, @p68, @p69, @p70, @p71, @p72, @p73, @p74, @p75);
+INSERT INTO [Products] ([Brand], [CategoryId], [CreatedAt], [CreatedById], [Description], [Features], [GalleryImages], [IsNewProduct], [MainImage], [ModifiedById], [Name], [Price], [Slug], [StockQuantity], [UpdatedAt])
+OUTPUT INSERTED.[ProductID], INSERTED.[IsAvailable], INSERTED.[IsDeleted], INSERTED.[IsFeatured], INSERTED.[IsPublished]
+VALUES (@p76, @p77, @p78, @p79, @p80, @p81, @p82, @p83, @p84, @p85, @p86, @p87, @p88, @p89, @p90); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.233 +01:00 [INF] Seeded 6 products {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.233 +01:00 [INF] Database seeding completed successfully! {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:29:23.860 +01:00 [FTL] Application startup exception {"EventId":{"Id":6},"SourceContext":"Microsoft.AspNetCore.Hosting.Diagnostics","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Scheme already exists: Bearer
+   at Microsoft.AspNetCore.Authentication.AuthenticationOptions.AddScheme(String name, Action`1 configureBuilder)
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider..ctor(IOptions`1 options, IDictionary`2 schemes)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+2026-01-26 03:29:23.876 +01:00 [ERR] Hosting failed to start {"EventId":{"Id":11,"Name":"HostedServiceStartupFaulted"},"SourceContext":"Microsoft.Extensions.Hosting.Internal.Host","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Scheme already exists: Bearer
+   at Microsoft.AspNetCore.Authentication.AuthenticationOptions.AddScheme(String name, Action`1 configureBuilder)
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider..ctor(IOptions`1 options, IDictionary`2 schemes)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-01-26 03:29:23.891 +01:00 [FTL] Application terminated unexpectedly {"MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Scheme already exists: Bearer
+   at Microsoft.AspNetCore.Authentication.AuthenticationOptions.AddScheme(String name, Action`1 configureBuilder)
+   at Microsoft.Extensions.Options.OptionsFactory`1.Create(String name)
+   at Microsoft.Extensions.Options.UnnamedOptionsManager`1.get_Value()
+   at Microsoft.AspNetCore.Authentication.AuthenticationSchemeProvider..ctor(IOptions`1 options, IDictionary`2 schemes)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitRootCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.CreateServiceAccessor(ServiceIdentifier serviceIdentifier)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Program.<Main>$(String[] args) in C:\Users\A1154apulia\Desktop\AudioStore\AudioStore.Api\Program.cs:line 139
+2026-01-26 03:30:27.824 +01:00 [INF] Starting AudioStore API {"MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.343 +01:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development. {"EventId":{"Id":10400,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.679 +01:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.704 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.748 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.763 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":8,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.764 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.774 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.783 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.785 +01:00 [INF] Starting database seeding... {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.935 +01:00 [INF] Executed DbCommand (12ms) [Parameters=[@normalizedName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.972 +01:00 [INF] Role 'Administrator' already exists {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.974 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@normalizedName='CUSTOMER' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.974 +01:00 [INF] Role 'Customer' already exists {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:28.991 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@normalizedEmail='ADMIN@AUDIOSTORE.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[Role], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.014 +01:00 [INF] Admin user already exists: admin@audiostore.com {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.030 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.031 +01:00 [INF] Categories already exist, skipping seed {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.043 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.044 +01:00 [INF] Products already exist, skipping seed {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-01-26 03:30:29.044 +01:00 [INF] Database seeding completed successfully! {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}

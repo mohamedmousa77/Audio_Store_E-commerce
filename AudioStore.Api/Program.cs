@@ -7,9 +7,9 @@ using AudioStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using Serilog;
 using System.Text;
+using System.Security.Claims;
 
 // ✅ Configure Serilog from appsettings.json
 Log.Logger = new LoggerConfiguration()
@@ -42,54 +42,16 @@ try
         options.SubstituteApiVersionInUrl = true;
     });
 
-    builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
-            };
-        });
-
     // Swagger
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
-        // Configure Swagger for API versioning
-        options.SwaggerDoc("v1", new OpenApiInfo
+        options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
         {
-            Title = "Audio Store API",
+            Title = "AudioStore API",
             Version = "v1",
-            Description = "Audio Store E-commerce API - Version 1.0\n\nFeatures:\n- JWT Authentication with Refresh Tokens\n- Product Management\n- Category Management\n- Shopping Cart\n- Order Processing",
-            Contact = new OpenApiContact
-            {
-                Name = "Audio Store Team",
-                Email = "support@audiostore.com"
-            }
+            Description = "Audio Store E-commerce API"
         });
-
-        // JWT Bearer Authentication
-        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        {
-            Name = "Authorization",
-            Type = SecuritySchemeType.Http,
-            Scheme = "Bearer",
-            BearerFormat = "JWT",
-            In = ParameterLocation.Header,
-            Description = "Enter 'Bearer' [space] and then your valid token.\n\nExample: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-        });
-
     });
 
     // CORS

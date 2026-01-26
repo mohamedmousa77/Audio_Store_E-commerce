@@ -14,14 +14,15 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public async Task<Product?> GetProductById( int id)
     {
         return await _dbSet
+            .Where(p => !p.IsDeleted)
             .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
     public async Task<IEnumerable<Product>> GetFeaturedProducts(int count)
     {
         return await _dbSet
-            .Include(p => p.Category)
-            .Where(p => p.IsFeatured && p.IsAvailable)
+            .Where(p => p.IsFeatured && p.IsAvailable && !p.IsDeleted)
+            .Include(p => p.Category)            
             .OrderByDescending(p => p.CreatedAt)
             .Take(count)
             .ToListAsync();
@@ -30,20 +31,21 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public async Task<IEnumerable<Product>> GetProductsByCategory(int categoryId)
     {
         return await _dbSet
-            .Include(p => p.Category)
-            .Where(p => categoryId == p.CategoryId)
+            .Where(p => !p.IsDeleted && categoryId == p.CategoryId )
+            .Include(p => p.Category)            
             .OrderBy(p => p.Name)
             .ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetAllFilteredProducts(string searchTerm)
     {
-        return await _dbSet
-             .Include(p => p.Category)
+        return await _dbSet             
                 .Where(p =>
+                    !p.IsDeleted &&
                     p.Name.ToLower().Contains(searchTerm) ||
                     p.Brand.ToLower().Contains(searchTerm) ||
                     p.Description.ToLower().Contains(searchTerm))
+                .Include(p => p.Category)
                 .Take(20)
                 .ToListAsync();
     }
@@ -51,6 +53,7 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public async Task<IEnumerable<string>> GetAllBrands()
     {
         return await _dbSet
+            .Where(p => !p.IsDeleted)
             .AsNoTracking()
             .Select(p => p.Brand)
             .Distinct()
