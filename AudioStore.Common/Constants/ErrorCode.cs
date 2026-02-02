@@ -18,6 +18,10 @@ public static class ErrorCode
     public const string ProductNotFound = "PROD001";
     public const string InsufficientStock = "PROD002";
     public const string ProductNotAvailable = "PROD003";
+    public const string SlugAlreadyExists = "PROD004";
+
+    // Categories
+    public const string CategoryNotFound = "CAT001";
 
     // Orders
     public const string OrderNotFound = "ORD001";

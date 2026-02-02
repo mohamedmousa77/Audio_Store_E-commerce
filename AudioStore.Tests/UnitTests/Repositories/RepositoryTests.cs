@@ -1,4 +1,5 @@
 using AudioStore.Domain.Entities;
+using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Repositories;
 using AudioStore.Tests.Helpers;
 using FluentAssertions;
@@ -9,13 +10,13 @@ namespace AudioStore.Tests.UnitTests.Repositories;
 public class RepositoryTests : IDisposable
 {
     private readonly Infrastructure.Data.AppDbContext _context;
-    private readonly Repository<Product> _productRepository;
+    private readonly IProductRepository _productRepository;
     private readonly Repository<Category> _categoryRepository;
 
     public RepositoryTests()
     {
         _context = TestDbContextFactory.CreateInMemoryContext($"TestDb_{Guid.NewGuid()}");
-        _productRepository = new Repository<Product>(_context);
+        _productRepository = new ProductRepository(_context);
         _categoryRepository = new Repository<Category>(_context);
         
         TestDbContextFactory.SeedTestData(_context);

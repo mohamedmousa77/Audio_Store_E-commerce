@@ -91,7 +91,6 @@ public class AuthService : IAuthService
         }
     }
 
-
     public async Task<Result<LoginResponseDTO>> RegisterAsync(RegisterRequestDTO request)
     {
         try

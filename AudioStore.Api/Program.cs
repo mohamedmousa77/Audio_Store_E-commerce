@@ -98,6 +98,7 @@ try
     app.UseAuthorization();
     app.MapControllers();
 
+
     app.Run();
 }
 catch (Exception ex)
@@ -108,3 +109,6 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+// Make Program accessible to test project
+public partial class Program { }

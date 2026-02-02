@@ -41,7 +41,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         {
             var errors = string.Join("; ", failures.Select(f => f.ErrorMessage));
 
-            // ✅ Crea una risposta Result.Failure del tipo corretto
+            //  Crea una risposta Result.Failure del tipo corretto
             return (TResponse)(object)Result.Failure<TResponse>(
                 errors,
                 "VALIDATION_ERROR");

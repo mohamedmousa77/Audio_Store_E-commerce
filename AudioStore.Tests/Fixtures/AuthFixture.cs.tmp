@@ -1,0 +1,105 @@
+using AudioStore.Domain.Entities;
+using AudioStore.Infrastructure.Data;
+using AudioStore.Tests.Helpers;
+using Microsoft.AspNetCore.Identity;
+
+namespace AudioStore.Tests.Fixtures;
+
+/// <summary>
+/// Shared fixture for authentication-related tests
+/// </summary>
+public class AuthFixture : IDisposable
+{
+    public AppDbContext DbContext { get; }
+    public UserManager<User> UserManager { get; }
+    public RoleManager<IdentityRole<int>> RoleManager { get; }
+
+    // Pre-created test users
+    public User AdminUser { get; private set; } = null!;
+    public User CustomerUser { get; private set; } = null!;
+    public string AdminToken { get; private set; } = null!;
+    public string CustomerToken { get; private set; } = null!;
+
+    public const string AdminEmail = "admin@test.com";
+    public const string AdminPassword = "Admin@123456";
+    public const string CustomerEmail = "customer@test.com";
+    public const string CustomerPassword = "Customer@123456";
+
+    public AuthFixture()
+    {
+        // Create in-memory database
+        DbContext = TestDbContextFactory.CreateInMemoryContext($"AuthFixture_{Guid.NewGuid()}");
+
+        // Create UserManager and RoleManager
+        var userStore = new Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore<User, IdentityRole<int>, AppDbContext, int>(DbContext);
+        var roleStore = new Microsoft.AspNetCore.Identity.EntityFrameworkCore.RoleStore<IdentityRole<int>, AppDbContext, int>(DbContext);
+
+        UserManager = new UserManager<User>(
+            userStore,
+            null!,
+            new PasswordHasher<User>(),
+            null!,
+            null!,
+            null!,
+            null!,
+            null!,
+            null!);
+
+        RoleManager = new RoleManager<IdentityRole<int>>(
+            roleStore,
+            null!,
+            null!,
+            null!,
+            null!);
+
+        // Seed roles and users
+        SeedRolesAndUsers().GetAwaiter().GetResult();
+    }
+
+    private async Task SeedRolesAndUsers()
+    {
+        // Create roles
+        await RoleManager.CreateAsync(new IdentityRole<int>("Admin"));
+        await RoleManager.CreateAsync(new IdentityRole<int>("Customer"));
+
+        // Create admin user
+        AdminUser = new User
+        {
+            Id = 1,
+            UserName = AdminEmail,
+            Email = AdminEmail,
+            EmailConfirmed = true,
+            FirstName = "Admin",
+            LastName = "User"
+        };
+        await UserManager.CreateAsync(AdminUser, AdminPassword);
+        await UserManager.AddToRoleAsync(AdminUser, "Admin");
+
+        // Create customer user
+        CustomerUser = new User
+        {
+            Id = 2,
+            UserName = CustomerEmail,
+            Email = CustomerEmail,
+            EmailConfirmed = true,
+            FirstName = "Customer",
+            LastName = "User"
+        };
+        await UserManager.CreateAsync(CustomerUser, CustomerPassword);
+        await UserManager.AddToRoleAsync(CustomerUser, "Customer");
+
+        // Generate tokens
+        AdminToken = TestAuthHelper.GenerateAdminToken(AdminUser.Id, AdminUser.Email!);
+        CustomerToken = TestAuthHelper.GenerateCustomerToken(CustomerUser.Id, CustomerUser.Email!);
+    }
+
+    public void Dispose()
+    {
+        DbContext.Database.EnsureDeleted();
+        DbContext.Dispose();
+        UserManager.Dispose();
+        RoleManager.Dispose();
+    }
+}
+
+

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AudioStore.Application.Services.Implementations;
 
-internal class CartService : ICartService
+public class CartService : ICartService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
