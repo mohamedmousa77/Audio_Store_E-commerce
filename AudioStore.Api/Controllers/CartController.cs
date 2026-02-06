@@ -31,6 +31,7 @@ public class CartController : ControllerBase
     /// Get current user's cart
     /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CartDTO), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCart()
     {
@@ -50,6 +51,7 @@ public class CartController : ControllerBase
     /// Add item to cart
     /// </summary>
     [HttpPost("items")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CartDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddItem([FromBody] AddToCartDTO dto)
@@ -74,6 +76,7 @@ public class CartController : ControllerBase
     /// Update cart item quantity
     /// </summary>
     [HttpPut("items/{id}")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CartDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -98,6 +101,7 @@ public class CartController : ControllerBase
     /// Remove item from cart
     /// </summary>
     [HttpDelete("items/{id}")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(CartDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> RemoveItem(int id)
@@ -115,6 +119,7 @@ public class CartController : ControllerBase
     /// Clear all items from cart
     /// </summary>
     [HttpDelete("clear")]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ClearCart()
     {

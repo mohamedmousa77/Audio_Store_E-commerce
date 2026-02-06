@@ -123,19 +123,18 @@ public class OrdersController : ControllerBase
     /// Create new order from cart
     /// </summary>
     [HttpPost]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(OrderConfirmationDTO), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO dto)
     {
         var userId = GetUserId();
 
-        if (!userId.HasValue)
-        {
-            return Unauthorized(new { error = "User must be authenticated" });
-        }
-
-        // Create new DTO with userId (init-only property)
-        var createOrderDto = dto with { UserId = userId.Value };
+        // For authenticated users, bind the order to their user account.
+        // For guests, leave UserId null and use customer info from the DTO.
+        var createOrderDto = userId.HasValue
+            ? dto with { UserId = userId.Value }
+            : dto with { UserId = null };
 
         _logger.LogInformation("Creating order for user: {UserId}", userId);
         
