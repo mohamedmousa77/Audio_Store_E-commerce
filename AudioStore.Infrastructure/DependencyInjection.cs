@@ -24,10 +24,13 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString, sqlOptions =>
             {
                 sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null);
+                
+                // ⚠️ TEMPORARILY DISABLED: EnableRetryOnFailure conflicts with manual transactions
+                // Re-enable this later with proper execution strategy wrapping
+                // sqlOptions.EnableRetryOnFailure(
+                //     maxRetryCount: 5,
+                //     maxRetryDelay: TimeSpan.FromSeconds(30),
+                //     errorNumbersToAdd: null);
             });
 
             var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");

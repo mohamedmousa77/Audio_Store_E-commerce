@@ -9,6 +9,7 @@ public record ProductFilterDTO
     public decimal? MaxPrice { get; init; }
     public bool? IsFeatured { get; init; }
     public bool? IsAvailable { get; init; }
+    public bool? IsNew { get; init; }
     public string? SortBy { get; init; } // "price_asc", "price_desc", "name", "newest"
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 12;

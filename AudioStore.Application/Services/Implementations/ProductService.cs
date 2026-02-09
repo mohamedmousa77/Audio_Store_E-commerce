@@ -85,6 +85,9 @@ public class ProductService : IProductService
             if (filter.IsAvailable.HasValue)
                 query = query.Where(p => p.IsAvailable == filter.IsAvailable.Value);
 
+            if (filter.IsNew.HasValue)
+                query = query.Where(p => p.IsAvailable == filter.IsNew.Value);
+
             // Apply sorting
             query = filter.SortBy?.ToLower() switch
             {

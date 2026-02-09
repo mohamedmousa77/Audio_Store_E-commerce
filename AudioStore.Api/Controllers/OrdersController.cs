@@ -88,35 +88,21 @@ public class OrdersController : ControllerBase
 
     /// <summary>
     /// Get order by order number
+    /// Allows anonymous access for order confirmation
     /// </summary>
     [HttpGet("number/{orderNumber}")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(OrderDTO), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetOrderByNumber(string orderNumber)
     {
-        var userId = GetUserId();
-
-        if (!userId.HasValue)
-        {
-            return Unauthorized(new { error = "User must be authenticated" });
-        }
-
         _logger.LogInformation("Getting order by number: {OrderNumber}", orderNumber);
         
         var result = await _orderService.GetOrderByNumberAsync(orderNumber);
         
-        if (!result.IsSuccess)
-        {
-            return StatusCode(result.StatusCode, new { error = result.Error });
-        }
-
-        // Verify user owns this order (unless admin)
-        if (!User.IsInRole(UserRole.Admin) && result.Value!.UserId != userId.Value)
-        {
-            return Forbid();
-        }
-
-        return Ok(result.Value);
+        return result.IsSuccess 
+            ? Ok(result.Value) 
+            : StatusCode(result.StatusCode, new { error = result.Error });
     }
 
     /// <summary>
