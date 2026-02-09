@@ -14,14 +14,14 @@ public class CartItemsRepository : Repository<CartItem>, ICartItemsRepository
     public async Task<CartItem?> GetCartItemWithProducts(int cartItemId)
     {
         return await _dbSet
-            .Include(ci => ci.CartId)
+            .Include(ci => ci.Cart)     // ✅ FIX: Include Cart navigation property
             .Include(ci => ci.Product)
             .FirstOrDefaultAsync(ci => ci.Id == cartItemId);
     }
     public async Task<CartItem?> GetCartItemWithCart(int cartItemId)
     {
         return await _dbSet
-            .Include(ci => ci.CartId)
+            .Include(ci => ci.Cart)     // ✅ FIX: Include Cart navigation property
             .FirstOrDefaultAsync(ci => ci.Id == cartItemId);
     }
 }

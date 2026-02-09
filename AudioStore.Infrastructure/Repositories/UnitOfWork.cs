@@ -49,6 +49,22 @@ public class UnitOfWork : IUnitOfWork
         return await _context.SaveChangesAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// Detach all tracked entities from EF Core change tracker
+    /// Useful when you need to force reload fresh data from database
+    /// </summary>
+    public void DetachAll()
+    {
+        var entries = _context.ChangeTracker.Entries()
+            .Where(e => e.State != EntityState.Detached)
+            .ToList();
+
+        foreach (var entry in entries)
+        {
+            entry.State = EntityState.Detached;
+        }
+    }
+
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
         _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);

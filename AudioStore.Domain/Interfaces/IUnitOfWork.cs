@@ -20,6 +20,11 @@ public interface IUnitOfWork : IDisposable
 
     // Transaction Management
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Detach all tracked entities from EF Core change tracker
+    /// </summary>
+    void DetachAll();
     Task BeginTransactionAsync(CancellationToken cancellationToken = default);
     Task CommitTransactionAsync(CancellationToken cancellationToken = default);
     Task RollbackTransactionAsync(CancellationToken cancellationToken = default);

@@ -344,12 +344,17 @@ public class CartService : ICartService
             var userId = cartItem.Cart.UserId;
             var sessionId = cartItem.Cart.SessionId;
 
-            _unitOfWork.CartItems.Update(cartItem);
+            // ✅ FIX: Delete the item, not update it!
+            _unitOfWork.CartItems.Delete(cartItem);
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation("Cart item {CartItemId} removed", cartItemId);
 
-            // Ricarica carrello
+            // ✅ FIX: Force reload from database to get fresh data
+            // Clear EF Core change tracker to avoid stale data
+            _unitOfWork.DetachAll();
+            
+            // Ricarica carrello dal database
             var cart = await GetCartEntityAsync(userId, sessionId);
             var cartDto = _mapper.Map<CartDTO>(cart!);
 

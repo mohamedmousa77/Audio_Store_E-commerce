@@ -164,12 +164,14 @@ public class OrderService : IOrderService
                     ProductId = itemDto.ProductId,
                     Quantity = itemDto.Quantity,
                     UnitPrice = itemDto.UnitPrice,
+                    Subtotal = itemDto.Quantity * itemDto.UnitPrice, // ✅ FIX: Calculate subtotal
                     CreatedAt = DateTime.UtcNow
                 };
 
                 order.OrderItems.Add(orderItem);
                 subtotal += orderItem.Subtotal;
-                _logger.LogInformation("  ✅ Order item created: Subtotal={Subtotal}", orderItem.Subtotal);
+                _logger.LogInformation("  ✅ Order item created: Quantity={Qty} x UnitPrice={Price} = Subtotal={Subtotal}", 
+                    orderItem.Quantity, orderItem.UnitPrice, orderItem.Subtotal);
             }
 
             //  Calcola totali
