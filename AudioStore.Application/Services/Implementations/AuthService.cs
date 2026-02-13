@@ -106,12 +106,16 @@ public class AuthService : IAuthService
 
             var user = new User
             {
+                UserName = request.Email,  // ✅ Required by ASP.NET Identity
+                NormalizedUserName = request.Email.ToUpper(),  // ✅ Required
                 Email = request.Email,
+                NormalizedEmail = request.Email.ToUpper(),  // ✅ Best practice
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
                 RegistrationDate = DateTime.UtcNow,
-                IsActive = true
+                IsActive = true,
+                EmailConfirmed = true  // ✅ Auto-confirm for now
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);

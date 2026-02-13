@@ -154,6 +154,10 @@ public class ProfileService : IProfileService
     {
         try
         {
+            _logger.LogInformation("SaveAddressAsync called for user {UserId}", userId);
+            _logger.LogInformation("DTO: AddressId={AddressId}, Street={Street}, City={City}, PostalCode={PostalCode}, Country={Country}, SetAsDefault={SetAsDefault}", 
+                dto.AddressId, dto.Street, dto.City, dto.PostalCode, dto.Country, dto.SetAsDefault);
+            
             var user = await _unitOfWork.Users
                 .Query()
                 .Include(u => u.Addresses)
@@ -161,6 +165,7 @@ public class ProfileService : IProfileService
 
             if (user == null)
             {
+                _logger.LogWarning("User {UserId} not found", userId);
                 return Result.Failure<AddressDTO>(
                     "Utente non trovato",
                     ErrorCode.UserNotFound);
@@ -170,15 +175,20 @@ public class ProfileService : IProfileService
 
             if (dto.AddressId.HasValue)
             {
+                _logger.LogInformation("UPDATE PATH: AddressId={AddressId} provided, attempting to update existing address", dto.AddressId.Value);
+                
                 // Update existing address
                 address = user.Addresses.FirstOrDefault(a => a.Id == dto.AddressId.Value);
                 if (address == null)
                 {
+                    _logger.LogWarning("UPDATE PATH FAILED: Address {AddressId} not found in user's addresses. User has {Count} addresses", 
+                        dto.AddressId.Value, user.Addresses.Count);
                     return Result.Failure<AddressDTO>(
                         "Indirizzo non trovato",
                         ErrorCode.NotFound);
                 }
 
+                _logger.LogInformation("UPDATE PATH SUCCESS: Found address {AddressId}, updating fields", address.Id);
                 address.Street = dto.Street;
                 address.City = dto.City;
                 address.PostalCode = dto.PostalCode;
@@ -189,7 +199,12 @@ public class ProfileService : IProfileService
             }
             else
             {
+                _logger.LogInformation("CREATE PATH: No AddressId provided, creating new address");
+                
                 // Create new address
+                // If this is the user's first address, set it as default automatically
+                var isFirstAddress = !user.Addresses.Any();
+                
                 address = new Address
                 {
                     UserId = userId,
@@ -197,22 +212,39 @@ public class ProfileService : IProfileService
                     City = dto.City,
                     PostalCode = dto.PostalCode,
                     Country = dto.Country,
-                    IsDefault = dto.SetAsDefault,
+                    IsDefault = dto.SetAsDefault || isFirstAddress,  // Auto-default if first address
                     CreatedAt = DateTime.UtcNow
                 };
 
                 await _unitOfWork.Addresses.AddAsync(address);
+                
+                if (isFirstAddress)
+                {
+                    _logger.LogInformation("First address for user {UserId} - automatically set as default", userId);
+                }
             }
 
-            // Set as default if requested
+            // Set as default if requested (applies to both new and updated addresses)
             if (dto.SetAsDefault)
             {
+                // Unset all other addresses as default
                 foreach (var addr in user.Addresses.Where(a => a.Id != address.Id))
                 {
                     addr.IsDefault = false;
                     _unitOfWork.Addresses.Update(addr);
                 }
+                
+                // Set this address as default
                 address.IsDefault = true;
+                
+                // Only call Update if this is an existing address (has an ID)
+                // New addresses are already tracked by EF and don't need Update
+                if (dto.AddressId.HasValue)
+                {
+                    _unitOfWork.Addresses.Update(address);
+                }
+                
+                _logger.LogInformation("Address {AddressId} set as default for user {UserId}", address.Id, userId);
             }
 
             await _unitOfWork.SaveChangesAsync();
@@ -235,15 +267,17 @@ public class ProfileService : IProfileService
     {
         try
         {
-            var addresses = await _unitOfWork.Users.GetUserWithAddressesAsync(userId);
-            //await _unitOfWork.Addresses
-            //.Query()
-            //.Where(a => a.UserId == userId)
-            //.OrderByDescending(a => a.IsDefault)
-            //.ThenByDescending(a => a.CreatedAt)
-            //.ToListAsync();
+            var user = await _unitOfWork.Users.GetUserWithAddressesAsync(userId);
+            
+            if (user == null)
+            {
+                return Result.Failure<IEnumerable<AddressDTO>>(
+                    "Utente non trovato",
+                    ErrorCode.UserNotFound);
+            }
 
-            var addressDtos = _mapper.Map<IEnumerable<AddressDTO>>(addresses);
+            // Map the Addresses collection, not the entire User entity
+            var addressDtos = _mapper.Map<IEnumerable<AddressDTO>>(user.Addresses);
             return Result.Success(addressDtos);
         }
         catch (Exception ex)

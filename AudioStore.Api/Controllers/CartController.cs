@@ -175,8 +175,9 @@ public class CartController : ControllerBase
 
     private string? GetSessionId()
     {
-        return HttpContext.Request.Headers["X-Session-Id"].FirstOrDefault()
-            ?? HttpContext.Session.Id;
+        // Only use X-Session-Id header for guest users
+        // Don't fallback to HttpContext.Session.Id as session middleware is not configured
+        return HttpContext.Request.Headers["X-Session-Id"].FirstOrDefault();
     }
 
     #endregion
