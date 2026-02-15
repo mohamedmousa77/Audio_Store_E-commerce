@@ -37,31 +37,24 @@ public class TokenService : ITokenService
         string email,
         string firstName,
         string lastName,
-        string role)
+        IList<string> roles)
     {
-        var user = new User
-        {
-            Id = userId,
-            FirstName = firstName,
-            LastName = lastName,
-            Role = role,
-            Email = email,
-
-        };
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
             new(JwtRegisteredClaimNames.Email, email!),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(ClaimTypes.NameIdentifier, userId.ToString()),
-            new(ClaimTypes.Name, user.FullName),
+            new(ClaimTypes.Name, $"{firstName} {lastName}"),
             new("FirstName", firstName),
             new("LastName", lastName)
         };
 
-        // Add roles
-        var roles = await _userManager.GetRolesAsync(user);
-        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        // Add roles from parameter
+        if (roles != null && roles.Any())
+        {
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -136,7 +129,8 @@ public class TokenService : ITokenService
             }
 
             // 3. Genera nuovo access token
-            var newAccessToken = await GenerateAccessTokenAsync(tokenEntity.User.Id, tokenEntity.User.Email!, tokenEntity.User.FirstName, tokenEntity.User.LastName, tokenEntity.User.Role);
+            var userRoles = await _userManager.GetRolesAsync(tokenEntity.User);
+            var newAccessToken = await GenerateAccessTokenAsync(tokenEntity.User.Id, tokenEntity.User.Email!, tokenEntity.User.FirstName, tokenEntity.User.LastName, userRoles);
 
             // 4. Genera nuovo refresh token (Token Rotation per sicurezza)
             var newRefreshToken = GenerateRefreshToken();

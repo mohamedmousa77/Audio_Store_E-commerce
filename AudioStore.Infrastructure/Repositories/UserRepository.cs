@@ -2,6 +2,7 @@
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -199,19 +200,49 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetCustomersWithOrdersAsync()
     {
-        return await _dbSet
-            .Where(u => u.IsActive && !u.IsDeleted)
-            .Where(u => u.Role == UserRole.Customer)
+        //return await _dbSet
+        //    .Where(u => u.IsActive && !u.IsDeleted)
+        //    .Where(u => u.Role == UserRole.Customer)
+        //    .Include(u => u.Orders.Where(o => !o.IsDeleted))
+        //    .ToListAsync();
+
+        // Join Fluent Style: Users -> UserRoles -> Roles
+        var query = _dbSet
+            .Where(u => u.IsActive && !u.IsDeleted) // WHERE base
+            .Join(_context.Set<IdentityUserRole<int>>(), // JOIN UserRoles
+                user => user.Id,
+                userRole => userRole.UserId,
+                (user, userRole) => new { User = user, UserRole = userRole })
+            .Join(_context.Roles, // JOIN Roles
+                combined => combined.UserRole.RoleId,
+                role => role.Id,
+                (combined, role) => new { User = combined.User, RoleName = role.Name })
+            .Where(x => x.RoleName == UserRole.Customer) // WHERE RoleName == "Customer"
+            .Select(x => x.User); // SELECT User
+        return await query
             .Include(u => u.Orders.Where(o => !o.IsDeleted))
             .ToListAsync();
     }
 
     public async Task<int> GetTotalCustomersCountAsync()
     {
+        //return await _dbSet
+        //    .Where(u => u.IsActive && !u.IsDeleted)
+        //    .Where(u => u.Role == UserRole.Customer)
+        //    .CountAsync();
+
         return await _dbSet
-            .Where(u => u.IsActive && !u.IsDeleted)
-            .Where(u => u.Role == UserRole.Customer)
-            .CountAsync();
+        .Where(u => u.IsActive && !u.IsDeleted)
+        .Join(_context.UserRoles,
+            user => user.Id,
+            userRole => userRole.UserId,
+            (user, userRole) => new { user, userRole })
+        .Join(_context.Roles,
+            ur => ur.userRole.RoleId,
+            role => role.Id,
+            (ur, role) => new { ur.user, role })
+        .Where(x => x.role.Name == "Customer")
+        .CountAsync();
     }
 
     public async Task<int> GetActiveCustomersThisMonthAsync()
@@ -228,9 +259,27 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetTopCustomerAsync()
     {
-        return await _dbSet
-            .Where(u => u.IsActive && !u.IsDeleted)
-            .Where(u => u.Role == UserRole.Customer)
+        //return await _dbSet
+        //    .Where(u => u.IsActive && !u.IsDeleted)
+        //    .Where(u => u.Role == UserRole.Customer)
+        //    .Include(u => u.Orders.Where(o => !o.IsDeleted))
+        //    .Where(u => u.Orders.Any())
+        //    .OrderByDescending(u => u.Orders.Sum(o => o.TotalAmount))
+        //    .FirstOrDefaultAsync();
+
+        var query = _dbSet
+       .Where(u => u.IsActive && !u.IsDeleted)
+       .Join(_context.Set<IdentityUserRole<int>>(),
+           user => user.Id,
+           userRole => userRole.UserId,
+           (user, userRole) => new { User = user, UserRole = userRole })
+       .Join(_context.Roles,
+           combined => combined.UserRole.RoleId,
+           role => role.Id,
+           (combined, role) => new { User = combined.User, RoleName = role.Name })
+       .Where(x => x.RoleName == UserRole.Customer)
+       .Select(x => x.User);
+        return await query
             .Include(u => u.Orders.Where(o => !o.IsDeleted))
             .Where(u => u.Orders.Any())
             .OrderByDescending(u => u.Orders.Sum(o => o.TotalAmount))

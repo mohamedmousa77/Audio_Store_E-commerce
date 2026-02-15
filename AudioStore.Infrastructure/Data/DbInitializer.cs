@@ -40,42 +40,52 @@ public static class DbInitializer
 
     private static async Task SeedAdminUserAsync(UserManager<User> userManager, ILogger logger)
     {
-        const string adminEmail = "admin@audiostore.com";
-        const string adminPassword = "Admin@123456";
-
-        var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-        if (adminUser == null)
+        // Admin users to seed
+        var adminUsers = new[]
         {
-            adminUser = new User
-            {
-                UserName = "admin",
-                Email = adminEmail,
-                EmailConfirmed = true,
-                FirstName = "System",
-                LastName = "Administrator",
-                RegistrationDate = DateTime.UtcNow,
-                IsActive = true
-            };
+            new { Email = "muosa@admin.com", FirstName = "Muosa", LastName = "Admin" },
+            new { Email = "gennaro@admin.com", FirstName = "Gennaro", LastName = "Admin" },
+            new { Email = "monte@admin.com", FirstName = "Monte", LastName = "Admin" }
+        };
 
-            var result = await userManager.CreateAsync(adminUser, adminPassword);
+        const string adminPassword = "Admin@1234";
 
-            if (result.Succeeded)
+        foreach (var adminData in adminUsers)
+        {
+            var existingAdmin = await userManager.FindByEmailAsync(adminData.Email);
+
+            if (existingAdmin == null)
             {
-                await userManager.AddToRoleAsync(adminUser, "Administrator");
-                logger.LogInformation("Admin user created successfully: {Email}", adminEmail);
-                logger.LogInformation("Admin credentials - Email: {Email}, Password: {Password}",
-                    adminEmail, adminPassword);
+                var adminUser = new User
+                {
+                    UserName = adminData.Email,
+                    Email = adminData.Email,
+                    EmailConfirmed = true,
+                    FirstName = adminData.FirstName,
+                    LastName = adminData.LastName,
+                    RegistrationDate = DateTime.UtcNow,
+                    IsActive = true
+                };
+
+                var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Administrator");
+                    logger.LogInformation("Admin user created successfully: {Email}", adminData.Email);
+                    logger.LogInformation("Admin credentials - Email: {Email}, Password: {Password}",
+                        adminData.Email, adminPassword);
+                }
+                else
+                {
+                    logger.LogWarning("Failed to create admin user {Email}: {Errors}",
+                        adminData.Email, string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
             }
             else
             {
-                logger.LogWarning("Failed to create admin user: {Errors}",
-                    string.Join(", ", result.Errors.Select(e => e.Description)));
+                logger.LogInformation("Admin user already exists: {Email}", adminData.Email);
             }
-        }
-        else
-        {
-            logger.LogInformation("Admin user already exists: {Email}", adminEmail);
         }
     }
 

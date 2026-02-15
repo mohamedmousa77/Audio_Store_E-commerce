@@ -36,10 +36,10 @@ namespace AudioStore.Application.Commands
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (!result.Succeeded)
                 return Result.Failure<LoginResponseDTO>("Credenziali non valide");
-
-            var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(
-                user.Id, user.Email!, user.FirstName, user.LastName, user.Role);
             var roles = await _userManager.GetRolesAsync(user);
+            var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(
+                user.Id, user.Email!, user.FirstName, user.LastName, roles);
+            
 
             var response = new LoginResponseDTO
             {

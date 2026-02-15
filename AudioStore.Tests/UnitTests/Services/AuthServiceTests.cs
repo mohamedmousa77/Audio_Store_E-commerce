@@ -1,5 +1,4 @@
 using AudioStore.Application.Services.Implementations;
-using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Auth;
 using AudioStore.Common.Services.Interfaces;
@@ -79,7 +78,7 @@ public class AuthServiceTests
             FirstName = "Test",
             LastName = "User",
             IsActive = true,
-            Role = UserRole.Customer
+
         };
 
         _userManagerMock.Setup(x => x.FindByEmailAsync(loginRequest.Email))
@@ -89,7 +88,9 @@ public class AuthServiceTests
             .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
         _tokenServiceMock.Setup(x => x.GenerateAccessTokenAsync(
-            user.Id, user.Email!, user.FirstName, user.LastName, user.Role))
+            user.Id, user.Email!, user.FirstName, user.LastName,
+             It.Is<IList<string>>(r => r.Contains(UserRole.Customer))
+            ))
             .ReturnsAsync("access_token_123");
 
         _tokenServiceMock.Setup(x => x.GenerateRefreshToken())
@@ -224,8 +225,7 @@ public class AuthServiceTests
             Email = registerRequest.Email,
             FirstName = registerRequest.FirstName,
             LastName = registerRequest.LastName,
-            IsActive = true,
-            Role = UserRole.Customer
+            IsActive = true
         };
 
         // Setup sequence for FindByEmailAsync: first null (doesn't exist), then return user (after creation)
@@ -239,7 +239,6 @@ public class AuthServiceTests
             {
                 user.Id = 1;
                 user.IsActive = true;
-                user.Role = UserRole.Customer;
             });
 
         _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), UserRole.Customer))
@@ -249,7 +248,7 @@ public class AuthServiceTests
             .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
         _tokenServiceMock.Setup(x => x.GenerateAccessTokenAsync(
-            It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IList<string>>()))
             .ReturnsAsync("access_token");
 
         _tokenServiceMock.Setup(x => x.GenerateRefreshToken())
@@ -269,7 +268,7 @@ public class AuthServiceTests
 
         // Assert
         result.Should().BeSuccess();
-        
+
         _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<User>(), registerRequest.Password), Times.Once);
         _userManagerMock.Verify(x => x.AddToRoleAsync(It.IsAny<User>(), UserRole.Customer), Times.Once);
     }
@@ -297,7 +296,7 @@ public class AuthServiceTests
         // Assert
         result.Should().BeFailure();
         result.Should().HaveErrorCode(ErrorCode.EmailAlreadyExists);
-        
+
         _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()), Times.Never);
     }
 
@@ -319,7 +318,7 @@ public class AuthServiceTests
 
         // Assert
         result.Should().BeSuccess();
-        
+
         _signInManagerMock.Verify(x => x.SignOutAsync(), Times.Once);
     }
 

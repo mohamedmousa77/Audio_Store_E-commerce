@@ -47,9 +47,12 @@ public class AuthService : IAuthService
             if (!user.IsActive)
                 return Result.Failure<LoginResponseDTO>("Account disattivato", ErrorCode.Unauthorized);
 
-            //  Genera access token
+            // Get user roles from UserRoles table
+            var roles = await _userManager.GetRolesAsync(user);
+
+            //  Genera access token with roles
             var accessToken = await _jwtTokenService.GenerateAccessTokenAsync(
-                user.Id, user.Email!, user.FirstName, user.LastName, user.Role);
+                user.Id, user.Email!, user.FirstName, user.LastName, roles);
 
             //  Genera e salva refresh token
             var refreshToken = _jwtTokenService.GenerateRefreshToken();
@@ -63,8 +66,6 @@ public class AuthService : IAuthService
 
             await _unitOfWork.RefreshTokens.AddAsync(refreshTokenEntity);
             await _unitOfWork.SaveChangesAsync();
-
-            var roles = await _userManager.GetRolesAsync(user);
 
             var response = new LoginResponseDTO
             {

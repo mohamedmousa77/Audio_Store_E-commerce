@@ -9,7 +9,7 @@ public class User : IdentityUser<int>
     public string LastName { get; set; } = string.Empty;
     public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; } = true;
-    public string Role { get; set; } = string.Empty;
+    // Role property removed - ASP.NET Identity uses UserRoles table instead
 
     // Le proprieta` di BaseEntity:
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

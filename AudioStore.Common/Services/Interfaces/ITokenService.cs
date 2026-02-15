@@ -6,7 +6,7 @@ namespace AudioStore.Common.Services.Interfaces;
 public interface ITokenService
 {
     Task<string> GenerateAccessTokenAsync(
-        int userId, string email, string firstName, string lastName, string role);
+        int userId, string email, string firstName, string lastName, IList<string> roles);
     string GenerateRefreshToken();
     ClaimsPrincipal? ValidateToken(string token);
     Task<Result<TokenResponseDTO>> RefreshTokenAsync(string refreshToken, string ipAddress);
