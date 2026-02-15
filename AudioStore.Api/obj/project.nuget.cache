@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "c6G47HHgv4U=",
+  "dgSpecHash": "4sLXtGKdQgo=",
   "success": true,
   "projectFilePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
   "expectedPackageFiles": [
@@ -17,7 +17,6 @@
     "C:\\Users\\A1154apulia\\.nuget\\packages\\mediatr\\14.0.0\\mediatr.14.0.0.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.2\\microsoft.aspnetcore.authentication.jwtbearer.10.0.2.nupkg.sha512",
-    "C:\\Users\\A1154apulia\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.3.9\\microsoft.aspnetcore.cors.2.3.9.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\10.0.2\\microsoft.aspnetcore.identity.entityframeworkcore.10.0.2.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",
@@ -86,18 +85,5 @@
     "C:\\Users\\A1154apulia\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1510",
-      "level": "Warning",
-      "message": "PackageReference Microsoft.AspNetCore.Cors will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
-      "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
-      "libraryId": "Microsoft.AspNetCore.Cors",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }

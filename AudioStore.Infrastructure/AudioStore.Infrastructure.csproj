@@ -26,7 +26,6 @@
 	  <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.2" />
 	  <PackageReference Include="System.Text.Json" Version="10.0.2" />
 	  <!-- Identity -->
-	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.9" />
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
 	  <!-- Configuration -->
 	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.2" />
