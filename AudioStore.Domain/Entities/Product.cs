@@ -6,12 +6,12 @@ public class Product : BaseEntity
     public string Name { get; set; } = string.Empty;
     public string Brand { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string? Features { get; set; } // JSON string o testo
+    public string? Specifications { get; set; } 
     public decimal Price { get; set; }
     public int StockQuantity { get; set; }
     public bool IsAvailable { get; set; } = true;
     public string MainImage { get; set; } = string.Empty;
-    public string? GalleryImages { get; set; } // JSON array di URLs
+    public List<string>? GalleryImages { get; set; } 
     public bool IsNewProduct { get; set; } = false;
     public bool IsFeatured { get; set; } = false;
     public bool IsPublished { get; set; } = true;

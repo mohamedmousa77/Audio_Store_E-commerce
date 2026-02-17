@@ -454,9 +454,6 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<string>("Features")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("GalleryImages")
                         .HasColumnType("nvarchar(max)");
 
@@ -487,8 +484,7 @@ namespace AudioStore.Infrastructure.Data.Migrations
 
                     b.Property<string>("MainImage")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ModifiedById")
                         .HasColumnType("int");
@@ -506,6 +502,9 @@ namespace AudioStore.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("varchar(250)");
+
+                    b.Property<string>("Specifications")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StockQuantity")
                         .ValueGeneratedOnAdd()

@@ -30,14 +30,26 @@ public class DashboardRepository : Repository<Order>, IDashboardRepository
     {
         return await _context.OrderItems
             .Include(oi => oi.Product)
+            .ThenInclude(p => p.Category)
             .Include(oi => oi.Order)
             .Where(oi => oi.Order.Status != OrderStatus.Cancelled)
-            .GroupBy(oi => new { oi.ProductId, oi.Product.Name, oi.Product.MainImage })
+            .GroupBy(oi => new
+            {
+                oi.ProductId,
+                oi.Product.Name,
+                oi.Product.MainImage,
+                oi.Product.Brand,
+                CategoryName = oi.Product.Category.Name,
+                oi.Product.StockQuantity
+            })
             .Select(g => new TopProductData
             {
                 ProductId = g.Key.ProductId,
                 ProductName = g.Key.Name,
                 ProductImage = g.Key.MainImage,
+                Brand = g.Key.Brand,
+                CategoryName = g.Key.CategoryName,
+                StockQuantity = g.Key.StockQuantity,
                 TotalQuantitySold = g.Sum(oi => oi.Quantity),
                 TotalRevenue = g.Sum(oi => oi.Subtotal)
             })

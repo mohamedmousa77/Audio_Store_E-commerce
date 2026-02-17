@@ -86,7 +86,11 @@ public class MappingProfile : Profile
         CreateMap<SaveAddressDTO, Address>();
 
         // ============ ADMIN DASHBOARD MAPPINGS ============
-        CreateMap<TopProductData, TopProductDTO>();
+        CreateMap<TopProductData, TopProductDTO>()
+            .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.CategoryName))
+            .ForMember(dest => dest.StockStatus, opt => opt.MapFrom(src =>
+                src.StockQuantity <= 0 ? "Unavailable" :
+                src.StockQuantity <= 10 ? "Low Stock" : "Available"));
         CreateMap<TopCategoryData, TopCategoryDTO>();
 
         // ============ USER/CUSTOMER MAPPINGS ============

@@ -12,6 +12,6 @@ public class ProductDTO
     public List<string>? GalleryImages { get; init; }
     public bool IsAvailable { get; init; }
     public bool IsFeatured { get; init; }
-    public int CategoryId { get; init; }  // ✅ Added - Required by frontend
+    public int CategoryId { get; init; } 
     public string CategoryName { get; init; } = string.Empty;
 }

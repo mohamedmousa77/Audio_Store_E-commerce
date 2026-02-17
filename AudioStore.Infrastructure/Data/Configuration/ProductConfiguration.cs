@@ -31,7 +31,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .HasMaxLength(2000)
             .HasColumnType("nvarchar(2000)");
 
-        builder.Property(p => p.Features)
+        builder.Property(p => p.Specifications)
             .HasColumnType("nvarchar(max)"); // JSON string
 
         builder.Property(p => p.Price)
@@ -49,8 +49,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(p => p.MainImage)
             .IsRequired()
-            .HasMaxLength(500)
-            .HasColumnType("nvarchar(500)");
+            .HasColumnType("nvarchar(max)");
 
         builder.Property(p => p.GalleryImages)
             .HasColumnType("nvarchar(max)"); // JSON array

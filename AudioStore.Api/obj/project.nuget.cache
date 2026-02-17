@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4sLXtGKdQgo=",
+  "dgSpecHash": "3KkZONL7+3o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.API\\AudioStore.Api.csproj",
+  "projectFilePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\A1154apulia\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\asp.versioning.http\\8.1.1\\asp.versioning.http.8.1.1.nupkg.sha512",

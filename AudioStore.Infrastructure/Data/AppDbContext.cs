@@ -27,6 +27,15 @@ public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
         // Applica tutte le configurazioni
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
+        // Configurazione per salvare List<string> come JSON nel DB
+        // Gestisce anche i dati legacy (stringhe semplici, non JSON)
+        modelBuilder.Entity<Product>()
+            .Property(p => p.GalleryImages)
+            .HasConversion(
+                v => System.Text.Json.JsonSerializer.Serialize(v, (System.Text.Json.JsonSerializerOptions)null!),
+                v => ConvertGalleryImages(v)
+            );
+
         // Personalizza nomi tabelle Identity (opzionale)
         modelBuilder.Entity<User>().ToTable("Users");
         modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
@@ -62,4 +71,31 @@ public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
         return base.SaveChangesAsync(cancellationToken);
     }
 
+    /// <summary>
+    /// Converte il valore GalleryImages dal DB a List&lt;string&gt;,
+    /// gestendo sia dati JSON validi che stringhe semplici (dati legacy)
+    /// </summary>
+    private static List<string>? ConvertGalleryImages(string? dbValue)
+    {
+        if (string.IsNullOrWhiteSpace(dbValue))
+            return new List<string>();
+
+        // Se inizia con '[', è un array JSON valido
+        if (dbValue.TrimStart().StartsWith("["))
+        {
+            try
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<List<string>>(dbValue,
+                    (System.Text.Json.JsonSerializerOptions)null!) ?? new List<string>();
+            }
+            catch
+            {
+                // Se il JSON è malformato, tratta come stringa semplice
+                return new List<string> { dbValue };
+            }
+        }
+
+        // Dato legacy: stringa semplice (es. "SomeImage.jpg") → la avvolgiamo in una lista
+        return new List<string> { dbValue };
+    }
 }

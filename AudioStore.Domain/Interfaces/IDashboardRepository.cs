@@ -18,6 +18,9 @@ public class TopProductData
     public int ProductId { get; set; }
     public string ProductName { get; set; } = string.Empty;
     public string ProductImage { get; set; } = string.Empty;
+    public string Brand { get; set; } = string.Empty;
+    public string CategoryName { get; set; } = string.Empty;
+    public int StockQuantity { get; set; }
     public int TotalQuantitySold { get; set; }
     public decimal TotalRevenue { get; set; }
 }
