@@ -26,8 +26,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasColumnType("nvarchar(500)");
 
         builder.Property(c => c.ImageUrl)
-            .HasMaxLength(500)
-            .HasColumnType("nvarchar(500)");
+            .HasColumnType("nvarchar(max)");
 
         builder.Property(c => c.Slug)
             .IsRequired()

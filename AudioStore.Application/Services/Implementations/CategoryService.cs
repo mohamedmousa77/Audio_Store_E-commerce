@@ -1,4 +1,5 @@
-﻿using AudioStore.Common;
+﻿using System.Text.RegularExpressions;
+using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Category;
 using AudioStore.Common.Services.Interfaces;
@@ -62,6 +63,9 @@ public class CategoryService : ICategoryService
             var category = _mapper.Map<Category>(dto);
             category.CreatedAt = DateTime.UtcNow;
 
+            // Auto-generate slug from name
+            category.Slug = GenerateSlug(dto.Name);
+
             await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
 
@@ -86,6 +90,7 @@ public class CategoryService : ICategoryService
 
             _mapper.Map(dto, category);
             category.UpdatedAt = DateTime.UtcNow;
+            category.Slug = GenerateSlug(dto.Name);
 
             _unitOfWork.Categories.Update(category);
             await _unitOfWork.SaveChangesAsync();
@@ -134,5 +139,17 @@ public class CategoryService : ICategoryService
                 "Errore eliminazione categoria",
                 ErrorCode.InternalServerError);
         }
+    }
+
+    /// <summary>
+    /// Generate a URL-friendly slug from a category name
+    /// </summary>
+    private static string GenerateSlug(string name)
+    {
+        var slug = name.ToLowerInvariant().Trim();
+        slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+        slug = Regex.Replace(slug, @"[\s-]+", "-");
+        slug = slug.Trim('-');
+        return slug;
     }
 }
