@@ -93,6 +93,15 @@ try
     app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.UseSerilogRequestLogging();
     app.UseHttpsRedirection();
+
+    // Serve static files from wwwroot (product/category images)
+    app.UseStaticFiles();
+
+    // Ensure image directories exist
+    var imagesRoot = Path.Combine(app.Environment.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), "images");
+    Directory.CreateDirectory(Path.Combine(imagesRoot, "products"));
+    Directory.CreateDirectory(Path.Combine(imagesRoot, "categories"));
+
     app.UseCors("AllowAngular");
     app.UseAuthentication();
     app.UseAuthorization();

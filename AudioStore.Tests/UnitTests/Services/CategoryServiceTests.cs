@@ -2,6 +2,7 @@ using AudioStore.Application.Services.Implementations;
 using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Category;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Tests.Helpers;
@@ -24,6 +25,7 @@ public class CategoryServiceTests
     private readonly Mock<ILogger<CategoryDTO>> _loggerMock;
     private readonly Mock<IRepository<Category>> _categoryRepositoryMock;
     private readonly Mock<IProductRepository> _productRepositoryMock;
+    private readonly Mock<IImageStorageService> _imageStorageMock;
     private readonly CategoryService _categoryService;
 
     public CategoryServiceTests()
@@ -33,6 +35,7 @@ public class CategoryServiceTests
         _loggerMock = new Mock<ILogger<CategoryDTO>>();
         _categoryRepositoryMock = new Mock<IRepository<Category>>();
         _productRepositoryMock = new Mock<IProductRepository>();
+        _imageStorageMock = new Mock<IImageStorageService>();
 
         _unitOfWorkMock.Setup(x => x.Categories).Returns(_categoryRepositoryMock.Object);
         _unitOfWorkMock.Setup(x => x.Products).Returns(_productRepositoryMock.Object);
@@ -40,7 +43,8 @@ public class CategoryServiceTests
         _categoryService = new CategoryService(
             _unitOfWorkMock.Object,
             _mapperMock.Object,
-            _loggerMock.Object);
+            _loggerMock.Object,
+            _imageStorageMock.Object);
     }
 
     #region GetAllAsync Tests

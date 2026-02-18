@@ -15,11 +15,14 @@ public class CategoryService : ICategoryService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<CategoryDTO> _logger;
-    public CategoryService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryDTO> logger)
+    private readonly IImageStorageService _imageStorage;
+
+    public CategoryService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryDTO> logger, IImageStorageService imageStorage)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
+        _imageStorage = imageStorage;
     }
     public async Task<Result<IEnumerable<CategoryDTO>>> GetAllAsync()
     {
@@ -66,6 +69,10 @@ public class CategoryService : ICategoryService
             // Auto-generate slug from name
             category.Slug = GenerateSlug(dto.Name);
 
+            // Save image to disk if it's base64
+            if (!string.IsNullOrEmpty(category.ImageUrl))
+                category.ImageUrl = await _imageStorage.SaveImageAsync(category.ImageUrl, "categories");
+
             await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
 
@@ -88,9 +95,19 @@ public class CategoryService : ICategoryService
             if (category == null)
                 return Result.Failure<CategoryDTO>("Categoria non trovata", ErrorCode.NotFound);
 
+            var oldImageUrl = category.ImageUrl;
+
             _mapper.Map(dto, category);
             category.UpdatedAt = DateTime.UtcNow;
             category.Slug = GenerateSlug(dto.Name);
+
+            // Save new image to disk if it's base64
+            if (!string.IsNullOrEmpty(category.ImageUrl))
+                category.ImageUrl = await _imageStorage.SaveImageAsync(category.ImageUrl, "categories");
+
+            // Clean up old image if replaced
+            if (!string.IsNullOrEmpty(oldImageUrl) && oldImageUrl != category.ImageUrl)
+                _imageStorage.DeleteImage(oldImageUrl);
 
             _unitOfWork.Categories.Update(category);
             await _unitOfWork.SaveChangesAsync();
@@ -126,6 +143,10 @@ public class CategoryService : ICategoryService
                 return Result.Failure("Impossibile eliminare: categoria contiene prodotti",
                     ErrorCode.BadRequest);
             }
+
+            // Clean up image file
+            if (!string.IsNullOrEmpty(category.ImageUrl))
+                _imageStorage.DeleteImage(category.ImageUrl);
 
             _unitOfWork.Categories.Delete(category);
             await _unitOfWork.SaveChangesAsync();

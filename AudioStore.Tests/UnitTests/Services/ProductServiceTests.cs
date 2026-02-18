@@ -2,6 +2,7 @@ using AudioStore.Application.Services.Implementations;
 using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Products;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Tests.Helpers;
@@ -24,6 +25,7 @@ public class ProductServiceTests
     private readonly Mock<IMapper> _mapperMock;
     private readonly Mock<ILogger<ProductService>> _loggerMock;
     private readonly Mock<IProductRepository> _productRepositoryMock;
+    private readonly Mock<IImageStorageService> _imageStorageMock;
     private readonly ProductService _productService;
 
     public ProductServiceTests()
@@ -32,13 +34,15 @@ public class ProductServiceTests
         _mapperMock = new Mock<IMapper>();
         _loggerMock = new Mock<ILogger<ProductService>>();
         _productRepositoryMock = new Mock<IProductRepository>();
+        _imageStorageMock = new Mock<IImageStorageService>();
 
         _unitOfWorkMock.Setup(x => x.Products).Returns(_productRepositoryMock.Object);
 
         _productService = new ProductService(
             _unitOfWorkMock.Object,
             _mapperMock.Object,
-            _loggerMock.Object);
+            _loggerMock.Object,
+            _imageStorageMock.Object);
     }
 
     #region GetByIdAsync Tests

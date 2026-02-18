@@ -1,4 +1,5 @@
-﻿using AudioStore.Common;
+﻿using System.Text.RegularExpressions;
+using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Products;
 using AudioStore.Common.Services.Interfaces;
@@ -15,15 +16,18 @@ public class ProductService : IProductService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<ProductService> _logger;
+    private readonly IImageStorageService _imageStorage;
 
     public ProductService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILogger<ProductService> logger)
+        ILogger<ProductService> logger,
+        IImageStorageService imageStorage)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
         _mapper = mapper;
+        _imageStorage = imageStorage;
     }
     // ============ QUERIES ============
     public async Task<Result<ProductDTO>> GetByIdAsync(int id)
@@ -218,6 +222,16 @@ public class ProductService : IProductService
             var product = _mapper.Map<Product>(dto);
             product.CreatedAt = DateTime.UtcNow;
 
+            // Auto-generate slug from product name
+            product.Slug = GenerateSlug(dto.Name);
+
+            // Save images to disk and store URL paths
+            if (!string.IsNullOrEmpty(product.MainImage))
+                product.MainImage = await _imageStorage.SaveImageAsync(product.MainImage, "products");
+
+            if (product.GalleryImages is { Count: > 0 })
+                product.GalleryImages = await _imageStorage.SaveImagesAsync(product.GalleryImages, "products");
+
             await _unitOfWork.Products.AddAsync(product);
             await _unitOfWork.SaveChangesAsync();
 
@@ -249,8 +263,31 @@ public class ProductService : IProductService
                     ErrorCode.ProductNotFound);
             }
 
+            // Save new images to disk if they are base64
+            var oldMainImage = product.MainImage;
+            var oldGallery = product.GalleryImages?.ToList();
+
             _mapper.Map(dto, product);
             product.UpdatedAt = DateTime.UtcNow;
+
+            // Regenerate slug from updated name
+            product.Slug = GenerateSlug(dto.Name);
+
+            if (!string.IsNullOrEmpty(product.MainImage))
+                product.MainImage = await _imageStorage.SaveImageAsync(product.MainImage, "products");
+
+            if (product.GalleryImages is { Count: > 0 })
+                product.GalleryImages = await _imageStorage.SaveImagesAsync(product.GalleryImages, "products");
+
+            // Clean up replaced images
+            if (!string.IsNullOrEmpty(oldMainImage) && oldMainImage != product.MainImage)
+                _imageStorage.DeleteImage(oldMainImage);
+
+            if (oldGallery != null)
+            {
+                foreach (var oldImg in oldGallery.Where(g => product.GalleryImages == null || !product.GalleryImages.Contains(g)))
+                    _imageStorage.DeleteImage(oldImg);
+            }
 
             _unitOfWork.Products.Update(product);
             await _unitOfWork.SaveChangesAsync();
@@ -336,5 +373,15 @@ public class ProductService : IProductService
 
     }
 
+    /// <summary>
+    /// Generate a URL-friendly slug from a product name
+    /// </summary>
+    private static string GenerateSlug(string name)
+    {
+        var slug = name.ToLowerInvariant().Trim();
+        slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+        slug = Regex.Replace(slug, @"[\s-]+", "-");
+        slug = slug.Trim('-');
+        return slug;
+    }
 }
-

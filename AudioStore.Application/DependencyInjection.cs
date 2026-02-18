@@ -74,6 +74,13 @@ public static class DependencyInjection
         services.AddScoped<IDashboardService, DashboardService>();
         services.AddScoped<IProfileService, ProfileService>();
 
+        // Image Storage — registered with a factory; the wwwRootPath is set in Program.cs
+        services.AddSingleton<IImageStorageService>(sp =>
+        {
+            var env = sp.GetRequiredService<Microsoft.AspNetCore.Hosting.IWebHostEnvironment>();
+            return new ImageStorageService(env.WebRootPath);
+        });
+
 
         return services;
     }
