@@ -90,7 +90,7 @@ public class CustomerManagementService : ICustomerManagementService
     {
         try
         {
-            var customers = _unitOfWork.Users.GetCustomersWithOrdersAsync();
+            var customers = await _unitOfWork.Users.GetCustomersWithOrdersAsync();
 
             var customerDtos = _mapper.Map<IEnumerable<CustomerListItemDTO>>(customers).AsQueryable();
 
