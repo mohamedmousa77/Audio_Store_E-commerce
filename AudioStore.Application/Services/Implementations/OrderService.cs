@@ -397,12 +397,12 @@ public class OrderService : IOrderService
             }
 
             //  Validazione transizione stato
-            if (!IsValidStatusTransition(order.Status, dto.NewStatus))
-            {
-                return Result.Failure<OrderDTO>(
-                    $"Transizione di stato non valida da {order.Status} a {dto.NewStatus}",
-                    ErrorCode.BadRequest);
-            }
+            //if (!IsValidStatusTransition(order.Status, dto.NewStatus))
+            //{
+            //    return Result.Failure<OrderDTO>(
+            //        $"Transizione di stato non valida da {order.Status} a {dto.NewStatus}",
+            //        ErrorCode.BadRequest);
+            //}
 
             order.Status = dto.NewStatus;
             order.UpdatedAt = DateTime.UtcNow;

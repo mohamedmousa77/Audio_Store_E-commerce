@@ -68,7 +68,9 @@ public class MappingProfile : Profile
         // ============ ORDER MAPPINGS ============
         CreateMap<Order, OrderDTO>()
             .ForMember(dest => dest.Items,
-                opt => opt.MapFrom(src => src.OrderItems));
+                opt => opt.MapFrom(src => src.OrderItems))
+            .ForMember(dest => dest.OrderStatus,
+                opt => opt.MapFrom(src => src.Status));
 
         CreateMap<OrderItem, OrderItemDTO>()
             .ForMember(dest => dest.ProductName,

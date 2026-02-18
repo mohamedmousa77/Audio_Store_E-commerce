@@ -63,6 +63,15 @@ try
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
+            
+        });
+        options.AddPolicy("AllowAnonimos", policy =>
+        {
+            policy.WithOrigins("https://2r77q06d-4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+
         });
     });
 
