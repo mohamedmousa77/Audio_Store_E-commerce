@@ -30,27 +30,24 @@ public class CustomerManagementService : ICustomerManagementService
     {
         try
         {
-            // Total customers (role = Customer)
-            var totalCustomersTask = _unitOfWork.Users
-                .GetTotalCustomersCountAsync();
+            // // Total customers (role = Customer)
+            // var totalCustomersTask = _unitOfWork.Users.GetTotalCustomersCountAsync();
 
-            // Active customers this month (made at least one order)
-            var activeCustomersTask = _unitOfWork.Users
-                .GetActiveCustomersThisMonthAsync();
+            // // Active customers this month (made at least one order)
+            // var activeCustomersTask = _unitOfWork.Users.GetActiveCustomersThisMonthAsync();
 
-            // Total orders
-            var totalOrdersTask = _unitOfWork.Orders
-                .CountAsync();
+            // // Total orders
+            // var totalOrdersTask = _unitOfWork.Orders.CountAsync();
 
-            // Top customer (highest total spent)
-            var topCustomerTask = _unitOfWork.Users.GetTopCustomerAsync();
+            // // Top customer (highest total spent)
+            // var topCustomerTask = _unitOfWork.Users.GetTopCustomerAsync();
 
-            await Task.WhenAll(totalCustomersTask, activeCustomersTask, totalOrdersTask, topCustomerTask);
+            // await Task.WhenAll(totalCustomersTask, activeCustomersTask, totalOrdersTask, topCustomerTask);
 
-            var totalCustomers = await totalCustomersTask;
-            var activeCustomersThisMonth = await activeCustomersTask;
-            var totalOrders = await totalOrdersTask;
-            var topCustomerEntity = await topCustomerTask;
+            var totalCustomers = await _unitOfWork.Users.GetTotalCustomersCountAsync();
+            var activeCustomersThisMonth = await _unitOfWork.Users.GetActiveCustomersThisMonthAsync();
+            var totalOrders = await _unitOfWork.Orders.CountAsync();
+            var topCustomerEntity = await _unitOfWork.Users.GetTopCustomerAsync();
 
 
             TopCustomerDTO? topCustomer = null;
@@ -186,7 +183,7 @@ public class CustomerManagementService : ICustomerManagementService
 
             var customerDetail = new CustomerDetailDTO
             {
-                UserId = user.Id,
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email!,
@@ -194,6 +191,7 @@ public class CustomerManagementService : ICustomerManagementService
                 RegistrationDate = user.CreatedAt,
                 TotalOrders = totalOrders,
                 TotalSpent = totalSpent,
+                Status = user.IsActive ? "Active" : "Inactive",
                 AverageOrderAmount = averageOrderAmount,
                 LastOrderDate = lastOrderDate,
                 RecentOrders = recentOrders
