@@ -1,0 +1,6 @@
+services:
+  audiostore.api:
+    image: ${DOCKER_REGISTRY-}audiostoreapi
+    build:
+      context: .
+      dockerfile: AudioStore.Api/Dockerfile

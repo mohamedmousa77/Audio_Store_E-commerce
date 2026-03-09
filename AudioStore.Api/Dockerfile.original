@@ -12,23 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AudioStore.Api/AudioStore.Api.csproj", "AudioStore.Api/"]
-COPY ["AudioStore.Application/AudioStore.Application.csproj", "AudioStore.Application/"]
-COPY ["AudioStore.Common/AudioStore.Common.csproj", "AudioStore.Common/"]
-COPY ["AudioStore.Domain/AudioStore.Domain.csproj", "AudioStore.Domain/"]
-COPY ["AudioStore.Infrastructure/AudioStore.Infrastructure.csproj", "AudioStore.Infrastructure/"]
-RUN dotnet restore "./AudioStore.Api/AudioStore.Api.csproj"
+COPY ["AudioStore/AudioStore.csproj", "AudioStore/"]
+RUN dotnet restore "./AudioStore/AudioStore.csproj"
 COPY . .
-WORKDIR "/src/AudioStore.Api"
-RUN dotnet build "./AudioStore.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/AudioStore"
+RUN dotnet build "./AudioStore.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AudioStore.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AudioStore.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AudioStore.Api.dll"]
+ENTRYPOINT ["dotnet", "AudioStore.dll"]
