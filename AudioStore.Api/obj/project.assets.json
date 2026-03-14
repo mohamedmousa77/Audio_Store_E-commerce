@@ -4691,11 +4691,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+      "projectUniqueName": "C:\\Dev\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
       "projectName": "AudioStore.Api",
-      "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
+      "projectPath": "C:\\Dev\\AudioStore\\AudioStore.Api\\AudioStore.Api.csproj",
       "packagesPath": "C:\\Users\\A1154apulia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Api\\obj\\",
+      "outputPath": "C:\\Dev\\AudioStore\\AudioStore.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4717,14 +4717,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj": {
-              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj"
+            "C:\\Dev\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj": {
+              "projectPath": "C:\\Dev\\AudioStore\\AudioStore.Application\\AudioStore.Application.csproj"
             },
-            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj": {
-              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj"
+            "C:\\Dev\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj": {
+              "projectPath": "C:\\Dev\\AudioStore\\AudioStore.Domain\\AudioStore.Domain.csproj"
             },
-            "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj"
+            "C:\\Dev\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj": {
+              "projectPath": "C:\\Dev\\AudioStore\\AudioStore.Infrastructure\\AudioStore.Infrastructure.csproj"
             }
           }
         }
@@ -4739,7 +4739,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0": {
@@ -4823,7 +4823,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

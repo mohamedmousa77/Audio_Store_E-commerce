@@ -5,7 +5,4 @@
   <Project Path="AudioStore.Domain/AudioStore.Domain.csproj" />
   <Project Path="AudioStore.Infrastructure/AudioStore.Infrastructure.csproj" />
   <Project Path="AudioStore.Tests/AudioStore.Tests.csproj" />
-  <Project Path="docker-compose.dcproj">
-    <Build />
-  </Project>
 </Solution>

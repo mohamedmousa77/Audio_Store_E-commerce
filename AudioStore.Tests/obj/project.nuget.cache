@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SKE2biKVkQg=",
+  "dgSpecHash": "dK9DBEJVytI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
+  "projectFilePath": "C:\\Dev\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\A1154apulia\\.nuget\\packages\\automapper\\16.0.0\\automapper.16.0.0.nupkg.sha512",
     "C:\\Users\\A1154apulia\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
@@ -153,9 +153,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "AudioStore.Tests depends on NBomber (>= 5.10.3) but NBomber 5.10.3 was not found. NBomber 6.0.0 was resolved instead.",
-      "projectPath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
+      "projectPath": "C:\\Dev\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\A1154apulia\\Desktop\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
+      "filePath": "C:\\Dev\\AudioStore\\AudioStore.Tests\\AudioStore.Tests.csproj",
       "libraryId": "NBomber",
       "targetGraphs": [
         "net10.0"

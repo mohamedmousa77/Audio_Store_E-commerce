@@ -3,13 +3,7 @@ using AudioStore.Api.Extensions;
 using AudioStore.Api.Middleware;
 using AudioStore.Application;
 using AudioStore.Infrastructure;
-using AudioStore.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using System.Text;
-using System.Security.Claims;
 
 // ✅ Configure Serilog from appsettings.json
 Log.Logger = new LoggerConfiguration()
@@ -63,7 +57,7 @@ try
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
-            
+
         });
         options.AddPolicy("AllowAnonimos", policy =>
         {
@@ -78,7 +72,7 @@ try
     //  Infrastructure & Application
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddApplication(builder.Configuration);
-    
+
     //  Cached Decorators
     builder.Services.AddCachedDecorators();
 
@@ -88,8 +82,8 @@ try
     //  Initialize Database with Seeding
     if (app.Environment.IsDevelopment())
     {
-    // ============ DATABASE INITIALIZATION ============
-    await app.Services.InitializeDatabaseAsync();
+        // ============ DATABASE INITIALIZATION ============
+        await app.Services.InitializeDatabaseAsync();
     }
 
     // Middleware

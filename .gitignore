@@ -6,4 +6,5 @@
 # File di configurazione utente
 *.user
 *.userosscache
-*.sln.docstates
+*.sln.docstatesdocs/ 
+scripts/ 
