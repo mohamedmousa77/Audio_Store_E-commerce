@@ -1,10 +1,12 @@
-﻿using AudioStore.Common.DTOs.Admin.CustomerManagement;
+using AudioStore.Common.DTOs.Admin.CustomerManagement;
 using AudioStore.Common.DTOs.Admin.Dashboard;
 using AudioStore.Common.DTOs.Auth;
 using AudioStore.Common.DTOs.Cart;
 using AudioStore.Common.DTOs.Orders;
 using AudioStore.Common.DTOs.Products;
 using AudioStore.Common.DTOs.Profile;
+using AudioStore.Common.DTOs.PromoCode;
+using AudioStore.Common.Enums;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
@@ -102,6 +104,32 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.LastOrderDate,
                 opt => opt.MapFrom(src => src.Orders.Any() ? src.Orders.Max(o => o.OrderDate) : (DateTime?)null))
             .ForMember(dest => dest.TotalSpent, opt => opt.MapFrom(src => src.Orders.Sum(o => o.TotalAmount)));
+
+        // ============ PROMO CODE MAPPINGS ============
+        CreateMap<PromoCode, PromoCodeResponseDTO>()
+            .ForMember(dest => dest.TotalAssigned, opt => opt.Ignore())
+            .ForMember(dest => dest.TotalUsed, opt => opt.Ignore());
+
+        CreateMap<CreatePromoCodeDTO, PromoCode>()
+            .ForMember(dest => dest.CurrentUsages, opt => opt.MapFrom(_ => 0));
+
+        CreateMap<CreateAndAssignPromoCodeDTO, PromoCode>()
+            .ForMember(dest => dest.CurrentUsages, opt => opt.MapFrom(_ => 0))
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.UserPromoCodes, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedById, opt => opt.Ignore())
+            .ForMember(dest => dest.ModifiedById, opt => opt.Ignore());
+
+        CreateMap<UserPromoCode, UserPromoCodeDTO>()
+            .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.PromoCode.Code))
+            .ForMember(dest => dest.ExpiresAt, opt => opt.MapFrom(src => src.PromoCode.ExpiresAt))
+            .ForMember(dest => dest.DiscountValue, opt => opt.MapFrom(src =>
+                src.PromoCode.DiscountType == DiscountType.Percentage
+                    ? $"{src.PromoCode.DiscountValue}%"
+                    : $"{src.PromoCode.DiscountValue:C}"));
 
 
     }

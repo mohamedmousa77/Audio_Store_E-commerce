@@ -1,4 +1,4 @@
-﻿using AudioStore.Domain.Entities;
+using AudioStore.Domain.Entities;
 
 namespace AudioStore.Domain.Interfaces;
 
@@ -11,6 +11,7 @@ public interface IUnitOfWork : IDisposable
     IProductRepository Products { get; }
     ICartRepository Carts { get; }
     ICartItemsRepository CartItems { get; }
+    IPromoCodeRepository PromoCodes { get; }
 
     //Generic Repositories
     IRepository<Category> Categories { get; }    

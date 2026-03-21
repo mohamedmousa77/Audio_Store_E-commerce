@@ -1,8 +1,9 @@
-﻿using AudioStore.Application.Behaviors;
+using AudioStore.Application.Behaviors;
 using AudioStore.Application.Mapping;
 using AudioStore.Application.Services.Implementations;
 using AudioStore.Common.Configuration;
 using AudioStore.Common.Services.Interfaces;
+using AudioStore.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -73,6 +74,7 @@ public static class DependencyInjection
         services.AddScoped<ICustomerManagementService, CustomerManagementService>();
         services.AddScoped<IDashboardService, DashboardService>();
         services.AddScoped<IProfileService, ProfileService>();
+        services.AddScoped<IPromoCodeService, PromoCodeService>();
 
         // Image Storage — registered with a factory; the wwwRootPath is set in Program.cs
         services.AddSingleton<IImageStorageService>(sp =>

@@ -1,4 +1,4 @@
-﻿using AudioStore.Domain.Entities;
+using AudioStore.Domain.Entities;
 using AudioStore.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,6 +19,8 @@ public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<PromoCode> PromoCodes { get; set; }
+    public DbSet<UserPromoCode> UserPromoCodes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

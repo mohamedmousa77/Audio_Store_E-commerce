@@ -1,4 +1,4 @@
-﻿namespace AudioStore.Common.Constants;
+namespace AudioStore.Common.Constants;
 
 public static class ErrorCode
 {
@@ -31,6 +31,16 @@ public static class ErrorCode
     // Cart
     public const string CartNotFound = "CART001";
     public const string InvalidQuantity = "CART002";
+
+    // PromoCode
+    public const string PromoCodeNotFound = "PROMO001";
+    public const string PromoCodeExpired = "PROMO002";
+    public const string PromoCodeInactive = "PROMO003";
+    public const string PromoCodeAlreadyUsed = "PROMO004";
+    public const string PromoCodeMinAmountNotMet = "PROMO005";
+    public const string PromoCodeMaxUsagesReached = "PROMO006";
+    public const string PromoCodeNotAssigned = "PROMO007";
+    public const string PromoCodeAlreadyExists = "PROMO008";
 
     // General
     public const string InternalServerError = "GEN001";

@@ -1,4 +1,4 @@
-﻿using AudioStore.Common;
+using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Orders;
 using AudioStore.Common.Enums;
@@ -16,15 +16,18 @@ public class OrderService : IOrderService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<OrderService> _logger;
+    private readonly IPromoCodeService _promoCodeService;
 
     public OrderService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILogger<OrderService> logger)
+        ILogger<OrderService> logger,
+        IPromoCodeService promoCodeService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
+        _promoCodeService = promoCodeService;
     }
 
     // ============ CREATE ORDER ============
@@ -180,9 +183,46 @@ public class OrderService : IOrderService
             order.ShippingCost = CalculateShippingCost(subtotal);
             order.Tax = CalculateTax(subtotal);
             order.TotalAmount = order.Subtotal + order.ShippingCost + order.Tax;
+            order.DiscountAmount = 0;
             _logger.LogInformation("  - Subtotal: {Subtotal}", order.Subtotal);
             _logger.LogInformation("  - Shipping: {Shipping}", order.ShippingCost);
             _logger.LogInformation("  - Tax: {Tax}", order.Tax);
+
+            // ============ PROMO CODE ============
+            int? appliedPromoCodeId = null;
+            if (!string.IsNullOrWhiteSpace(dto.PromoCode))
+            {
+                if (!dto.UserId.HasValue)
+                {
+                    _logger.LogWarning("❌ PromoCode '{Code}' cannot be applied to guest order", dto.PromoCode);
+                    await _unitOfWork.RollbackTransactionAsync();
+                    return Result.Failure<OrderConfirmationDTO>(
+                        "I codici promo sono disponibili solo per gli utenti registrati.",
+                        ErrorCode.Unauthorized);
+                }
+
+                _logger.LogInformation("🎟️ Validating promo code '{Code}' for user {UserId}", dto.PromoCode, dto.UserId.Value);
+                var promoResult = await _promoCodeService.ValidateAsync(dto.PromoCode, subtotal, dto.UserId.Value);
+
+                if (!promoResult.IsValid)
+                {
+                    _logger.LogWarning("❌ Promo code validation failed: {Message}", promoResult.Message);
+                    await _unitOfWork.RollbackTransactionAsync();
+                    return Result.Failure<OrderConfirmationDTO>(
+                        promoResult.Message,
+                        ErrorCode.PromoCodeNotFound);
+                }
+
+                order.DiscountAmount = promoResult.DiscountAmount;
+                order.TotalAmount = order.TotalAmount - promoResult.DiscountAmount;
+                order.PromoCodeId = promoResult.PromoCodeId;
+                appliedPromoCodeId = promoResult.PromoCodeId;
+
+                _logger.LogInformation("✅ Promo code '{Code}' applied — discount: {Discount}, new total: {Total}",
+                    dto.PromoCode, order.DiscountAmount, order.TotalAmount);
+            }
+
+            _logger.LogInformation("  - Discount: {Discount}", order.DiscountAmount);
             _logger.LogInformation("  - Total: {Total}", order.TotalAmount);
 
             //  Salva ordine
@@ -193,6 +233,23 @@ public class OrderService : IOrderService
 
             await _unitOfWork.CommitTransactionAsync();
             _logger.LogInformation("✅ Transaction committed");
+
+            // Marca il PromoCode come usato DOPO il commit della transazione
+            if (appliedPromoCodeId.HasValue && dto.UserId.HasValue)
+            {
+                try
+                {
+                    await _promoCodeService.MarkAsUsedAsync(appliedPromoCodeId.Value, dto.UserId.Value);
+                    _logger.LogInformation("✅ PromoCode {PromoCodeId} marked as used for user {UserId}",
+                        appliedPromoCodeId.Value, dto.UserId.Value);
+                }
+                catch (Exception ex)
+                {
+                    // Non-critical: ordine già creato, log e prosegui
+                    _logger.LogWarning(ex, "⚠️ Failed to mark promo code as used — order {OrderNumber} still created",
+                        order.OrderNumber);
+                }
+            }
 
             _logger.LogInformation(
                 "🎉 Order {OrderNumber} created successfully - Total: {Total}",
@@ -209,6 +266,8 @@ public class OrderService : IOrderService
 
             //  Mappa a DTO
             var orderDto = _mapper.Map<OrderDTO>(savedOrder);
+
+            // 
 
             var confirmation = new OrderConfirmationDTO
             {

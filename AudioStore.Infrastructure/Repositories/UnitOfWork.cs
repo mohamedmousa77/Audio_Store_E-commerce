@@ -1,4 +1,4 @@
-﻿using AudioStore.Domain.Entities;
+using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +23,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<OrderItem>? _orderItems;
     private IRepository<Address>? _addresses;
     private IRepository<RefreshToken>? _refreshTokens;
+    private IPromoCodeRepository? _promoCodes;
 
     public UnitOfWork(AppDbContext context)
     {
@@ -37,6 +38,7 @@ public class UnitOfWork : IUnitOfWork
     public ICartRepository Carts => _carts ??= new CartRepository(_context);
     public ICartItemsRepository CartItems => _cartItems ??= new CartItemsRepository(_context);
     public IProductRepository Products => _products ??= new ProductRepository(_context);
+    public IPromoCodeRepository PromoCodes => _promoCodes ??= new PromoCodeRepository(_context);
     //public ICategoryRepository Categories => _categories ??= new CategoryRepository(_context);
     public IRepository<Category> Categories => _categories ??= new Repository<Category>(_context);
     public IRepository<Address> Addresses => _addresses ??= new Repository<Address>(_context);

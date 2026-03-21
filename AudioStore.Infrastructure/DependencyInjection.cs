@@ -1,4 +1,4 @@
-﻿using AudioStore.Domain.Entities;
+using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Data;
@@ -62,6 +62,7 @@ public static class DependencyInjection
         services.AddScoped<ICartRepository, CartRepository>();
         services.AddScoped<ICartItemsRepository, CartItemsRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
 
 
 

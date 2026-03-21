@@ -1,4 +1,4 @@
-﻿namespace AudioStore.Common.DTOs.Orders;
+namespace AudioStore.Common.DTOs.Orders;
 
 public record CreateOrderDTO
 {
@@ -17,9 +17,13 @@ public record CreateOrderDTO
     public string ShippingPostalCode { get; init; } = string.Empty;
     public string ShippingCountry { get; init; } = string.Empty;
 
-    // ✅ Order Items (dal carrello)
+    // Order Items (dal carrello)
     public List<CreateOrderItemDTO> Items { get; init; } = new();
 
-    // ✅ Notes opzionali
+    // Notes opzionali
     public string? Notes { get; init; }
+
+    // PromoCode opzionale (applicato al checkout)
+    public string? PromoCode { get; init; }
 }
+

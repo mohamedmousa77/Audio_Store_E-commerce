@@ -34,6 +34,11 @@ public class Order : BaseEntity
 
     public string? Notes { get; set; }
 
+    // Promo code 
+    public int? PromoCodeId { get; set; }
+    public decimal DiscountAmount { get; set; } = 0;
+    public virtual PromoCode? PromoCode { get; set; }
+
     // Navigation
     public virtual User? User { get; set; }
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
