@@ -2,6 +2,7 @@ using AudioStore.Common.DTOs.Admin.CustomerManagement;
 using AudioStore.Common.DTOs.Admin.Dashboard;
 using AudioStore.Common.DTOs.Auth;
 using AudioStore.Common.DTOs.Cart;
+using AudioStore.Common.DTOs.Notification;
 using AudioStore.Common.DTOs.Orders;
 using AudioStore.Common.DTOs.Products;
 using AudioStore.Common.DTOs.Profile;
@@ -132,6 +133,8 @@ public class MappingProfile : Profile
                     : $"{src.PromoCode.DiscountValue:C}"));
 
 
+        // ============ Notification MAPPINGS ============
+        CreateMap<Notification, NotificationDTO>();
     }
 
     //  Helper methods per calcoli (statici perché usati da AutoMapper)

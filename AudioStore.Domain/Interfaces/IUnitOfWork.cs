@@ -12,6 +12,7 @@ public interface IUnitOfWork : IDisposable
     ICartRepository Carts { get; }
     ICartItemsRepository CartItems { get; }
     IPromoCodeRepository PromoCodes { get; }
+    INotificationRepository Notifications { get; }
 
     //Generic Repositories
     IRepository<Category> Categories { get; }    

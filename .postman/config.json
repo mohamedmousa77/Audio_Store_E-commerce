@@ -1,0 +1,15 @@
+{
+  "workspace": {
+    "id": "7f8d4b84-daf6-4a5c-8704-3a5d90d1d4dd"
+  },
+  "entities": {
+    "environments": [],
+    "flows": [],
+    "globals": [],
+    "mocks": [],
+    "specs": [
+      "..\\AudioStore.Api\\obj\\Debug\\net10.0\\EndpointInfo\\AudioStore.Api.json"
+    ],
+    "collections": []
+  }
+}

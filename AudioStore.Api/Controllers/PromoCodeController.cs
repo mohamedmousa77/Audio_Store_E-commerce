@@ -199,8 +199,8 @@ public class PromoCodeController : ControllerBase
     public async Task<IActionResult> Validate([FromBody] ValidatePromoCodeRequestDTO dto)
     {
         var userId = GetUserId();
-        if (!userId.HasValue)
-            return Unauthorized(new { error = "Devi essere autenticato per usare un codice promo." });
+        //if (!userId.HasValue)
+        //    return Unauthorized(new { error = "Devi essere autenticato per usare un codice promo." });
 
         _logger.LogInformation("User {UserId} validating promo code '{Code}' with subtotal {Subtotal}",
             userId, dto.Code, dto.Subtotal);

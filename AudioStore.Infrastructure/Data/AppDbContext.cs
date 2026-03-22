@@ -21,6 +21,7 @@ public class AppDbContext : IdentityDbContext<User, ApplicationRole, int>
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<PromoCode> PromoCodes { get; set; }
     public DbSet<UserPromoCode> UserPromoCodes { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

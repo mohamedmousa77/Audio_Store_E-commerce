@@ -24,7 +24,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<Address>? _addresses;
     private IRepository<RefreshToken>? _refreshTokens;
     private IPromoCodeRepository? _promoCodes;
-
+    public INotificationRepository _notifications;
     public UnitOfWork(AppDbContext context)
     {
         _context = context;
@@ -39,7 +39,7 @@ public class UnitOfWork : IUnitOfWork
     public ICartItemsRepository CartItems => _cartItems ??= new CartItemsRepository(_context);
     public IProductRepository Products => _products ??= new ProductRepository(_context);
     public IPromoCodeRepository PromoCodes => _promoCodes ??= new PromoCodeRepository(_context);
-    //public ICategoryRepository Categories => _categories ??= new CategoryRepository(_context);
+    public INotificationRepository Notifications => _notifications ??= new NotificationRepository(_context);
     public IRepository<Category> Categories => _categories ??= new Repository<Category>(_context);
     public IRepository<Address> Addresses => _addresses ??= new Repository<Address>(_context);
     public IRepository<RefreshToken> RefreshTokens => _refreshTokens ??= new Repository<RefreshToken>(_context);
