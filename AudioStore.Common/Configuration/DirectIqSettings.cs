@@ -3,8 +3,9 @@
 public class DirectIqSettings
 {
     public const string SectionName = "DirectIQ";
-    public string ApiUrl { get; set; } = string.Empty;
+    public string ApiUrl { get; set; } = "https://rest.directiq.com";
     public string AuthToken { get; set; } = string.Empty;
+    public string ApiVersion { get; set; } = string.Empty; // DirectIQ account email
     public string FromAddress { get; set; } = string.Empty;
     public string FromName { get; set; } = string.Empty;
     public int AbandonedCartMinutes { get; set; } = 30; // Trigger

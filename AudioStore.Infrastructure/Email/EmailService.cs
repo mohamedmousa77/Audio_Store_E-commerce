@@ -12,7 +12,7 @@ public class EmailService : IEmailService
 {
     private readonly DirectIqSettings _settings;
     private readonly ILogger<EmailService> _logger;
-    private readonly RestClient _client;
+    //private readonly RestClient _client;
     private readonly IHttpClientFactory _httpClientFactory;
 
     public EmailService(
@@ -23,7 +23,7 @@ public class EmailService : IEmailService
     {
         _settings = settings.Value;
         _logger = logger;
-        _client = new RestClient(_settings.ApiUrl);
+        //_client = new RestClient(_settings.ApiUrl);
         _httpClientFactory = httpClientFactory;
     }
 
@@ -32,24 +32,25 @@ public class EmailService : IEmailService
         try
         {
             var httpClient = _httpClientFactory.CreateClient("DirectIQ");
-            using var client = new RestClient(httpClient); // Disposed
+            using var client = new RestClient(httpClient); // Pre-request disposed
 
-            var restRequest = new RestRequest("/v1/email/send", Method.Post);
-            restRequest.AddHeader("Authorization", _settings.AuthToken);
-            restRequest.AddHeader("Content-Type", "application/json");
+            var restRequest = new RestRequest("/core/email/send", Method.Post);
+            restRequest.AddHeader("authorization", _settings.AuthToken);
+            restRequest.AddHeader("api-version", _settings.ApiVersion);
 
             var payload = new
             {
-                from = new { email = _settings.FromAddress, name = _settings.FromName },
-                to = new[] { new { email = request.ToEmail, name = request.ToName } },
+                from = _settings.FromAddress,
+                to = request.ToEmail,
                 subject = request.Subject,
-                html = request.HtmlBody,
-                text = request.PlainTextBody ?? string.Empty
+                content = request.HtmlBody
+                //html = request.HtmlBody,
+                //text = request.PlainTextBody ?? string.Empty
             };
 
             restRequest.AddJsonBody(payload);
 
-            var response = await _client.ExecuteAsync(restRequest);
+            var response = await client.ExecuteAsync(restRequest);
 
             if (response.IsSuccessful)
             {
@@ -105,51 +106,33 @@ public class EmailService : IEmailService
 
     // ─── Email Templates ────────────────────────────────────────────────────
 
-    private string BuildAbandonedCartHtml(
-        string name, decimal total, int itemCount) =>
-            $"""
-                <html>
-                <body style="font-family: Arial, sans-serif; color: #333;">
-                    <div style="max-width: 600px; margin: auto; padding: 24px;">
-                        <h2 style="color: #1a1a2e;">Hi {name}, your cart is waiting! 🎧</h2>
-                        <p>You have <strong>{itemCount} item(s)</strong> in your cart
-                           with a total of <strong>${total:F2}</strong>.</p>
-                        <p>Come back and complete your purchase before they sell out!</p>
-                        <a href=$"{_settings.AudioStoreUrl}/cart"
-                           style="display:inline-block; padding:12px 24px;
-                                  background:#6c63ff; color:white;
-                                  border-radius:6px; text-decoration:none;">
-                            Return to Cart
-                        </a>
-                        <hr style="margin-top:32px;"/>
-                        <p style="font-size:12px; color:#999;">
-                            Audio Store — Premium Audio Equipment
-                        </p>
-                    </div>
-                </body>
-                </html>
-            """;
+    private string BuildAbandonedCartHtml(string name, decimal total, int itemCount) => $"""
+    <html><body style="font-family:Arial,sans-serif;color:#333;">
+      <div style="max-width:600px;margin:auto;padding:24px;">
+        <h2 style="color:#1a1a2e;">Hi {name}, your cart is waiting! 🎧</h2>
+        <p>You have <strong>{itemCount} item(s)</strong> totalling
+           <strong>${total:F2}</strong>.</p>
+        <a href="{_settings.AudioStoreUrl}/cart"
+           style="display:inline-block;padding:12px 24px;background:#6c63ff;
+                  color:white;border-radius:6px;text-decoration:none;">
+          Return to Cart
+        </a>
+      </div>
+    </body></html>
+    """;
 
-    private string BuildOrderConfirmationHtml(
-        string name, int orderId, decimal total)
-        => $"""
-            <html>
-            <body style="font-family: Arial, sans-serif; color: #333;">
-                <div style="max-width: 600px; margin: auto; padding: 24px;">
-                    <h2 style="color: #1a1a2e;">Order Confirmed! ✅</h2>
-                    <p>Hi <strong>{name}</strong>, your order
-                       <strong>#{orderId}</strong> has been placed successfully.</p>
-                    <p>Total: <strong>${total:F2}</strong></p>
-                    <a href=$"{_settings.AudioStoreUrl}/orders/{orderId}"
-                       style="display:inline-block; padding:12px 24px;
-                              background:#6c63ff; color:white;
-                              border-radius:6px; text-decoration:none;">
-                        View Order
-                    </a>
-                    <hr style="margin-top:32px;"/>
-                    <p style="font-size:12px; color:#999;">Audio Store</p>
-                </div>
-            </body>
-            </html>
-        """;
+    private string BuildOrderConfirmationHtml(string name, int orderId, decimal total) => $"""
+    <html><body style="font-family:Arial,sans-serif;color:#333;">
+      <div style="max-width:600px;margin:auto;padding:24px;">
+        <h2 style="color:#1a1a2e;">Order Confirmed! ✅</h2>
+        <p>Hi <strong>{name}</strong>, order <strong>#{orderId}</strong>
+           placed for <strong>${total:F2}</strong>.</p>
+        <a href="{_settings.AudioStoreUrl}/orders/{orderId}"
+           style="display:inline-block;padding:12px 24px;background:#6c63ff;
+                  color:white;border-radius:6px;text-decoration:none;">
+          View Order
+        </a>
+      </div>
+    </body></html>
+    """;
 }
