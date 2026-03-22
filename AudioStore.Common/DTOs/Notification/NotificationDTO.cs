@@ -9,4 +9,5 @@ public class NotificationDTO
     public string Type { get; set; } = string.Empty;
     public bool IsRead { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime ReadAt { get; set; }
 }

@@ -6,4 +6,6 @@ public interface ICartRepository : IRepository<Cart>
 {
     Task<Cart?> GetCartBySessionId(string sessionId);
     Task<Cart?> GetCartByUserId(int userId);
+
+    Task<IEnumerable<Cart>> GetAbandonedCartsAsync(DateTime updatedBefore, DateTime emailCooldownBefore);
 }

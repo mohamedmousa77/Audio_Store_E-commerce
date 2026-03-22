@@ -17,23 +17,29 @@ public class OrderService : IOrderService
     private readonly IMapper _mapper;
     private readonly ILogger<OrderService> _logger;
     private readonly IPromoCodeService _promoCodeService;
+    private readonly IEmailService _emailService;
+    private readonly INotificationService _notificationService;
 
     public OrderService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
         ILogger<OrderService> logger,
-        IPromoCodeService promoCodeService)
+        IPromoCodeService promoCodeService,
+        IEmailService emailService,
+        INotificationService notificationService
+        )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
         _promoCodeService = promoCodeService;
+        _emailService = emailService;
+        _notificationService = notificationService;
     }
 
     // ============ CREATE ORDER ============
     public async Task<Result<OrderConfirmationDTO>> CreateOrderAsync(CreateOrderDTO dto)
     {
-
         try
         {
             _logger.LogInformation("🔵 Starting order creation - UserId: {UserId}, Items count: {ItemCount}",
@@ -101,10 +107,10 @@ public class OrderService : IOrderService
                 CustomerPhone = customer.Phone,
 
                 // Shipping Address
-                ShippingStreet = dto.ShippingStreet,
-                ShippingCity = dto.ShippingCity,
-                ShippingPostalCode = dto.ShippingPostalCode,
-                ShippingCountry = dto.ShippingCountry,
+                ShippingStreet = dto.ShippingStreet!,
+                ShippingCity = dto.ShippingCity!,
+                ShippingPostalCode = dto.ShippingPostalCode!,
+                ShippingCountry = dto.ShippingCountry!,
 
                 Status = OrderStatus.Processing,
                 PaymentMethod = "Cash on Delivery",
@@ -225,7 +231,7 @@ public class OrderService : IOrderService
             _logger.LogInformation("  - Discount: {Discount}", order.DiscountAmount);
             _logger.LogInformation("  - Total: {Total}", order.TotalAmount);
 
-            //  Salva ordine
+           //  Salva ordine
             _logger.LogInformation("💾 Saving order to database");
             await _unitOfWork.Orders.AddAsync(order);
             await _unitOfWork.SaveChangesAsync();
@@ -255,6 +261,27 @@ public class OrderService : IOrderService
                 "🎉 Order {OrderNumber} created successfully - Total: {Total}",
                 order.OrderNumber,
                 order.TotalAmount);
+
+            // Send confirmation email
+            if (order != null && customer.Email != null )
+            {
+                // Send confirmation email
+                await _emailService.SendOrderConfirmationEmailAsync(
+                    toEmail: customer.Email,
+                    toName: $"{customer.FirstName} {customer.LastName}",
+                    orderId: order.Id,
+                    total: order.TotalAmount);              
+            }
+
+            if (order != null && dto.UserId != null)
+            {
+                // Create in-app notification
+                await _notificationService.CreateNotificationAsync(
+                    userId: dto.UserId ?? 0,
+                    title: "Order Confirmed!",
+                    message: $"Your order #{order.Id} has been placed for ${order.TotalAmount:F2}.",
+                    type: NotificationType.OrderConfirmed);
+            }
 
             // Ricarica order con Include per AutoMapper
             _logger.LogInformation("🔄 Reloading order with includes for mapping");

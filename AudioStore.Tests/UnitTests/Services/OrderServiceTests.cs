@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using FluentAssertions;
+using AudioStore.Common.Services.Interfaces;
 
 namespace AudioStore.Tests.UnitTests.Services;
 
@@ -28,14 +29,22 @@ public class OrderServiceTests
     private readonly Mock<IOrderRepository> _orderRepositoryMock;
     private readonly Mock<IProductRepository> _productRepositoryMock;
     private readonly OrderService _orderService;
+    private readonly Mock<IPromoCodeService> _promoCodeService;
+    private readonly Mock<IEmailService> _emailService;
+    private readonly Mock<INotificationService> _notificationService;
+
+
 
     public OrderServiceTests()
-    {
+    {       
         _unitOfWorkMock = new Mock<IUnitOfWork>();
         _mapperMock = new Mock<IMapper>();
         _loggerMock = new Mock<ILogger<OrderService>>();
         _orderRepositoryMock = new Mock<IOrderRepository>();
         _productRepositoryMock = new Mock<IProductRepository>();
+        _promoCodeService = new Mock<IPromoCodeService>();
+        _emailService = new Mock<IEmailService>();
+        _notificationService = new Mock<INotificationService>();
 
         _unitOfWorkMock.Setup(x => x.Orders).Returns(_orderRepositoryMock.Object);
         _unitOfWorkMock.Setup(x => x.Products).Returns(_productRepositoryMock.Object);
@@ -48,7 +57,12 @@ public class OrderServiceTests
         _orderService = new OrderService(
             _unitOfWorkMock.Object,
             _mapperMock.Object,
-            _loggerMock.Object);
+            _loggerMock.Object,
+            _promoCodeService.Object,
+            _emailService.Object,
+            _notificationService.Object
+            
+            );
     }
 
     #region UpdateOrderStatusAsync Tests

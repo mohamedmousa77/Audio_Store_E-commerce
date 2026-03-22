@@ -1,14 +1,18 @@
-using AudioStore.Domain.Entities;
+using AudioStore.Common.Configuration;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Interfaces;
+using AudioStore.Infrastructure.BackgroundJobs;
 using AudioStore.Infrastructure.Cashing.Extensions;
 using AudioStore.Infrastructure.Data;
+using AudioStore.Infrastructure.Email;
 using AudioStore.Infrastructure.Identity;
 using AudioStore.Infrastructure.Repositories;
 using AudioStore.Infrastructure.Security;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
 
 namespace AudioStore.Infrastructure;
 
@@ -24,7 +28,7 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString, sqlOptions =>
             {
                 sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
-                
+
                 // ⚠️ TEMPORARILY DISABLED: EnableRetryOnFailure conflicts with manual transactions
                 // Re-enable this later with proper execution strategy wrapping
                 // sqlOptions.EnableRetryOnFailure(
@@ -42,10 +46,10 @@ public static class DependencyInjection
         });
 
 
-        // ✅ Identity Configuration (moved to Identity folder)
+        // Identity Configuration (moved to Identity folder)
         services.AddIdentityConfiguration();
 
-        // ✅ Caching Configuration (Redis or Memory cache)
+        // Caching Configuration (Redis or Memory cache)
         services.AddCaching(configuration);
 
         // Security
@@ -54,7 +58,21 @@ public static class DependencyInjection
         // Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        // ✅ Repository Pattern 
+        // DirectIQ 
+        // 1. Bind 
+        services.Configure<DirectIqSettings>(configuration.GetSection(DirectIqSettings.SectionName));
+
+        // 2. Named HttpClient
+        services.AddHttpClient("DirectIQ", (sp, client) =>
+        {
+            var settings = sp.GetRequiredService<IOptions<DirectIqSettings>>().Value;
+            client.BaseAddress = new Uri(settings.ApiUrl);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.Timeout = TimeSpan.FromSeconds(30);
+
+        });
+
+        // Repository Pattern 
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
@@ -63,8 +81,10 @@ public static class DependencyInjection
         services.AddScoped<ICartItemsRepository, CartItemsRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
 
-
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddHostedService<AbandonedCartEmailJob>();
 
         return services;
 

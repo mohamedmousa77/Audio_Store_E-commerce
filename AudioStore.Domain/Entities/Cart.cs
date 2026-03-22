@@ -6,6 +6,9 @@ public class Cart : BaseEntity
     public string? SessionId { get; set; } // Per Guest users
     public bool IsActive { get; set; } = true;
 
+    // For email service check.
+    public DateTime? LastAbandonedCartEmailSentAt { get; set; }
+
     // Navigation Properties
     public virtual User? User { get; set; }
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();

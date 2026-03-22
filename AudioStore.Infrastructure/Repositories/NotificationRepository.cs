@@ -1,6 +1,7 @@
 ﻿using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioStore.Infrastructure.Repositories;
 
@@ -8,19 +9,19 @@ public class NotificationRepository : Repository<Notification>, INotificationRep
 {
     public NotificationRepository(AppDbContext context) : base(context) { }
 
-    public async Task<IEnumerable<Notification>> GetByUserIdAsync(int userId)
-        => await _context.Notifications
+    public async Task<IEnumerable<Notification>> GetByUserIdAsync(int userId) 
+        => await _dbSet
             .Where(n => n.UserId == userId && !n.IsDeleted)
             .OrderByDescending(n => n.CreatedAt)
             .ToListAsync();
 
     public async Task<int> GetUnreadCountAsync(int userId)
-        => await _context.Notifications
+        => await _dbSet
             .CountAsync(n => n.UserId == userId && !n.IsRead && !n.IsDeleted);
 
     public async Task MarkAsReadAsync(int notificationId)
     {
-        var notification = await _context.Notifications.FindAsync(notificationId);
+        var notification = await _dbSet.FindAsync(notificationId);
         if (notification != null)
         {
             notification.IsRead = true;
@@ -31,8 +32,8 @@ public class NotificationRepository : Repository<Notification>, INotificationRep
 
     public async Task MarkAllAsReadAsync(int userId)
     {
-        var notifications = await _context.Notifications
-            .Where(n => n.UserId == userId && !n.IsRead)
+        var notifications = await _dbSet
+            .Where(n => n.UserId == userId && !n.IsRead && !n.IsDeleted)
             .ToListAsync();
 
         foreach (var n in notifications)

@@ -75,6 +75,7 @@ public static class DependencyInjection
         services.AddScoped<IDashboardService, DashboardService>();
         services.AddScoped<IProfileService, ProfileService>();
         services.AddScoped<IPromoCodeService, PromoCodeService>();
+        services.AddScoped<INotificationService, NotificationService>();
 
         // Image Storage — registered with a factory; the wwwRootPath is set in Program.cs
         services.AddSingleton<IImageStorageService>(sp =>

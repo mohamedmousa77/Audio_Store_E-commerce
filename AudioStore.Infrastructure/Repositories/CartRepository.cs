@@ -25,4 +25,21 @@ public class CartRepository : Repository<Cart>, ICartRepository
             .ThenInclude(i => i.Product)
             .FirstOrDefaultAsync(c => c.SessionId == sessionId && !c.IsDeleted);
     }
+
+    public async Task<IEnumerable<Cart>> GetAbandonedCartsAsync
+        (DateTime updatedBefore, DateTime emailCooldownBefore)
+        => await _dbSet
+            .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+            .Include(c => c.User)
+            .Where(c =>
+                c.IsActive &&
+                c.UserId.HasValue &&
+                c.CartItems.Any() &&
+                (c.UpdatedAt ?? c.CreatedAt) < updatedBefore &&
+                // Guard: mai inviata, oppure inviata prima del cooldown
+                (c.LastAbandonedCartEmailSentAt == null ||
+                 c.LastAbandonedCartEmailSentAt < emailCooldownBefore)
+            )
+            .ToListAsync();
 }
