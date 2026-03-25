@@ -696,3 +696,4 @@ C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\refint\AudioStore.Api.dll
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioStore.Api.pdb
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioStore.Api.genruntimeconfig.cache
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\ref\AudioStore.Api.dll
+C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

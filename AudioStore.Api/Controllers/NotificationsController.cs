@@ -1,4 +1,5 @@
-﻿using AudioStore.Common.Services.Interfaces;
+﻿using Asp.Versioning;
+using AudioStore.Common.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -6,7 +7,8 @@ using System.Security.Claims;
 namespace AudioStore.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [Authorize]
 public class NotificationsController : ControllerBase
 {
