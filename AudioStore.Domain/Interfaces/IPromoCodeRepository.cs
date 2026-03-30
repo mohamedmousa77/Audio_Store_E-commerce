@@ -10,8 +10,8 @@ public interface IPromoCodeRepository : IRepository<PromoCode>
     /// <summary>Restituisce il PromoCode con la lista UserPromoCodes inclusa (per stats).</summary>
     Task<PromoCode?> GetWithStatsAsync(int id);
 
-    /// <summary>Tutti i PromoCode con UserPromoCodes inclusi (per stats admin).</summary>
-    Task<IEnumerable<PromoCode>> GetAllWithStatsAsync();
+    /// <summary>Tutti i PromoCode con UserPromoCodes inclusi (per stats admin). Filtro opzionale per codice/nome/email utente.</summary>
+    Task<IEnumerable<PromoCode>> GetAllWithStatsAsync(string? search = null);
 
     /// <summary>Lista UserPromoCode assegnati a un utente specifico.</summary>
     Task<IEnumerable<UserPromoCode>> GetUserPromoCodesAsync(int userId);

@@ -24,11 +24,27 @@ public class PromoCodeRepository : Repository<PromoCode>, IPromoCodeRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<PromoCode>> GetAllWithStatsAsync()
+    public async Task<IEnumerable<PromoCode>> GetAllWithStatsAsync(string? search = null)
     {
-        return await _context.PromoCodes
+        var query = _context.PromoCodes
             .Include(p => p.UserPromoCodes)
-            .Where(p => !p.IsDeleted)
+                .ThenInclude(upc => upc.User)
+            .Where(p => !p.IsDeleted);
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var term = search.Trim().ToLower();
+            query = query.Where(p =>
+                p.Code.ToLower().Contains(term) ||
+                p.UserPromoCodes.Any(upc =>
+                    upc.User.FirstName.ToLower().Contains(term) ||
+                    upc.User.LastName.ToLower().Contains(term) ||
+                    upc.User.Email.ToLower().Contains(term)
+                )
+            );
+        }
+
+        return await query
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
     }

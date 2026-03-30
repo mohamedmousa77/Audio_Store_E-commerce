@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AudioStore.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9358247422d94e80fef612972a8bca40bc41502b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9946f7ed835ff1f9d343752705d5ce356809726")]
 [assembly: System.Reflection.AssemblyProductAttribute("AudioStore.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AudioStore.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

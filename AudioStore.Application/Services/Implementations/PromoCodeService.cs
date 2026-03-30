@@ -192,9 +192,9 @@ public class PromoCodeService : IPromoCodeService
 
     // ============ GET ALL ============
 
-    public async Task<IEnumerable<PromoCodeResponseDTO>> GetAllAsync()
+    public async Task<IEnumerable<PromoCodeResponseDTO>> GetAllAsync(string? search = null)
     {
-        var promoCodes = await _unitOfWork.PromoCodes.GetAllWithStatsAsync();
+        var promoCodes = await _unitOfWork.PromoCodes.GetAllWithStatsAsync(search);
 
         return promoCodes.Select(p =>
         {
@@ -228,6 +228,23 @@ public class PromoCodeService : IPromoCodeService
         await _unitOfWork.SaveChangesAsync();
 
         _logger.LogInformation("Promo code {PromoCodeId} deactivated", promoCodeId);
+    }
+
+    // ============ ACTIVATE ============
+
+    public async Task ActivateAsync(int promoCodeId)
+    {
+        _logger.LogInformation("Activating promo code {PromoCodeId}", promoCodeId);
+
+        var promo = await _unitOfWork.PromoCodes.GetByIdAsync(promoCodeId);
+        if (promo == null)
+            throw new InvalidOperationException($"PromoCode con Id={promoCodeId} non trovato.");
+
+        promo.IsActive = true;
+        _unitOfWork.PromoCodes.Update(promo);
+        await _unitOfWork.SaveChangesAsync();
+
+        _logger.LogInformation("Promo code {PromoCodeId} activated", promoCodeId);
     }
 
     // ============ PRIVATE HELPERS ============

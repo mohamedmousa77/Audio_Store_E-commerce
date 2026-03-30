@@ -1,3 +1,10 @@
-﻿namespace AudioStore.Common.Enums;
+using System.Text.Json.Serialization;
 
-public enum DiscountType { Percentage, FixedAmount }
+namespace AudioStore.Common.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DiscountType
+{
+    Percentage,
+    FixedAmount
+}

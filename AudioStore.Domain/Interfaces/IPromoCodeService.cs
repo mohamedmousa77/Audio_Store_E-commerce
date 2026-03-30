@@ -32,9 +32,9 @@ public interface IPromoCodeService
     Task MarkAsUsedAsync(int promoCodeId, int userId);
 
     /// <summary>
-    /// Lista tutti i PromoCode (admin).
+    /// Lista tutti i PromoCode (admin). Filtro opzionale per codice/nome/email utente.
     /// </summary>
-    Task<IEnumerable<PromoCodeResponseDTO>> GetAllAsync();
+    Task<IEnumerable<PromoCodeResponseDTO>> GetAllAsync(string? search = null);
 
     /// <summary>
     /// Lista i PromoCode assegnati a un utente specifico (admin → scheda cliente).
@@ -45,4 +45,9 @@ public interface IPromoCodeService
     /// Disattiva un PromoCode.
     /// </summary>
     Task DeactivateAsync(int promoCodeId);
+
+    /// <summary>
+    /// Riattiva un PromoCode disattivato.
+    /// </summary>
+    Task ActivateAsync(int promoCodeId);
 }

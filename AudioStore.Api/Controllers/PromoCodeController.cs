@@ -36,12 +36,12 @@ public class PromoCodeController : ControllerBase
     [HttpGet]
     [Authorize(Roles = UserRole.Admin)]
     [ProducesResponseType(typeof(IEnumerable<PromoCodeResponseDTO>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? search)
     {
-        _logger.LogInformation("Admin getting all promo codes");
+        _logger.LogInformation("Admin getting all promo codes (search: '{Search}')", search);
         try
         {
-            var result = await _promoCodeService.GetAllAsync();
+            var result = await _promoCodeService.GetAllAsync(search);
             return Ok(result);
         }
         catch (Exception ex)
@@ -163,6 +163,32 @@ public class PromoCodeController : ControllerBase
         {
             _logger.LogError(ex, "Error deactivating promo code {Id}", id);
             return StatusCode(500, new { error = "Errore nella disattivazione del codice promo" });
+        }
+    }
+
+    /// <summary>
+    /// [Admin] Riattiva un PromoCode
+    /// </summary>
+    [HttpPost("{id:int}/activate")]
+    [Authorize(Roles = UserRole.Admin)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Activate(int id)
+    {
+        _logger.LogInformation("Admin activating promo code {Id}", id);
+        try
+        {
+            await _promoCodeService.ActivateAsync(id);
+            return Ok(new { message = "Codice promo riattivato con successo." });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error activating promo code {Id}", id);
+            return StatusCode(500, new { error = "Errore nella riattivazione del codice promo" });
         }
     }
 
