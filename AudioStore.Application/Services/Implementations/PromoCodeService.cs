@@ -2,6 +2,7 @@ using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.PromoCode;
 using AudioStore.Common.Enums;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
@@ -14,14 +15,17 @@ public class PromoCodeService : IPromoCodeService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<PromoCodeService> _logger;
+    private readonly INotificationService _notificationService;
 
     public PromoCodeService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
+        INotificationService notificationService,
         ILogger<PromoCodeService> logger)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _notificationService = notificationService;
         _logger = logger;
     }
 
@@ -145,6 +149,13 @@ public class PromoCodeService : IPromoCodeService
             await _unitOfWork.PromoCodes.AssignToUserAsync(promoCode.Id, dto.UserId);
             await _unitOfWork.SaveChangesAsync();
 
+            // Trasmissione Notifica
+            await _notificationService.CreateNotificationAsync(
+                dto.UserId,
+                "Nuovo Codice Promo!",
+                $"Ti è stato assegnato il codice promo {promoCode.Code} a sorpresa. Usalo al checkout per uno sconto!",
+                NotificationType.PromoCode);
+
             await _unitOfWork.CommitTransactionAsync();
 
             _logger.LogInformation("Promo code '{Code}' (Id={Id}) created and assigned to user {UserId}", promoCode.Code, promoCode.Id, dto.UserId);
@@ -177,6 +188,13 @@ public class PromoCodeService : IPromoCodeService
 
         await _unitOfWork.PromoCodes.AssignToUserAsync(promoCodeId, userId);
         await _unitOfWork.SaveChangesAsync();
+
+        // Trasmissione Notifica
+        await _notificationService.CreateNotificationAsync(
+            userId,
+            "Nuovo Codice Promo!",
+            $"Ti è stato assegnato il codice promo {promo.Code} a sorpresa. Usalo al checkout per uno sconto!",
+            NotificationType.PromoCode);
 
         _logger.LogInformation("Promo code {PromoCodeId} assigned to user {UserId}", promoCodeId, userId);
     }

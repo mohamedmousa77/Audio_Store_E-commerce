@@ -6,6 +6,7 @@ using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +20,7 @@ public class OrderService : IOrderService
     private readonly IPromoCodeService _promoCodeService;
     private readonly IEmailService _emailService;
     private readonly INotificationService _notificationService;
+    private readonly UserManager<User> _userManager;
 
     public OrderService(
         IUnitOfWork unitOfWork,
@@ -26,7 +28,8 @@ public class OrderService : IOrderService
         ILogger<OrderService> logger,
         IPromoCodeService promoCodeService,
         IEmailService emailService,
-        INotificationService notificationService
+        INotificationService notificationService,
+        UserManager<User> userManager
         )
     {
         _unitOfWork = unitOfWork;
@@ -35,6 +38,7 @@ public class OrderService : IOrderService
         _promoCodeService = promoCodeService;
         _emailService = emailService;
         _notificationService = notificationService;
+        _userManager = userManager;
     }
 
     // ============ CREATE ORDER ============
@@ -275,12 +279,32 @@ public class OrderService : IOrderService
 
             if (order != null && dto.UserId != null)
             {
-                // Create in-app notification
+                // Create in-app notification for the customer
                 await _notificationService.CreateNotificationAsync(
                     userId: dto.UserId ?? 0,
-                    title: "Order Confirmed!",
-                    message: $"Your order #{order.Id} has been placed for ${order.TotalAmount:F2}.",
+                    title: "Ordine Confermato!",
+                    message: $"Il tuo ordine {order.OrderNumber} è stato confermato per un totale di €{order.TotalAmount:F2}.",
                     type: NotificationType.OrderConfirmed);
+            }
+
+            // ── Notify all Admins about the new order ──
+            try
+            {
+                var admins = await _userManager.GetUsersInRoleAsync(UserRole.Admin);
+                foreach (var admin in admins)
+                {
+                    await _notificationService.CreateNotificationAsync(
+                        userId: admin.Id,
+                        title: "Nuovo Ordine Ricevuto!",
+                        message: $"È stato appena confermato l'ordine {order.OrderNumber} per un totale di €{order.TotalAmount:F2}.",
+                        type: NotificationType.OrderConfirmed);
+                }
+                _logger.LogInformation("📢 Notified {AdminCount} admin(s) about new order {OrderNumber}", admins.Count, order.OrderNumber);
+            }
+            catch (Exception ex)
+            {
+                // Non-critical: order is already created, just log
+                _logger.LogWarning(ex, "⚠️ Failed to notify admins about order {OrderNumber}", order.OrderNumber);
             }
 
             // Ricarica order con Include per AutoMapper
@@ -501,6 +525,22 @@ public class OrderService : IOrderService
                 order.OrderNumber,
                 dto.NewStatus);
 
+            if (order.UserId.HasValue)
+            {
+                var notifType = dto.NewStatus switch
+                {
+                    OrderStatus.Shipped => NotificationType.OrderShipped,
+                    OrderStatus.Delivered => NotificationType.OrderDelivered,
+                    _ => NotificationType.OrderConfirmed
+                };
+
+                await _notificationService.CreateNotificationAsync(
+                    order.UserId.Value,
+                    "Aggiornamento Stato Ordine",
+                    $"L'ordine {order.OrderNumber} è ora in stato: {dto.NewStatus}.",
+                    notifType);
+            }
+
             var orderDto = _mapper.Map<OrderDTO>(order);
             return Result.Success(orderDto);
         }
@@ -571,6 +611,15 @@ public class OrderService : IOrderService
             await _unitOfWork.CommitTransactionAsync();
 
             _logger.LogInformation("Order {OrderNumber} cancelled", order.OrderNumber);
+
+            if (order.UserId.HasValue)
+            {
+                await _notificationService.CreateNotificationAsync(
+                    order.UserId.Value,
+                    "Ordine Cancellato",
+                    $"L'ordine {order.OrderNumber} è stato cancellato con successo.",
+                    NotificationType.OrderConfirmed);
+            }
 
             return Result.Success();
         }
