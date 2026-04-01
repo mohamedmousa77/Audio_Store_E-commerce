@@ -46,7 +46,9 @@ public class OrderServiceTests
         _promoCodeService = new Mock<IPromoCodeService>();
         _emailService = new Mock<IEmailService>();
         _notificationService = new Mock<INotificationService>();
-        _userManager = new Mock<UserManager<User>>();
+        _userManager = new Mock<UserManager<User>>(
+            new Mock<Microsoft.AspNetCore.Identity.IUserStore<User>>().Object,
+            null, null, null, null, null, null, null, null);
 
         _unitOfWorkMock.Setup(x => x.Orders).Returns(_orderRepositoryMock.Object);
         _unitOfWorkMock.Setup(x => x.Products).Returns(_productRepositoryMock.Object);
@@ -335,6 +337,94 @@ public class OrderServiceTests
         // Assert
         result.Should().BeFailure();
         result.Should().HaveErrorCode(ErrorCode.OrderNotFound);
+    }
+
+    #endregion
+
+    #region Email Integration Tests
+
+    /// <summary>
+    /// Verifies that SendOrderConfirmationEmailAsync is NOT called
+    /// when an order status is merely updated (email only fires on creation).
+    /// This ensures the email trigger is scoped exclusively to CreateOrderAsync.
+    /// </summary>
+    [Fact]
+    public async Task UpdateOrderStatusAsync_DoesNotTriggerEmail()
+    {
+        // Arrange
+        var order = TestDataBuilder.Order()
+            .WithId(1)
+            .WithStatus(OrderStatus.Processing)
+            .Build();
+
+        var updateDto = new UpdateOrderStatusDTO
+        {
+            OrderId = 1,
+            NewStatus = OrderStatus.Shipped
+        };
+
+        _orderRepositoryMock.Setup(x => x.GetOrderById(1))
+            .ReturnsAsync(order);
+
+        _unitOfWorkMock.Setup(x => x.SaveChangesAsync())
+            .ReturnsAsync(1);
+
+        _mapperMock.Setup(x => x.Map<OrderDTO>(It.IsAny<Order>()))
+            .Returns(new OrderDTO { Id = 1, OrderStatus = OrderStatus.Shipped });
+
+        // Act
+        await _orderService.UpdateOrderStatusAsync(updateDto);
+
+        // Assert — email should NEVER be called on status update
+        _emailService.Verify(
+            e => e.SendOrderConfirmationEmailAsync(
+                It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<int>(), It.IsAny<decimal>()),
+            Times.Never,
+            "Email should not be sent when merely updating order status");
+    }
+
+    /// <summary>
+    /// Verifies that CancelOrderAsync does not trigger any email sending.
+    /// Emails are only for creation confirmation, not cancellation.
+    /// </summary>
+    [Fact]
+    public async Task CancelOrderAsync_DoesNotTriggerEmail()
+    {
+        // Arrange
+        var product = TestDataBuilder.Product()
+            .WithId(1)
+            .WithStockQuantity(50)
+            .Build();
+
+        var orderItem = TestDataBuilder.OrderItem()
+            .WithProductId(1)
+            .WithQuantity(2)
+            .Build();
+        orderItem.Product = product;
+
+        var order = TestDataBuilder.Order()
+            .WithId(1)
+            .WithStatus(OrderStatus.Processing)
+            .Build();
+        order.OrderItems.Add(orderItem);
+
+        _orderRepositoryMock.Setup(x => x.GetOrderById(1))
+            .ReturnsAsync(order);
+
+        _unitOfWorkMock.Setup(x => x.SaveChangesAsync())
+            .ReturnsAsync(1);
+
+        // Act
+        await _orderService.CancelOrderAsync(1);
+
+        // Assert — email should NEVER fire on cancellation
+        _emailService.Verify(
+            e => e.SendOrderConfirmationEmailAsync(
+                It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<int>(), It.IsAny<decimal>()),
+            Times.Never,
+            "Email should not be sent when cancelling an order");
     }
 
     #endregion

@@ -26,7 +26,7 @@ public class EmailServiceTests
     {
         _settings = new DirectIqSettings
         {
-            ApiUrl = "https://rest.directiq.com/core/email/send",
+            ApiUrl = "https://rest.directiq.com",
             AuthToken = "Basic dGVzdDp0ZXN0",
             ApiVersion = "test@example.com",
             FromAddress = "store@audiostore.com",
@@ -37,6 +37,19 @@ public class EmailServiceTests
     }
 
     // ─── Helpers ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Captured data from an intercepted HTTP request.
+    /// We read the body synchronously inside the handler callback
+    /// to avoid ObjectDisposedException caused by the `using var` in EmailService.
+    /// </summary>
+    private class CapturedRequest
+    {
+        public HttpMethod Method { get; set; } = HttpMethod.Get;
+        public string? RequestUri { get; set; }
+        public string? BodyJson { get; set; }
+        public Dictionary<string, string> Headers { get; set; } = new();
+    }
 
     /// <summary>
     /// Creates an EmailService backed by a mock HttpMessageHandler that
@@ -62,7 +75,7 @@ public class EmailServiceTests
 
         var httpClient = new HttpClient(handlerMock.Object)
         {
-            BaseAddress = new Uri(_settings.ApiUrl)
+            BaseAddress = new Uri(_settings.ApiUrl + "/core/email/send")
         };
 
         var factoryMock = new Mock<IHttpClientFactory>();
@@ -77,12 +90,12 @@ public class EmailServiceTests
     }
 
     /// <summary>
-    /// Creates an EmailService that captures the raw HttpRequestMessage for
-    /// deep inspection of headers and JSON body.
+    /// Creates an EmailService that captures the request body and headers
+    /// INSIDE the handler callback (before the `using var` disposes things).
     /// </summary>
-    private (EmailService Service, Func<HttpRequestMessage?> GetCapturedRequest) CreateCapturingService()
+    private (EmailService Service, Func<CapturedRequest?> GetCaptured) CreateCapturingService()
     {
-        HttpRequestMessage? captured = null;
+        CapturedRequest? captured = null;
 
         var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
         handlerMock
@@ -91,17 +104,36 @@ public class EmailServiceTests
                 "SendAsync",
                 ItExpr.IsAny<HttpRequestMessage>(),
                 ItExpr.IsAny<CancellationToken>())
-            .Callback<HttpRequestMessage, CancellationToken>((req, _) => captured = req)
-            .ReturnsAsync(new HttpResponseMessage
+            .Returns<HttpRequestMessage, CancellationToken>(async (req, ct) =>
             {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("{\"id\":\"abc123\"}")
+                // Read everything BEFORE returning, so it won't be disposed
+                var body = req.Content != null
+                    ? await req.Content.ReadAsStringAsync(ct)
+                    : null;
+
+                var headers = new Dictionary<string, string>();
+                foreach (var h in req.Headers)
+                    headers[h.Key] = string.Join(",", h.Value);
+
+                captured = new CapturedRequest
+                {
+                    Method = req.Method,
+                    RequestUri = req.RequestUri?.ToString(),
+                    BodyJson = body,
+                    Headers = headers
+                };
+
+                return new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"id\":\"abc123\"}")
+                };
             })
             .Verifiable();
 
         var httpClient = new HttpClient(handlerMock.Object)
         {
-            BaseAddress = new Uri(_settings.ApiUrl)
+            BaseAddress = new Uri(_settings.ApiUrl + "/core/email/send")
         };
 
         var factoryMock = new Mock<IHttpClientFactory>();
@@ -135,20 +167,26 @@ public class EmailServiceTests
         // Assert
         result.Should().BeTrue();
 
-        var request = getCaptured();
-        request.Should().NotBeNull();
-        request!.Method.Should().Be(HttpMethod.Post);
+        var captured = getCaptured();
+        captured.Should().NotBeNull();
+        captured!.Method.Should().Be(HttpMethod.Post);
 
-        // Verify headers
-        request.Headers.TryGetValues("authorization", out var authValues);
-        authValues.Should().ContainSingle().Which.Should().Be(_settings.AuthToken);
+        // Verify final URL (guards against URL duplication regression)
+        captured.RequestUri.Should().Be("https://rest.directiq.com/core/email/send");
 
-        request.Headers.TryGetValues("api-version", out var apiVersionValues);
-        apiVersionValues.Should().ContainSingle().Which.Should().Be(_settings.ApiVersion);
+        // Verify headers (case-insensitive lookup — RestSharp may capitalize keys)
+        var authKey = captured.Headers.Keys.FirstOrDefault(k =>
+            k.Equals("authorization", StringComparison.OrdinalIgnoreCase));
+        authKey.Should().NotBeNull("Expected 'authorization' header");
+        captured.Headers[authKey!].Should().Be(_settings.AuthToken);
+
+        var apiVersionKey = captured.Headers.Keys.FirstOrDefault(k =>
+            k.Equals("api-version", StringComparison.OrdinalIgnoreCase));
+        apiVersionKey.Should().NotBeNull("Expected 'api-version' header");
+        captured.Headers[apiVersionKey!].Should().Be(_settings.ApiVersion);
 
         // Verify JSON payload structure
-        var bodyString = await request.Content!.ReadAsStringAsync();
-        var json = JsonDocument.Parse(bodyString);
+        var json = JsonDocument.Parse(captured.BodyJson!);
         var root = json.RootElement;
 
         root.GetProperty("from").GetString().Should().Be(_settings.FromAddress);
@@ -203,11 +241,10 @@ public class EmailServiceTests
         // Assert
         result.Should().BeTrue();
 
-        var request = getCaptured();
-        request.Should().NotBeNull();
+        var captured = getCaptured();
+        captured.Should().NotBeNull();
 
-        var bodyString = await request!.Content!.ReadAsStringAsync();
-        var json = JsonDocument.Parse(bodyString);
+        var json = JsonDocument.Parse(captured!.BodyJson!);
         var root = json.RootElement;
 
         root.GetProperty("to").GetString().Should().Be("buyer@test.com");
@@ -257,9 +294,8 @@ public class EmailServiceTests
         // Assert
         result.Should().BeTrue();
 
-        var request = getCaptured();
-        var bodyString = await request!.Content!.ReadAsStringAsync();
-        var json = JsonDocument.Parse(bodyString);
+        var captured = getCaptured();
+        var json = JsonDocument.Parse(captured!.BodyJson!);
         var root = json.RootElement;
 
         root.GetProperty("subject").GetString().Should().Contain("cart");

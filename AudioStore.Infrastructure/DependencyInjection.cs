@@ -67,7 +67,7 @@ public static class DependencyInjection
         {
             var settings = sp.GetRequiredService<IOptions<DirectIqSettings>>().Value;
             client.BaseAddress = new Uri(settings.ApiUrl);
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("Accept", "application/*+json");
             client.Timeout = TimeSpan.FromSeconds(30);
 
         });
