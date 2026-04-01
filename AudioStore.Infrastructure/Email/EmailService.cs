@@ -1,4 +1,4 @@
-﻿using AudioStore.Common.Configuration;
+using AudioStore.Common.Configuration;
 using AudioStore.Common.DTOs.Email;
 using AudioStore.Common.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -34,7 +34,7 @@ public class EmailService : IEmailService
             var httpClient = _httpClientFactory.CreateClient("DirectIQ");
             using var client = new RestClient(httpClient); // Pre-request disposed
 
-            var restRequest = new RestRequest("/core/email/send", Method.Post);
+            var restRequest = new RestRequest("", Method.Post);
             restRequest.AddHeader("authorization", _settings.AuthToken);
             restRequest.AddHeader("api-version", _settings.ApiVersion);
 
@@ -104,6 +104,22 @@ public class EmailService : IEmailService
         return await SendEmailAsync(request);
     }
 
+    public async Task<bool> SendPromoCodeEmailAsync(
+        string toEmail, string toName, string promoCode, decimal discountValue, AudioStore.Common.Enums.DiscountType discountType)
+    {
+        var html = BuildPromoCodeHtml(toName, promoCode, discountValue, discountType);
+
+        var request = new EmailRequestDTO
+        {
+            ToEmail = toEmail,
+            ToName = toName,
+            Subject = "You have received a new Promo Code! 🎁",
+            HtmlBody = html
+        };
+
+        return await SendEmailAsync(request);
+    }
+
     // ─── Email Templates ────────────────────────────────────────────────────
 
     private string BuildAbandonedCartHtml(string name, decimal total, int itemCount) => $"""
@@ -135,4 +151,26 @@ public class EmailService : IEmailService
       </div>
     </body></html>
     """;
+
+    private string BuildPromoCodeHtml(string name, string code, decimal discountValue, AudioStore.Common.Enums.DiscountType discountType) 
+    {
+        var discountText = discountType == AudioStore.Common.Enums.DiscountType.Percentage 
+            ? $"{discountValue:F0}% off"
+            : $"${discountValue:F2} off";
+
+        return $"""
+    <html><body style="font-family:Arial,sans-serif;color:#333;">
+      <div style="max-width:600px;margin:auto;padding:24px;">
+        <h2 style="color:#1a1a2e;">Surprise, {name}! 🎁</h2>
+        <p>You have been assigned a new promo code: <strong>{code}</strong></p>
+        <p>Use it at checkout to get <strong>{discountText}</strong> your entire order!</p>
+        <a href="{_settings.AudioStoreUrl}/"
+           style="display:inline-block;padding:12px 24px;background:#f49d25;
+                  color:white;border-radius:6px;text-decoration:none;">
+          Shop Now
+        </a>
+      </div>
+    </body></html>
+    """;
+    }
 }

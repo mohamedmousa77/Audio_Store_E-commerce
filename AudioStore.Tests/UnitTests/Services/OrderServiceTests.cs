@@ -3,15 +3,16 @@ using AudioStore.Common;
 using AudioStore.Common.Constants;
 using AudioStore.Common.DTOs.Orders;
 using AudioStore.Common.Enums;
+using AudioStore.Common.Services.Interfaces;
 using AudioStore.Domain.Entities;
 using AudioStore.Domain.Interfaces;
 using AudioStore.Tests.Helpers;
 using AutoMapper;
+using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
-using FluentAssertions;
-using AudioStore.Common.Services.Interfaces;
 
 namespace AudioStore.Tests.UnitTests.Services;
 
@@ -32,7 +33,7 @@ public class OrderServiceTests
     private readonly Mock<IPromoCodeService> _promoCodeService;
     private readonly Mock<IEmailService> _emailService;
     private readonly Mock<INotificationService> _notificationService;
-
+    private readonly Mock<UserManager<User>> _userManager;
 
 
     public OrderServiceTests()
@@ -45,6 +46,7 @@ public class OrderServiceTests
         _promoCodeService = new Mock<IPromoCodeService>();
         _emailService = new Mock<IEmailService>();
         _notificationService = new Mock<INotificationService>();
+        _userManager = new Mock<UserManager<User>>();
 
         _unitOfWorkMock.Setup(x => x.Orders).Returns(_orderRepositoryMock.Object);
         _unitOfWorkMock.Setup(x => x.Products).Returns(_productRepositoryMock.Object);
@@ -60,8 +62,8 @@ public class OrderServiceTests
             _loggerMock.Object,
             _promoCodeService.Object,
             _emailService.Object,
-            _notificationService.Object
-            
+            _notificationService.Object,
+            _userManager.Object
             );
     }
 

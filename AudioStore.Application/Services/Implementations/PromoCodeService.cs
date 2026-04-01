@@ -16,16 +16,19 @@ public class PromoCodeService : IPromoCodeService
     private readonly IMapper _mapper;
     private readonly ILogger<PromoCodeService> _logger;
     private readonly INotificationService _notificationService;
+    private readonly IEmailService _emailService;
 
     public PromoCodeService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
         INotificationService notificationService,
+        IEmailService emailService,
         ILogger<PromoCodeService> logger)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _notificationService = notificationService;
+        _emailService = emailService;
         _logger = logger;
     }
 
@@ -149,12 +152,21 @@ public class PromoCodeService : IPromoCodeService
             await _unitOfWork.PromoCodes.AssignToUserAsync(promoCode.Id, dto.UserId);
             await _unitOfWork.SaveChangesAsync();
 
-            // Trasmissione Notifica
-            await _notificationService.CreateNotificationAsync(
+            // Trasmissione Notifica ed Email
+            var notificationTask = _notificationService.CreateNotificationAsync(
                 dto.UserId,
                 "Nuovo Codice Promo!",
                 $"Ti è stato assegnato il codice promo {promoCode.Code} a sorpresa. Usalo al checkout per uno sconto!",
                 NotificationType.PromoCode);
+
+            var emailTask = _emailService.SendPromoCodeEmailAsync(
+                user.Email,
+                user.FirstName ?? user.Email,
+                promoCode.Code,
+                promoCode.DiscountValue,
+                promoCode.DiscountType);
+
+            await Task.WhenAll(notificationTask, emailTask);
 
             await _unitOfWork.CommitTransactionAsync();
 
@@ -189,12 +201,21 @@ public class PromoCodeService : IPromoCodeService
         await _unitOfWork.PromoCodes.AssignToUserAsync(promoCodeId, userId);
         await _unitOfWork.SaveChangesAsync();
 
-        // Trasmissione Notifica
-        await _notificationService.CreateNotificationAsync(
+        // Trasmissione Notifica ed Email
+        var notificationTask = _notificationService.CreateNotificationAsync(
             userId,
             "Nuovo Codice Promo!",
             $"Ti è stato assegnato il codice promo {promo.Code} a sorpresa. Usalo al checkout per uno sconto!",
             NotificationType.PromoCode);
+
+        var emailTask = _emailService.SendPromoCodeEmailAsync(
+            user.Email,
+            user.FirstName ?? user.Email,
+            promo.Code,
+            promo.DiscountValue,
+            promo.DiscountType);
+
+        await Task.WhenAll(notificationTask, emailTask);
 
         _logger.LogInformation("Promo code {PromoCodeId} assigned to user {UserId}", promoCodeId, userId);
     }
