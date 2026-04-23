@@ -1,3 +1,4 @@
+using AudioStore.Application.Mapping.Resolvers;
 using AudioStore.Common.DTOs.Admin.CustomerManagement;
 using AudioStore.Common.DTOs.Admin.Dashboard;
 using AudioStore.Common.DTOs.Auth;
@@ -25,13 +26,21 @@ public class MappingProfile : Profile
         // ============ PRODUCT MAPPINGS ============
         CreateMap<Product, ProductDTO>()
             .ForMember(dest => dest.CategoryName,
-                opt => opt.MapFrom(src => src.Category != null ? src.Category.Name : string.Empty));
+                opt => opt.MapFrom(src => src.Category != null ? src.Category.Name : string.Empty))
+            .ForMember(dest => dest.MainImage,
+                opt => opt.MapFrom<ImageUrlResolver, string>(src => src.MainImage))
+            .ForMember(dest => dest.GalleryImages,
+                opt => opt.MapFrom<GalleryImageUrlResolver, List<string>?>(src => src.GalleryImages));
 
         CreateMap<CreateProductDTO, Product>();
         CreateMap<UpdateProductDTO, Product>();
 
         // ============ CATEGORY MAPPINGS ============
-        CreateMap<Category, CategoryDTO>().ReverseMap();
+        CreateMap<Category, CategoryDTO>()
+            .ForMember(dest => dest.ImageUrl,
+                opt => opt.MapFrom<ImageUrlResolver, string>(src => src.ImageUrl!))
+            .ReverseMap()
+            .ForMember(dest => dest.ImageUrl, opt => opt.Ignore()); // Reverse: don't overwrite entity with resolved URL
 
         // ============ CART MAPPINGS ============
         CreateMap<Cart, CartDTO>()
@@ -62,7 +71,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ProductName,
                 opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.ProductImage,
-                opt => opt.MapFrom(src => src.Product.MainImage))
+                opt => opt.MapFrom<ImageUrlResolver, string>(src => src.Product.MainImage))
             .ForMember(dest => dest.Subtotal,
                 opt => opt.MapFrom(src => src.Subtotal))
             .ForMember(dest => dest.AvailableStock,
@@ -79,7 +88,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ProductName,
                 opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.ProductImage,
-                opt => opt.MapFrom(src => src.Product.MainImage))
+                opt => opt.MapFrom<ImageUrlResolver, string>(src => src.Product.MainImage))
             .ForMember(dest => dest.Subtotal,
                 opt => opt.MapFrom(src => src.Subtotal));
 
@@ -92,6 +101,8 @@ public class MappingProfile : Profile
 
         // ============ ADMIN DASHBOARD MAPPINGS ============
         CreateMap<TopProductData, TopProductDTO>()
+            .ForMember(dest => dest.ProductImage,
+                opt => opt.MapFrom<ImageUrlResolver, string>(src => src.ProductImage))
             .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.CategoryName))
             .ForMember(dest => dest.StockStatus, opt => opt.MapFrom(src =>
                 src.StockQuantity <= 0 ? "Unavailable" :

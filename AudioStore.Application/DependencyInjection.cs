@@ -1,5 +1,6 @@
 using AudioStore.Application.Behaviors;
 using AudioStore.Application.Mapping;
+using AudioStore.Application.Mapping.Resolvers;
 using AudioStore.Application.Services.Implementations;
 using AudioStore.Common.Configuration;
 using AudioStore.Common.Services.Interfaces;
@@ -25,6 +26,10 @@ public static class DependencyInjection
         {
             cfg.AddMaps(typeof(MappingProfile).Assembly);
         });
+
+        //  AutoMapper custom resolvers (must be registered for DI)
+        services.AddTransient<ImageUrlResolver>();
+        services.AddTransient<GalleryImageUrlResolver>();
 
         //  FluentValidation
         services.AddValidatorsFromAssembly(assembly);
@@ -63,6 +68,9 @@ public static class DependencyInjection
                 ClockSkew = TimeSpan.Zero
             };
         });
+
+        //  HttpContext — needed by image URL resolvers in AutoMapper
+        services.AddHttpContextAccessor();
 
         //  Services
         services.AddScoped<IAuthService, AuthService>();

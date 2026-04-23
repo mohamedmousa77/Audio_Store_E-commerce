@@ -1,0 +1,484 @@
+2026-04-18 12:21:01.798 +02:00 [INF] Starting AudioStore API {"MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:04.356 +02:00 [WRN] Entity 'PromoCode' has a global query filter defined and is the required end of a relationship with the entity 'UserPromoCode'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information. {"EventId":{"Id":10622,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.PossibleIncorrectRequiredNavigationWithQueryFilterInteractionWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:04.372 +02:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development. {"EventId":{"Id":10400,"Name":"Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:04.391 +02:00 [WRN] The property 'Product.GalleryImages' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly. {"EventId":{"Id":10620,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.CollectionWithoutComparer"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:04.417 +02:00 [WRN] No store type was specified for the decimal property 'DiscountAmount' on entity type 'Order'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'. {"EventId":{"Id":30000,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.DecimalTypeDefaultWarning"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation","MachineName":"MOHAMEDMOUSA","ThreadId":2,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:05.842 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:05.897 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:05.951 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:05.987 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.003 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]'); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.020 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId]; {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.041 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.069 +02:00 [INF] Starting database seeding... {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.277 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[@normalizedName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.322 +02:00 [INF] Role 'Administrator' already exists {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.330 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedName='CUSTOMER' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[CreatedAt], [r].[Description], [r].[IsSystemRole], [r].[Name], [r].[NormalizedName], [r].[UpdatedAt]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @normalizedName {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.342 +02:00 [INF] Role 'Customer' already exists {"SourceContext":"AudioStore.Infrastructure.Identity.RoleSeeder","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.366 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@normalizedEmail='MUOSA@ADMIN.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.404 +02:00 [INF] Admin user already exists: muosa@admin.com {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.412 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedEmail='GENNARO@ADMIN.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.420 +02:00 [INF] Admin user already exists: gennaro@admin.com {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.425 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedEmail='MONTE@ADMIN.COM' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Users] AS [u]
+WHERE [u].[NormalizedEmail] = @normalizedEmail {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.440 +02:00 [INF] Admin user already exists: monte@admin.com {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.463 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.471 +02:00 [INF] Categories already exist, skipping seed {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.484 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.491 +02:00 [INF] Products already exist, skipping seed {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.495 +02:00 [INF] Database seeding completed successfully! {"SourceContext":"Program","MachineName":"MOHAMEDMOUSA","ThreadId":7,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.627 +02:00 [INF] AbandonedCartEmailJob started. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.779 +02:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license. {"SourceContext":"LuckyPennySoftware.AutoMapper.License","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:06.993 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[@updatedBefore='2026-04-18T09:51:06.7894901Z', @emailCooldownBefore='2026-04-17T10:21:06.7894900Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":17,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:07.005 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":17,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.438 +02:00 [INF] HTTP OPTIONS /api/v1.0/products responded 204 in 4.0381 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000003","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.438 +02:00 [INF] HTTP OPTIONS /api/v1.0/cart responded 204 in 4.1515 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000001","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.438 +02:00 [INF] HTTP OPTIONS /api/v1.0/products/featured responded 204 in 4.0598 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000005","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.438 +02:00 [INF] HTTP OPTIONS /api/v1.0/categories responded 204 in 4.0263 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000007","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":17,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.608 +02:00 [INF] Getting all categories {"SourceContext":"AudioStore.Api.Controllers.CategoriesController","ActionId":"b39c7bcd-1968-4821-99f8-058c9885f512","ActionName":"AudioStore.Api.Controllers.CategoriesController.GetCategories (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000F","RequestPath":"/api/v1.0/categories","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.608 +02:00 [INF] Getting cart for user: null or session: 361d05b3-7707-424d-903b-42faff170fae {"SourceContext":"AudioStore.Api.Controllers.CartController","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000B","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":16,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.623 +02:00 [INF] Getting 10 featured products {"SourceContext":"AudioStore.Api.Controllers.ProductsController","ActionId":"c72f1afb-4eb0-4944-bc1e-dad6553ec170","ActionName":"AudioStore.Api.Controllers.ProductsController.GetFeaturedProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000D","RequestPath":"/api/v1.0/products/featured","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":14,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.632 +02:00 [INF] Getting products with filter {"SourceContext":"AudioStore.Api.Controllers.ProductsController","ActionId":"e3627b48-ee35-44b8-8041-b6140b8e112d","ActionName":"AudioStore.Api.Controllers.ProductsController.GetProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000009","RequestPath":"/api/v1.0/products","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":18,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.748 +02:00 [INF] Executed DbCommand (43ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM [Categories] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"b39c7bcd-1968-4821-99f8-058c9885f512","ActionName":"AudioStore.Api.Controllers.CategoriesController.GetCategories (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000F","RequestPath":"/api/v1.0/categories","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.793 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@filter_IsNew_Value='True'], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Products] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsAvailable] = @filter_IsNew_Value {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"e3627b48-ee35-44b8-8041-b6140b8e112d","ActionName":"AudioStore.Api.Controllers.ProductsController.GetProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000009","RequestPath":"/api/v1.0/products","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.864 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@p='10'], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[ProductID], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt], [p0].[CreatedById], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt], [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM (
+    SELECT TOP(@p) [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+    FROM [Products] AS [p]
+    WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsFeatured] = CAST(1 AS bit) AND [p].[IsAvailable] = CAST(1 AS bit) AND [p].[IsDeleted] = CAST(0 AS bit)
+    ORDER BY [p].[CreatedAt] DESC
+) AS [p0]
+INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryID]
+ORDER BY [p0].[CreatedAt] DESC {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"c72f1afb-4eb0-4944-bc1e-dad6553ec170","ActionName":"AudioStore.Api.Controllers.ProductsController.GetFeaturedProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000D","RequestPath":"/api/v1.0/products/featured","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:17.916 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[@sessionId='361d05b3-7707-424d-903b-42faff170fae' (Size = 100) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c1].[CartID], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsActive], [c1].[IsDeleted], [c1].[LastAbandonedCartEmailSentAt], [c1].[ModifiedById], [c1].[SessionId], [c1].[UpdatedAt], [c1].[UserId], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0]
+FROM (
+    SELECT TOP(1) [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId]
+    FROM [Carts] AS [c]
+    WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[SessionId] = @sessionId AND [c].[IsDeleted] = CAST(0 AS bit)
+) AS [c1]
+LEFT JOIN (
+    SELECT [c0].[CartItemID], [c0].[CartId], [c0].[CreatedAt], [c0].[CreatedById], [c0].[IsDeleted], [c0].[ModifiedById], [c0].[ProductId], [c0].[Quantity], [c0].[UnitPrice], [c0].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c0]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c0].[ProductId] = [p0].[ProductID]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c1].[CartID] = [s].[CartId]
+ORDER BY [c1].[CartID], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000B","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":11,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.012 +02:00 [ERR] Error setting cache key: categories:all {"SourceContext":"AudioStore.Infrastructure.Cashing.Services.MemoryCacheService","ActionId":"b39c7bcd-1968-4821-99f8-058c9885f512","ActionName":"AudioStore.Api.Controllers.CategoriesController.GetCategories (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000F","RequestPath":"/api/v1.0/categories","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Cache entry must specify a value for Size when SizeLimit is set.
+   at Microsoft.Extensions.Caching.Memory.MemoryCache.SetEntry(CacheEntry entry)
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.Set[TItem](IMemoryCache cache, Object key, TItem value, MemoryCacheEntryOptions options)
+   at AudioStore.Infrastructure.Cashing.Services.MemoryCacheService.SetAsync[T](String key, T value, Nullable`1 expiration, CancellationToken cancellationToken) in C:\Dev\AudioStore\AudioStore.Infrastructure\Cashing\Services\MemoryCacheService.cs:line 71
+2026-04-18 12:21:18.041 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@filter_IsNew_Value='True', @p='0', @p2='12'], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[ProductID], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt], [p0].[CreatedById], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt], [c].[CategoryID], [c].[CreatedAt], [c].[CreatedById], [c].[Description], [c].[ImageUrl], [c].[IsDeleted], [c].[ModifiedById], [c].[Name], [c].[Slug], [c].[UpdatedAt]
+FROM (
+    SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+    FROM [Products] AS [p]
+    WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[IsAvailable] = @filter_IsNew_Value
+    ORDER BY [p].[Name]
+    OFFSET @p ROWS FETCH NEXT @p2 ROWS ONLY
+) AS [p0]
+INNER JOIN [Categories] AS [c] ON [p0].[CategoryId] = [c].[CategoryID]
+ORDER BY [p0].[Name] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"e3627b48-ee35-44b8-8041-b6140b8e112d","ActionName":"AudioStore.Api.Controllers.ProductsController.GetProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000009","RequestPath":"/api/v1.0/products","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.135 +02:00 [ERR] Error setting cache key: products:featured:10 {"SourceContext":"AudioStore.Infrastructure.Cashing.Services.MemoryCacheService","ActionId":"c72f1afb-4eb0-4944-bc1e-dad6553ec170","ActionName":"AudioStore.Api.Controllers.ProductsController.GetFeaturedProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000D","RequestPath":"/api/v1.0/products/featured","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Cache entry must specify a value for Size when SizeLimit is set.
+   at Microsoft.Extensions.Caching.Memory.MemoryCache.SetEntry(CacheEntry entry)
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.Set[TItem](IMemoryCache cache, Object key, TItem value, MemoryCacheEntryOptions options)
+   at AudioStore.Infrastructure.Cashing.Services.MemoryCacheService.SetAsync[T](String key, T value, Nullable`1 expiration, CancellationToken cancellationToken) in C:\Dev\AudioStore\AudioStore.Infrastructure\Cashing\Services\MemoryCacheService.cs:line 71
+2026-04-18 12:21:18.160 +02:00 [INF] HTTP GET /api/v1.0/categories responded 200 in 626.2013 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:0000000F","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.288 +02:00 [ERR] Error setting cache key: products:all:1:12 {"SourceContext":"AudioStore.Infrastructure.Cashing.Services.MemoryCacheService","ActionId":"e3627b48-ee35-44b8-8041-b6140b8e112d","ActionName":"AudioStore.Api.Controllers.ProductsController.GetProducts (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000009","RequestPath":"/api/v1.0/products","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+System.InvalidOperationException: Cache entry must specify a value for Size when SizeLimit is set.
+   at Microsoft.Extensions.Caching.Memory.MemoryCache.SetEntry(CacheEntry entry)
+   at Microsoft.Extensions.Caching.Memory.CacheExtensions.Set[TItem](IMemoryCache cache, Object key, TItem value, MemoryCacheEntryOptions options)
+   at AudioStore.Infrastructure.Cashing.Services.MemoryCacheService.SetAsync[T](String key, T value, Nullable`1 expiration, CancellationToken cancellationToken) in C:\Dev\AudioStore\AudioStore.Infrastructure\Cashing\Services\MemoryCacheService.cs:line 71
+2026-04-18 12:21:18.302 +02:00 [INF] HTTP GET /api/v1.0/products/featured responded 200 in 815.9368 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:0000000D","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.317 +02:00 [INF] HTTP GET /api/v1.0/products responded 200 in 852.3711 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000009","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.376 +02:00 [INF] HTTP GET /images/products/1e448418-b61e-4d70-b7f2-0abbc4fdce95.jpg responded 304 in 15.6936 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F29:00000003","ConnectionId":"0HNKT6GQ04F29","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.376 +02:00 [INF] HTTP GET /images/products/62f891d3-11b3-4e9c-b8e8-798628b4f5a5.jpg responded 304 in 15.6952 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F29:00000001","ConnectionId":"0HNKT6GQ04F29","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.376 +02:00 [INF] HTTP GET /images/products/ae7eaf88-18c0-4b80-9caf-2159f7f16661.jpg responded 304 in 15.6453 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F29:00000005","ConnectionId":"0HNKT6GQ04F29","MachineName":"MOHAMEDMOUSA","ThreadId":10,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.376 +02:00 [INF] HTTP GET /images/products/6da2e96f-fa1d-4af4-a3ad-92c481ba09b3.jpg responded 304 in 15.4663 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F29:00000007","ConnectionId":"0HNKT6GQ04F29","MachineName":"MOHAMEDMOUSA","ThreadId":18,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.410 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='2026-04-18T10:21:18.3071573Z', @p1=NULL (DbType = Int32), @p2=NULL (DbType = DateTime2), @p3=NULL (DbType = Int32), @p4='361d05b3-7707-424d-903b-42faff170fae' (Size = 100) (DbType = AnsiString), @p5=NULL (DbType = DateTime2), @p6=NULL (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Carts] ([CreatedAt], [CreatedById], [LastAbandonedCartEmailSentAt], [ModifiedById], [SessionId], [UpdatedAt], [UserId])
+OUTPUT INSERTED.[CartID], INSERTED.[IsActive], INSERTED.[IsDeleted]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6); {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000B","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.463 +02:00 [INF] New cart created - UserId: null, SessionId: 361d05b3-7707-424d-903b-42faff170fae {"SourceContext":"AudioStore.Application.Services.Implementations.CartService","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:0000000B","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:18.493 +02:00 [INF] HTTP GET /api/v1.0/cart responded 200 in 1023.9202 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:0000000B","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":9,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:58.455 +02:00 [INF] HTTP OPTIONS /api/v1.0/cart responded 204 in 0.4076 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000011","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":18,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:58.486 +02:00 [INF] Getting cart for user: null or session: 361d05b3-7707-424d-903b-42faff170fae {"SourceContext":"AudioStore.Api.Controllers.CartController","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000013","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":18,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:58.512 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@sessionId='361d05b3-7707-424d-903b-42faff170fae' (Size = 100) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c1].[CartID], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsActive], [c1].[IsDeleted], [c1].[LastAbandonedCartEmailSentAt], [c1].[ModifiedById], [c1].[SessionId], [c1].[UpdatedAt], [c1].[UserId], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0]
+FROM (
+    SELECT TOP(1) [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId]
+    FROM [Carts] AS [c]
+    WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[SessionId] = @sessionId AND [c].[IsDeleted] = CAST(0 AS bit)
+) AS [c1]
+LEFT JOIN (
+    SELECT [c0].[CartItemID], [c0].[CartId], [c0].[CreatedAt], [c0].[CreatedById], [c0].[IsDeleted], [c0].[ModifiedById], [c0].[ProductId], [c0].[Quantity], [c0].[UnitPrice], [c0].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c0]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c0].[ProductId] = [p0].[ProductID]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c1].[CartID] = [s].[CartId]
+ORDER BY [c1].[CartID], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","ActionId":"9af390f9-2c44-4948-9db6-6607a2c30c4f","ActionName":"AudioStore.Api.Controllers.CartController.GetCart (AudioStore.Api)","RequestId":"0HNKT6GQ04F28:00000013","RequestPath":"/api/v1.0/cart","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:21:58.562 +02:00 [INF] HTTP GET /api/v1.0/cart responded 200 in 79.2683 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNKT6GQ04F28:00000013","ConnectionId":"0HNKT6GQ04F28","MachineName":"MOHAMEDMOUSA","ThreadId":22,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:36:08.152 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@updatedBefore='2026-04-18T10:06:07.0258465Z', @emailCooldownBefore='2026-04-17T10:36:07.0258461Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":33,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:36:08.202 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":33,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:51:09.223 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@updatedBefore='2026-04-18T10:21:08.2282695Z', @emailCooldownBefore='2026-04-17T10:51:08.2282687Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":46,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 12:51:09.238 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":46,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:06:10.220 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[@updatedBefore='2026-04-18T10:36:09.2537914Z', @emailCooldownBefore='2026-04-17T11:06:09.2537910Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":72,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:06:10.247 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":72,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:21:11.340 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[@updatedBefore='2026-04-18T10:51:10.2716388Z', @emailCooldownBefore='2026-04-17T11:21:10.2716383Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":72,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:21:11.345 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":72,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:36:12.364 +02:00 [INF] Executed DbCommand (52ms) [Parameters=[@updatedBefore='2026-04-18T11:06:11.3526136Z', @emailCooldownBefore='2026-04-17T11:36:11.3526134Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":46,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:36:12.375 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":46,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:51:13.325 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[@updatedBefore='2026-04-18T11:21:12.3954739Z', @emailCooldownBefore='2026-04-17T11:51:12.3954736Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":86,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 13:51:13.331 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":86,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:06:14.346 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[@updatedBefore='2026-04-18T11:36:13.3408360Z', @emailCooldownBefore='2026-04-17T12:06:13.3408357Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":26,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:06:14.364 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":26,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:21:15.344 +02:00 [INF] Executed DbCommand (62ms) [Parameters=[@updatedBefore='2026-04-18T11:51:14.3737612Z', @emailCooldownBefore='2026-04-17T12:21:14.3737609Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":59,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:21:15.375 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":59,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:36:16.324 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[@updatedBefore='2026-04-18T12:06:15.3854027Z', @emailCooldownBefore='2026-04-17T12:36:15.3854024Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":37,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:36:16.342 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":37,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:51:17.333 +02:00 [INF] Executed DbCommand (31ms) [Parameters=[@updatedBefore='2026-04-18T12:21:16.3675556Z', @emailCooldownBefore='2026-04-17T12:51:16.3675551Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":84,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 14:51:17.421 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":84,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:06:18.456 +02:00 [INF] Executed DbCommand (44ms) [Parameters=[@updatedBefore='2026-04-18T12:36:17.4483271Z', @emailCooldownBefore='2026-04-17T13:06:17.4483262Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":50,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:06:18.462 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":50,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:21:19.459 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[@updatedBefore='2026-04-18T12:51:18.4758872Z', @emailCooldownBefore='2026-04-17T13:21:18.4758868Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":24,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:21:19.519 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":24,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:36:20.466 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[@updatedBefore='2026-04-18T13:06:19.5387016Z', @emailCooldownBefore='2026-04-17T13:36:19.5387012Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":52,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:36:20.478 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":52,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:51:21.473 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[@updatedBefore='2026-04-18T13:21:20.4863164Z', @emailCooldownBefore='2026-04-17T13:51:20.4863159Z' (Nullable = true)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CartID], [c].[CreatedAt], [c].[CreatedById], [c].[IsActive], [c].[IsDeleted], [c].[LastAbandonedCartEmailSentAt], [c].[ModifiedById], [c].[SessionId], [c].[UpdatedAt], [c].[UserId], [u].[Id], [s].[CartItemID], [s].[CartId], [s].[CreatedAt], [s].[CreatedById], [s].[IsDeleted], [s].[ModifiedById], [s].[ProductId], [s].[Quantity], [s].[UnitPrice], [s].[UpdatedAt], [s].[ProductID0], [s].[Brand], [s].[CategoryId], [s].[CreatedAt0], [s].[CreatedById0], [s].[Description], [s].[GalleryImages], [s].[IsAvailable], [s].[IsDeleted0], [s].[IsFeatured], [s].[IsNewProduct], [s].[IsPublished], [s].[MainImage], [s].[ModifiedById0], [s].[Name], [s].[Price], [s].[Slug], [s].[Specifications], [s].[StockQuantity], [s].[UpdatedAt0], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[CreatedAt], [u].[CreatedById], [u].[Email], [u].[EmailConfirmed], [u].[FirstName], [u].[IsActive], [u].[IsDeleted], [u].[LastName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[ModifiedById], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[RegistrationDate], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UpdatedAt], [u].[UserName]
+FROM [Carts] AS [c]
+LEFT JOIN [Users] AS [u] ON [c].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [c1].[CartItemID], [c1].[CartId], [c1].[CreatedAt], [c1].[CreatedById], [c1].[IsDeleted], [c1].[ModifiedById], [c1].[ProductId], [c1].[Quantity], [c1].[UnitPrice], [c1].[UpdatedAt], [p0].[ProductID] AS [ProductID0], [p0].[Brand], [p0].[CategoryId], [p0].[CreatedAt] AS [CreatedAt0], [p0].[CreatedById] AS [CreatedById0], [p0].[Description], [p0].[GalleryImages], [p0].[IsAvailable], [p0].[IsDeleted] AS [IsDeleted0], [p0].[IsFeatured], [p0].[IsNewProduct], [p0].[IsPublished], [p0].[MainImage], [p0].[ModifiedById] AS [ModifiedById0], [p0].[Name], [p0].[Price], [p0].[Slug], [p0].[Specifications], [p0].[StockQuantity], [p0].[UpdatedAt] AS [UpdatedAt0]
+    FROM [CartItems] AS [c1]
+    INNER JOIN (
+        SELECT [p].[ProductID], [p].[Brand], [p].[CategoryId], [p].[CreatedAt], [p].[CreatedById], [p].[Description], [p].[GalleryImages], [p].[IsAvailable], [p].[IsDeleted], [p].[IsFeatured], [p].[IsNewProduct], [p].[IsPublished], [p].[MainImage], [p].[ModifiedById], [p].[Name], [p].[Price], [p].[Slug], [p].[Specifications], [p].[StockQuantity], [p].[UpdatedAt]
+        FROM [Products] AS [p]
+        WHERE [p].[IsDeleted] = CAST(0 AS bit)
+    ) AS [p0] ON [c1].[ProductId] = [p0].[ProductID]
+    WHERE [c1].[IsDeleted] = CAST(0 AS bit)
+) AS [s] ON [c].[CartID] = [s].[CartId]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[IsActive] = CAST(1 AS bit) AND [c].[UserId] IS NOT NULL AND EXISTS (
+    SELECT 1
+    FROM [CartItems] AS [c0]
+    WHERE [c0].[IsDeleted] = CAST(0 AS bit) AND [c].[CartID] = [c0].[CartId]) AND COALESCE([c].[UpdatedAt], [c].[CreatedAt]) < @updatedBefore AND ([c].[LastAbandonedCartEmailSentAt] IS NULL OR [c].[LastAbandonedCartEmailSentAt] < @emailCooldownBefore)
+ORDER BY [c].[CartID], [u].[Id], [s].[CartItemID] {"EventId":{"Id":20101,"Name":"Microsoft.EntityFrameworkCore.Database.Command.CommandExecuted"},"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command","MachineName":"MOHAMEDMOUSA","ThreadId":66,"EnvironmentName":"Development","Application":"AudioStore.API"}
+2026-04-18 15:51:21.528 +02:00 [INF] AbandonedCartJob: found 0 abandoned carts to process. {"SourceContext":"AudioStore.Infrastructure.BackgroundJobs.AbandonedCartEmailJob","MachineName":"MOHAMEDMOUSA","ThreadId":66,"EnvironmentName":"Development","Application":"AudioStore.API"}

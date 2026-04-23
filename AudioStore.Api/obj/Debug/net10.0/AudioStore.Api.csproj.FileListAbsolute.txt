@@ -690,10 +690,10 @@ C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.build.json.ca
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.development.json
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\swae.build.ex.cache
-C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioSto.5AC0D09E.Up2Date
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioStore.Api.dll
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\refint\AudioStore.Api.dll
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioStore.Api.pdb
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\AudioStore.Api.genruntimeconfig.cache
 C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\ref\AudioStore.Api.dll
+C:\Dev\AudioStore\AudioStore.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
